@@ -1,20 +1,24 @@
-# Discord
+# README
 
-| **Column**        | **Data Type** | **Details**               |
-|-------------------|---------------|---------------------------|
-| `id`              | integer       | not null, primary key     |
-| `username`        | string        | not null, indexed, unique |
-| `password_digest` | string        | not null                  |
-| `session_token`   | string        | not null, indexed, unique |
-| `server_id`       | integer       | not null, unique          |
-| `server_role`     | string        | unique                    |
-| `email`           | string        | not null, unique          |
-| `friends`         | string        | not null, unique          |
-| `friends_id`      | integer       | not null, unique          |
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-| **Column**      | **Data Type** | **Details**           |
-|-----------------|---------------|-----------------------|
-| `id`            | integer       | not null, primary key |
-| `server_name`   | string        | not null, indexed     |
-| `user_id`       | integer       | not null, foreign key |
-| `text_channels` | string        | not null              |
+Things you may want to cover:
+
+* Ruby version
+
+* System dependencies
+
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
