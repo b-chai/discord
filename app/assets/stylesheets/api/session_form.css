@@ -1,0 +1,11 @@
+body {
+    background-image: url("discord_login.png");
+    background-color: beige;
+    background-size: auto;
+}
+
+.login-form-container {
+    background-color: beige;
+    position: absolute;
+
+}
