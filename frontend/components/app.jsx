@@ -7,13 +7,13 @@ import LogInFormContainer from './session_form/login_form_container';
 import { AuthRoute } from '../util/route_util';
 
 const App = () => (
-  <div>
-    <header>
-      <Link to="/" className="header-link">
+  <div className="header-link">
+    {/* <header>
+      <Link to="/">
         <h1>Discord Clone</h1>
       </Link>
       <GreetingContainer />
-    </header>
+    </header> */}
     <Switch>
       <AuthRoute exact path="/login" component={LogInFormContainer} />
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
