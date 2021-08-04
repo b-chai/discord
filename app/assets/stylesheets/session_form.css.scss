@@ -1,0 +1,59 @@
+
+.login-background {
+    background-image: image-url("discord_login.png");
+    height: 100vh;
+    width: 100vw;
+    background-size: auto;
+    overflow: hidden;
+    position: absolute;
+}
+
+.header-link {
+    background-color: red;
+    /* position: absolute; */
+    height: 500px;
+    width: 500px;
+}
+
+.login-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-form-box {
+    background-color: rgb(54,57,63);
+    position: absolute;
+    user-select: none;
+    box-sizing: border-box;
+    padding: 32px;
+    border-radius: 5px;
+}
+
+#welcome {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 24px;
+    font-family: "Uni Sans","Helvetica Neue";
+    text-align: center;
+}
+
+#welcome-subtext {
+    font-size: 16px;
+    line-height: 20px;
+    display: block;
+    text-align: center;
+}
+
+#uppercase {
+    text-transform: uppercase;
+    color: #8e9297;
+    margin-bottom: 8px;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: left;
+    font-weight: 600px;
+    user-select: none;
+}
