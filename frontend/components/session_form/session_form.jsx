@@ -41,10 +41,11 @@ class SessionForm extends React.Component {
         <div className="login-form-container">
           <form onSubmit={this.handleSubmit} className="login-form-box">
             <br/>
-            Please {this.props.formType} or {this.props.navLink}
+            
             {this.renderErrors()}
             <div className="login-form">
-              Welcome back!
+             <span id='welcome'> Welcome back! </span>
+             <span id='welcome-subtext'> We're so excited to see you again! </span>
               <br/>
               <label>Username:
                 <input type="text"
@@ -74,6 +75,8 @@ class SessionForm extends React.Component {
               }
             <br />
               <input className="session-submit" type="submit" value={this.props.formType} />
+            <br />
+              Please {this.props.formType} or {this.props.navLink}
             </div>
           </form>
         </div>
