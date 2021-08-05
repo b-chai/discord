@@ -38,10 +38,8 @@
     padding: 10px;
     color: white;
     font-size: 16px;
-}
-
-.login-input:focus {
-    border: 1px blue solid;
+    margin-top:8px;
+    margin-bottom: 8px;
 }
 
 .session-submit {
@@ -58,7 +56,16 @@
     border-radius: 3px;
 }
 
-#welcome {
+.session-submit:hover{
+    background-color: #4752c4;
+}
+
+.errors {
+    color: red;
+    font-style: italic;
+}
+
+.welcome {
     font-weight: 600;
     margin-bottom: 8px;
     display: block;
@@ -68,7 +75,7 @@
     text-align: center;
 }
 
-#welcome-subtext {
+.welcome-subtext {
     font-size: 16px;
     line-height: 20px;
     color: #b9bbbe;
@@ -76,7 +83,7 @@
     text-align: center;
 }
 
-#uppercase {
+.uppercase {
     text-transform: uppercase;
     color: #8e9297;
     margin-bottom: 8px;
@@ -88,4 +95,7 @@
     font-family: "Noto Sans JP","Helvetica Neue";
     letter-spacing: 1px;
     padding-bottom: 8px;
+}
+
+.login-form{
 }
