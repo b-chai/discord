@@ -81,11 +81,11 @@ class SessionForm extends React.Component {
               Please {this.props.formType} or {this.props.navLink}
             </div>
 
-            <div className="Demo">
-                <button type='button' className="session-submit" onClick=''> Demo Login </button>
-            </div>
 
           </form>
+            <div className="demo">
+                <button type='button' className="session-submit" onClick=''> Demo Login </button>
+            </div>
         </div>
       </div>
     );

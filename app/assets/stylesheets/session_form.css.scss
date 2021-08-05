@@ -6,30 +6,22 @@
     width: 100vw;
     background-size: auto;
     overflow: hidden;
-    position: absolute;
-}
-
-.header-link {
-    background-color: red;
-    height: 500px;
-    width: 500px;
-}
-
-.login-form-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    flex-direction: row;
 }
 
 .login-form-box {
     background-color: rgb(54,57,63);
-    position: absolute;
     user-select: none;
     box-sizing: border-box;
-    padding: 32px;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 
 .login-input {
     background-color: #303339;
@@ -97,5 +89,14 @@
     padding-bottom: 8px;
 }
 
-.login-form{
+div .demo {
+    padding-left: 32px;
+}
+
+.login-form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #36393f;
+    padding: 32px;
 }
