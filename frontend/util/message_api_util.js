@@ -1,7 +1,15 @@
+
+export const receiveMessages = () => (
+    $.ajax({
+        method: "GET",
+        url: "/api/messages"
+    })
+)
+
 export const sendMessage = message => (
     $.ajax({
         method: "POST",
-        url: "",
+        url: "/api/messages",
         data: {message}
     })
 )
@@ -9,7 +17,7 @@ export const sendMessage = message => (
 export const editMessage = message => (
     $.ajax({
         method: "GET",
-        url: "",
+        url: `/api/messages/${message.id}`,
         data: {message}
     })
 )
@@ -17,7 +25,6 @@ export const editMessage = message => (
 export const deleteMessage = messageId => (
     $.ajax({
         method: "DELETE",
-        url: "",
-        messageId
+        url: `/api/messages/${messageId}`,
     })
 )
