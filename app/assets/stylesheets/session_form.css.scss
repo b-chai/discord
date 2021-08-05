@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Roboto:ital,wght@1,300&display=swap');
 
 .login-background {
     background-image: image-url("discord_login.png");
@@ -10,7 +11,6 @@
 
 .header-link {
     background-color: red;
-    /* position: absolute; */
     height: 500px;
     width: 500px;
 }
@@ -31,18 +31,24 @@
     border-radius: 5px;
 }
 
+.login-input {
+    
+}
+
 #welcome {
     font-weight: 600;
     margin-bottom: 8px;
     display: block;
     font-size: 24px;
-    font-family: "Uni Sans","Helvetica Neue";
+    color: white;
+    font-family: "Noto Sans JP","Helvetica Neue";
     text-align: center;
 }
 
 #welcome-subtext {
     font-size: 16px;
     line-height: 20px;
+    color: #b9bbbe;
     display: block;
     text-align: center;
 }
@@ -54,6 +60,8 @@
     font-size: 12px;
     line-height: 16px;
     text-align: left;
-    font-weight: 600px;
+    font-weight: 400px;
     user-select: none;
+    font-family: "Noto Sans JP","Helvetica Neue";
+    letter-spacing: 1px;
 }
