@@ -37430,7 +37430,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.signup = _util_session_api_util__WEBPACK_IMPORTED_MODULE_2__.signup;
   window.getState = store.getState;
   window.dispatch = store.dispatch;
-  console.log(window.login);
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_root__WEBPACK_IMPORTED_MODULE_4__.default, {
     store: store
   }), root);
