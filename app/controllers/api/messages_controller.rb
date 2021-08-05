@@ -21,8 +21,9 @@ class Api::MessagesController < ApplicationController
     end
 
     def destroy
+        @messages = Message.all
         @message = Message.find(params[:id])
-        @message.delete
+        @message.destroy
         render :index
     end
 
