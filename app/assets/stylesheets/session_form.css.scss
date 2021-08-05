@@ -32,7 +32,30 @@
 }
 
 .login-input {
-    
+    background-color: #303339;
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+}
+
+.login-input:focus {
+    border: 1px blue solid;
+}
+
+.session-submit {
+    background-color: #5865f2;
+    text-decoration: none;
+    margin-bottom: 8px;
+    height: 44px;
+    width: 100%;
+    min-width: 130px;
+    min-height: 44px;
+    color: white;
+    font-family: "Noto Sans JP","Helvetica Neue";
+    border: 1px solid #5865f2;
+    border-radius: 3px;
 }
 
 #welcome {
@@ -64,4 +87,5 @@
     user-select: none;
     font-family: "Noto Sans JP","Helvetica Neue";
     letter-spacing: 1px;
+    padding-bottom: 8px;
 }
