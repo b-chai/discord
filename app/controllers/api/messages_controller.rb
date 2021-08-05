@@ -1,15 +1,17 @@
 class Api::MessagesController < ApplicationController
     def index
         @messages = Message.all
+        render 'api/messages/index'
     end
     
     def create
-        @message = Message.new(message_params)
+        @messages = Message.all
+        @post = Message.new(message_params)
 
-        if @message.save
-            render :index
+        if @post.save
+            render 'api/messages/index'
         else
-            render json: @message.errors.full_messages, status: 422
+            render json: @post.errors.full_messages, status: 422
         end
     end
 
@@ -25,6 +27,6 @@ class Api::MessagesController < ApplicationController
     end
 
     def message_params
-        params.require(:message).permits(:body)
+        params.require(:message).permit(:body)
     end
 end
