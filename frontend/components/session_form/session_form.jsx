@@ -41,13 +41,13 @@ class SessionForm extends React.Component {
         <div className="login-form-container">
           <form onSubmit={this.handleSubmit} className="login-form-box">
             <br/>
-            
-            {this.renderErrors()}
             <div className="login-form">
-             <span id='welcome'> Welcome back! </span>
-             <span id='welcome-subtext'> We're so excited to see you again! </span>
+             <span className='welcome'> Welcome back! </span>
+             <span className='welcome-subtext'> We're so excited to see you again! </span>
+             <br />
+             <span className="errors"> {this.renderErrors()} </span>
               <br/>
-              <label id='uppercase'>Username</label>
+              <label className='uppercase'>Username</label>
               <br />
                 <input type="text"
                   value={this.state.username}
@@ -55,7 +55,7 @@ class SessionForm extends React.Component {
                   className="login-input"
                 />
               <br/>
-              <label id='uppercase'>Password</label>
+              <label className='uppercase'>Password</label>
               <br />
                 <input type="password"
                   value={this.state.password}
@@ -64,8 +64,8 @@ class SessionForm extends React.Component {
                 />
               <br/>
               {
-                this.props.formType === 'signup' ? 
-                <label id='uppercase'>Email:
+                this.props.formType === 'Signup' ? 
+                <label className='uppercase'>Email:
                   <br />
                   <input type="email"
                     value={this.state.email}
@@ -74,12 +74,18 @@ class SessionForm extends React.Component {
                   />
                 </label> : ''
               }
+              
             <br />
               <input className="session-submit" type="submit" value={this.props.formType} />
             <br />
               Please {this.props.formType} or {this.props.navLink}
             </div>
+
+
           </form>
+            <div className="demo">
+                <button type='button' className="session-submit" onClick=''> Demo Login </button>
+            </div>
         </div>
       </div>
     );

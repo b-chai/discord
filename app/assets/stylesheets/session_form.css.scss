@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Roboto:ital,wght@1,300&display=swap');
 
 .login-background {
     background-image: image-url("discord_login.png");
@@ -5,55 +6,97 @@
     width: 100vw;
     background-size: auto;
     overflow: hidden;
-    position: absolute;
-}
-
-.header-link {
-    background-color: red;
-    /* position: absolute; */
-    height: 500px;
-    width: 500px;
-}
-
-.login-form-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    flex-direction: row;
 }
 
 .login-form-box {
     background-color: rgb(54,57,63);
-    position: absolute;
     user-select: none;
     box-sizing: border-box;
-    padding: 32px;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#welcome {
+
+.login-input {
+    background-color: #303339;
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+    margin-top:8px;
+    margin-bottom: 8px;
+}
+
+.session-submit {
+    background-color: #5865f2;
+    text-decoration: none;
+    margin-bottom: 8px;
+    height: 44px;
+    width: 100%;
+    min-width: 130px;
+    min-height: 44px;
+    color: white;
+    font-family: "Noto Sans JP","Helvetica Neue";
+    border: 1px solid #5865f2;
+    border-radius: 3px;
+}
+
+.session-submit:hover{
+    background-color: #4752c4;
+}
+
+.errors {
+    color: red;
+    font-style: italic;
+}
+
+.welcome {
     font-weight: 600;
     margin-bottom: 8px;
     display: block;
     font-size: 24px;
-    font-family: "Uni Sans","Helvetica Neue";
+    color: white;
+    font-family: "Noto Sans JP","Helvetica Neue";
     text-align: center;
 }
 
-#welcome-subtext {
+.welcome-subtext {
     font-size: 16px;
     line-height: 20px;
+    color: #b9bbbe;
     display: block;
     text-align: center;
 }
 
-#uppercase {
+.uppercase {
     text-transform: uppercase;
     color: #8e9297;
     margin-bottom: 8px;
     font-size: 12px;
     line-height: 16px;
     text-align: left;
-    font-weight: 600px;
+    font-weight: 400px;
     user-select: none;
+    font-family: "Noto Sans JP","Helvetica Neue";
+    letter-spacing: 1px;
+    padding-bottom: 8px;
+}
+
+div .demo {
+    padding-left: 32px;
+}
+
+.login-form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #36393f;
+    padding: 32px;
 }
