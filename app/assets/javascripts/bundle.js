@@ -330,7 +330,7 @@ var EditForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
-      body: ''
+      body: _this.props.message.body
     };
     return _this;
   }
@@ -345,7 +345,7 @@ var EditForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      this.props.sendMessage(this.state);
+      this.props.editMessage(this.state);
     }
   }, {
     key: "render",
@@ -356,7 +356,7 @@ var EditForm = /*#__PURE__*/function (_React$Component) {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
-        placeholder: "type here",
+        placeholder: "Edit message",
         onChange: function onChange(e) {
           return _this2.handleChange(e);
         },
@@ -531,13 +531,14 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       var _this = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, " Messages "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.messages.map(function (message) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "message_id: ", message.id, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "message_id: ", message.id, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
             return _this.props.deleteMessage(message.id);
           },
           value: "delete message"
         }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_edit_form__WEBPACK_IMPORTED_MODULE_1__.default, {
-          editMessage: _this.props.editMessage
+          editMessage: _this.props.editMessage,
+          message: message
         }));
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
         sendMessage: this.props.sendMessage

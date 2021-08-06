@@ -4,7 +4,7 @@ class EditForm extends React.Component {
     constructor(props){
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.state = {body: ''}
+        this.state = {body: this.props.message.body}
     }
 
     handleChange(e){
@@ -14,14 +14,14 @@ class EditForm extends React.Component {
     }
 
     handleSubmit(){
-        this.props.sendMessage(this.state)
+        this.props.editMessage(this.state)
     }
 
     render(){
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
-                        <input type="text" placeholder='type here' onChange={e=>this.handleChange(e)} value={this.state.body}/>
+                        <input type="text" placeholder='Edit message' onChange={e=>this.handleChange(e)} value={this.state.body}/>
                     <input type="submit" value="submit" />
                 </form>
             </div>

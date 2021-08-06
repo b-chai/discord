@@ -22,8 +22,9 @@ class MessageIndex extends React.Component{
                                 message_id: {message.id}
                                 <br />
                                 {message.body}
+                                <br />
                                 <button onClick={()=> this.props.deleteMessage(message.id)} value="delete message">Delete</button>
-                                <EditForm editMessage={this.props.editMessage}/>
+                                <EditForm editMessage={this.props.editMessage} message={message}/>
                             </div>
                         )
                     })}
