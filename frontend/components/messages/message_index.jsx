@@ -1,4 +1,5 @@
 import React from "react"
+import EditForm from "./edit_form"
 import MessageForm from "./message_form"
 
 class MessageIndex extends React.Component{
@@ -22,6 +23,7 @@ class MessageIndex extends React.Component{
                                 <br />
                                 {message.body}
                                 <button onClick={()=> this.props.deleteMessage(message.id)} value="delete message">Delete</button>
+                                <EditForm editMessage={this.props.editMessage}/>
                             </div>
                         )
                     })}

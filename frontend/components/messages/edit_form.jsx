@@ -1,6 +1,6 @@
 import React from "react"
 
-class MessageForm extends React.Component {
+class EditForm extends React.Component {
     constructor(props){
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -29,4 +29,4 @@ class MessageForm extends React.Component {
     }
 }
 
-export default MessageForm
+export default EditForm
