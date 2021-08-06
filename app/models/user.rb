@@ -17,6 +17,10 @@ class User < ApplicationRecord
     validates :password, length: {minimum: 6}, allow_nil:true
     after_validation :ensure_session_token
 
+    # has_many :messages,
+    # foreign_key: :author_id,
+    # class_name: :Message
+
     # SPIRE
 
     def self.find_by_credentials(username,password)
