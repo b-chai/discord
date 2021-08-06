@@ -5,13 +5,12 @@ class Api::MessagesController < ApplicationController
     end
     
     def create
-        @messages = Message.all
-        @post = Message.new(message_params)
+        @message = Message.new(message_params)
 
-        if @post.save
-            render 'api/messages/index'
+        if @message.save
+            render 'api/messages/show'
         else
-            render json: @post.errors.full_messages, status: 422
+            render json: @message.errors.full_messages, status: 422
         end
     end
 
@@ -21,10 +20,9 @@ class Api::MessagesController < ApplicationController
     end
 
     def destroy
-        @messages = Message.all
         @message = Message.find(params[:id])
         @message.destroy
-        render :index
+        render 'api/messages/show'
     end
 
     def message_params

@@ -1,5 +1,5 @@
 
-export const receiveMessages = () => (
+export const fetchAllMessages = () => (
     $.ajax({
         method: "GET",
         url: "/api/messages"
@@ -16,7 +16,7 @@ export const sendMessage = message => (
 
 export const editMessage = message => (
     $.ajax({
-        method: "GET",
+        method: "PATCH",
         url: `/api/messages/${message.id}`,
         data: {message}
     })
