@@ -7,17 +7,18 @@ class MessageIndex extends React.Component{
     }
 
     componentDidMount(){
-        this.props.fetchAllMessage()
+        this.props.fetchAllMessages()
     }
 
     render(){
         return (
             <div>
+                <h1> messages </h1>
                 <div>
                     {this.props.messages.map(message => {
                         return (
                             <div>
-                                [author: time and date:]
+                                author: time and date:
                                 <br />
                                 {message.body}
                             </div>

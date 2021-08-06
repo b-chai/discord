@@ -8,7 +8,9 @@ const mSTP = (state) => ({
 
 const mDTP = dispatch => ({
     fetchAllMessages: ()=> dispatch(fetchAllMessages()),
-    sendMessage: (message)=> dispatch(sendMessage(message))
+    sendMessage: (message)=> dispatch(sendMessage(message)),
+    editMessage: (message)=> dispatch(editMessage(message)),
+    deleteMessage: (messageId)=> dispatch(deleteMessage(messageId))
 })
 
 export default connect(mSTP,mDTP)(MessageIndex)

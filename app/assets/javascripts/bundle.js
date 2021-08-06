@@ -156,7 +156,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./greeting/greeting_container */ "./frontend/components/greeting/greeting_container.js");
 /* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
 /* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
@@ -173,7 +174,13 @@ __webpack_require__.r(__webpack_exports__);
 var App = function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "header-link"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.AuthRoute, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Link, {
+    to: "/"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Discord Clone")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.ProtectedRoute, {
+    exact: true,
+    path: "/messages",
+    component: _messages_message_index_container__WEBPACK_IMPORTED_MODULE_5__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.AuthRoute, {
     exact: true,
     path: "/login",
     component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__.default
@@ -343,12 +350,16 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         placeholder: "message",
-        onChange: this.handleChange,
+        onChange: function onChange(e) {
+          return _this2.handleChange(e);
+        },
         value: this.state.body
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "submit",
@@ -416,13 +427,13 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
   _createClass(MessageIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchAllMessage();
+      this.props.fetchAllMessages();
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.messages.map(function (message) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "[author: time and date:]", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), message.body);
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, " messages "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.messages.map(function (message) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "author: time and date:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), message.body);
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_1__.default, {
         sendMessage: this.props.sendMessage
       }));
@@ -467,7 +478,33 @@ var mDTP = function mDTP(dispatch) {
     },
     sendMessage: function sendMessage(message) {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.sendMessage)(message));
-    }
+    },
+    editMessage: function (_editMessage) {
+      function editMessage(_x) {
+        return _editMessage.apply(this, arguments);
+      }
+
+      editMessage.toString = function () {
+        return _editMessage.toString();
+      };
+
+      return editMessage;
+    }(function (message) {
+      return dispatch(editMessage(message));
+    }),
+    deleteMessage: function (_deleteMessage) {
+      function deleteMessage(_x2) {
+        return _deleteMessage.apply(this, arguments);
+      }
+
+      deleteMessage.toString = function () {
+        return _deleteMessage.toString();
+      };
+
+      return deleteMessage;
+    }(function (messageId) {
+      return dispatch(deleteMessage(messageId));
+    })
   };
 };
 
@@ -681,8 +718,7 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
         className: "demo"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "button",
-        className: "session-submit",
-        onClick: ""
+        className: "session-submit"
       }, " Demo Login "))));
     }
   }]);
@@ -750,13 +786,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
+/* harmony import */ var _message_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./message_reducer */ "./frontend/reducers/message_reducer.js");
+
 
  // combines reducers that handles data
 
-var entitiesReducer = (0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
-  users: _users_reducer__WEBPACK_IMPORTED_MODULE_0__.default
+var entitiesReducer = (0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
+  users: _users_reducer__WEBPACK_IMPORTED_MODULE_0__.default,
+  messages: _message_reducer__WEBPACK_IMPORTED_MODULE_1__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (entitiesReducer);
 
@@ -782,6 +821,47 @@ var errorsReducer = (0,redux__WEBPACK_IMPORTED_MODULE_1__.combineReducers)({
   session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_0__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (errorsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/message_reducer.js":
+/*!**********************************************!*\
+  !*** ./frontend/reducers/message_reducer.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/message_actions */ "./frontend/actions/message_actions.js");
+
+
+var messageReducer = function messageReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var nextState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MESSAGES:
+      return Object.assign({}, state, action.messages);
+
+    case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MESSAGE:
+      nextState[action.message.id] = action.message;
+      return nextState;
+
+    case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_MESSAGE:
+      delete nextState[action.messageId];
+      return nextState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (messageReducer);
 
 /***/ }),
 
@@ -1043,7 +1123,7 @@ var Auth = function Auth(_ref) {
     exact: exact,
     render: function render(props) {
       return !loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, props) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Redirect, {
-        to: "/"
+        to: "/messages"
       });
     }
   });
