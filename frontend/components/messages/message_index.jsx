@@ -13,14 +13,15 @@ class MessageIndex extends React.Component{
     render(){
         return (
             <div>
-                <h1> messages </h1>
+                <h1> Messages </h1>
                 <div>
                     {this.props.messages.map(message => {
                         return (
                             <div>
-                                author: time and date:
+                                message_id: {message.id}
                                 <br />
                                 {message.body}
+                                <button onClick={()=> this.props.deleteMessage(message.id)} value="delete message">Delete</button>
                             </div>
                         )
                     })}

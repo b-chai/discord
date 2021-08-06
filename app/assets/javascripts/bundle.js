@@ -432,8 +432,15 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, " messages "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.messages.map(function (message) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "author: time and date:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), message.body);
+      var _this = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, " Messages "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.messages.map(function (message) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "message_id: ", message.id, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          onClick: function onClick() {
+            return _this.props.deleteMessage(message.id);
+          },
+          value: "delete message"
+        }, "Delete"));
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_1__.default, {
         sendMessage: this.props.sendMessage
       }));
@@ -479,32 +486,12 @@ var mDTP = function mDTP(dispatch) {
     sendMessage: function sendMessage(message) {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.sendMessage)(message));
     },
-    editMessage: function (_editMessage) {
-      function editMessage(_x) {
-        return _editMessage.apply(this, arguments);
-      }
-
-      editMessage.toString = function () {
-        return _editMessage.toString();
-      };
-
-      return editMessage;
-    }(function (message) {
-      return dispatch(editMessage(message));
-    }),
-    deleteMessage: function (_deleteMessage) {
-      function deleteMessage(_x2) {
-        return _deleteMessage.apply(this, arguments);
-      }
-
-      deleteMessage.toString = function () {
-        return _deleteMessage.toString();
-      };
-
-      return deleteMessage;
-    }(function (messageId) {
-      return dispatch(deleteMessage(messageId));
-    })
+    editMessage: function editMessage(message) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.editMessage)(message));
+    },
+    deleteMessage: function deleteMessage(messageId) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.deleteMessage)(messageId));
+    }
   };
 };
 
