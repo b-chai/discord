@@ -1,6 +1,80 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./frontend/actions/message_actions.js":
+/*!*********************************************!*\
+  !*** ./frontend/actions/message_actions.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_MESSAGES": () => (/* binding */ RECEIVE_MESSAGES),
+/* harmony export */   "RECEIVE_MESSAGE": () => (/* binding */ RECEIVE_MESSAGE),
+/* harmony export */   "REMOVE_MESSAGE": () => (/* binding */ REMOVE_MESSAGE),
+/* harmony export */   "receiveAllMessages": () => (/* binding */ receiveAllMessages),
+/* harmony export */   "receiveMessage": () => (/* binding */ receiveMessage),
+/* harmony export */   "removeMessage": () => (/* binding */ removeMessage),
+/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages),
+/* harmony export */   "sendMessage": () => (/* binding */ sendMessage),
+/* harmony export */   "editMessage": () => (/* binding */ editMessage),
+/* harmony export */   "deleteMessage": () => (/* binding */ deleteMessage)
+/* harmony export */ });
+/* harmony import */ var _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/message_api_util */ "./frontend/util/message_api_util.js");
+
+var RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
+var RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
+var REMOVE_MESSAGE = "REMOVE_MESSAGE";
+var receiveAllMessages = function receiveAllMessages(messages) {
+  return {
+    type: RECEIVE_MESSAGES,
+    messages: messages
+  };
+};
+var receiveMessage = function receiveMessage(message) {
+  return {
+    type: RECEIVE_MESSAGE,
+    message: message
+  };
+};
+var removeMessage = function removeMessage(messageId) {
+  return {
+    type: REMOVE_MESSAGE,
+    messageId: messageId
+  };
+};
+var fetchAllMessages = function fetchAllMessages() {
+  return function (dispatch) {
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllMessages().then(function (res) {
+      return dispatch(receiveAllMessages(res));
+    });
+  };
+};
+var sendMessage = function sendMessage(message) {
+  return function (dispatch) {
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.sendMessage(message).then(function (res) {
+      return dispatch(receiveMessage(res));
+    });
+  };
+};
+var editMessage = function editMessage(message) {
+  return function (dispatch) {
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.editMessage(message).then(function (res) {
+      return dispatch(receiveMessage(res));
+    });
+  };
+};
+var deleteMessage = function deleteMessage(messageId) {
+  return function (dispatch) {
+    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.deleteMessage(messageId).then(function () {
+      return dispatch(removeMessage(messageId));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -82,11 +156,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./greeting/greeting_container */ "./frontend/components/greeting/greeting_container.js");
 /* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
 /* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
+/* harmony import */ var _messages_message_index_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./messages/message_index_container */ "./frontend/components/messages/message_index_container.jsx");
+
 
 
 
@@ -97,7 +173,7 @@ __webpack_require__.r(__webpack_exports__);
 var App = function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "header-link"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.AuthRoute, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.AuthRoute, {
     exact: true,
     path: "/login",
     component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__.default
@@ -195,6 +271,207 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_greeting__WEBPACK_IMPORTED_MODULE_2__.default));
+
+/***/ }),
+
+/***/ "./frontend/components/messages/message_form.jsx":
+/*!*******************************************************!*\
+  !*** ./frontend/components/messages/message_form.jsx ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var MessageForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(MessageForm, _React$Component);
+
+  var _super = _createSuper(MessageForm);
+
+  function MessageForm(props) {
+    var _this;
+
+    _classCallCheck(this, MessageForm);
+
+    _this = _super.call(this, props);
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.state = {
+      body: ''
+    };
+    return _this;
+  }
+
+  _createClass(MessageForm, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState({
+        body: e.target.value
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      this.props.sendMessage(this.state);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "text",
+        placeholder: "message",
+        onChange: this.handleChange,
+        value: this.state.body
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "submit",
+        value: "submit"
+      })));
+    }
+  }]);
+
+  return MessageForm;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MessageForm);
+
+/***/ }),
+
+/***/ "./frontend/components/messages/message_index.jsx":
+/*!********************************************************!*\
+  !*** ./frontend/components/messages/message_index.jsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _message_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./message_form */ "./frontend/components/messages/message_form.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+var MessageIndex = /*#__PURE__*/function (_React$Component) {
+  _inherits(MessageIndex, _React$Component);
+
+  var _super = _createSuper(MessageIndex);
+
+  function MessageIndex(props) {
+    _classCallCheck(this, MessageIndex);
+
+    return _super.call(this, props);
+  }
+
+  _createClass(MessageIndex, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchAllMessage();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.messages.map(function (message) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "[author: time and date:]", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), message.body);
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_1__.default, {
+        sendMessage: this.props.sendMessage
+      }));
+    }
+  }]);
+
+  return MessageIndex;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MessageIndex);
+
+/***/ }),
+
+/***/ "./frontend/components/messages/message_index_container.jsx":
+/*!******************************************************************!*\
+  !*** ./frontend/components/messages/message_index_container.jsx ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
+/* harmony import */ var _message_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./message_index */ "./frontend/components/messages/message_index.jsx");
+
+
+
+
+var mSTP = function mSTP(state) {
+  return {
+    messages: Object.values(state.entities.messages)
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchAllMessages: function fetchAllMessages() {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.fetchAllMessages)());
+    },
+    sendMessage: function sendMessage(message) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.sendMessage)(message));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_message_index__WEBPACK_IMPORTED_MODULE_2__.default));
 
 /***/ }),
 
@@ -687,6 +964,53 @@ var configureStore = function configureStore() {
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);
+
+/***/ }),
+
+/***/ "./frontend/util/message_api_util.js":
+/*!*******************************************!*\
+  !*** ./frontend/util/message_api_util.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages),
+/* harmony export */   "sendMessage": () => (/* binding */ sendMessage),
+/* harmony export */   "editMessage": () => (/* binding */ editMessage),
+/* harmony export */   "deleteMessage": () => (/* binding */ deleteMessage)
+/* harmony export */ });
+var fetchAllMessages = function fetchAllMessages() {
+  return $.ajax({
+    method: "GET",
+    url: "/api/messages"
+  });
+};
+var sendMessage = function sendMessage(message) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/messages",
+    data: {
+      message: message
+    }
+  });
+};
+var editMessage = function editMessage(message) {
+  return $.ajax({
+    method: "PATCH",
+    url: "/api/messages/".concat(message.id),
+    data: {
+      message: message
+    }
+  });
+};
+var deleteMessage = function deleteMessage(messageId) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/messages/".concat(messageId)
+  });
+};
 
 /***/ }),
 
