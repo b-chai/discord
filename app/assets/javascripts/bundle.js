@@ -330,7 +330,8 @@ var EditForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
-      body: _this.props.message.body
+      body: _this.props.message.body,
+      id: _this.props.message.id
     };
     return _this;
   }

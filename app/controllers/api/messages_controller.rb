@@ -14,9 +14,15 @@ class Api::MessagesController < ApplicationController
         end
     end
 
-    def edit
+    def update
         @message = Message.find(params[:id])
-        render :edit
+        @message.body = params[:message][:body]
+
+        if @message.save
+            render "api/messages/show"
+        else
+            render json: @message.errors.full_messages, status:422
+        end
     end
 
     def destroy

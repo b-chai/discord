@@ -4,7 +4,10 @@ class EditForm extends React.Component {
     constructor(props){
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.state = {body: this.props.message.body}
+        this.state = {
+            body: this.props.message.body,
+            id: this.props.message.id
+        }
     }
 
     handleChange(e){
