@@ -49,13 +49,15 @@ class MessageIndex extends React.Component{
                     <br />
                     <div className="message">
                         {message.body}
+
+                    <button className="delete-button" onClick={()=> this.props.deleteMessage(message.id)} value="delete message">Delete</button>
                     </div>
                 </div>
             )
         })
 
         return (
-            <div>
+            <div className='message-container'>
                 <div className='channel-background'>
                     {allMessages}
                 </div>
