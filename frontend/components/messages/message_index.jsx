@@ -5,7 +5,6 @@ import MessageForm from "./message_form"
 class MessageIndex extends React.Component{
     constructor(props){
         super(props)
-        // this.state = { message: []};
         this.bottom = React.createRef()
     }
 
@@ -20,9 +19,11 @@ class MessageIndex extends React.Component{
             received: data => {
               switch (data.type) {
                 case 'message':
-                   return this.props.sendMessage(data.body)
+                    return this.props.sendMessage(data.body)
                 case 'load':
-                  return this.props.fetchAllMessages()
+                    return this.props.fetchAllMessages()
+                case 'remove':
+                    return this.props.removeMessage(data.id)
               }
             },
             speak: function(data) {
@@ -30,12 +31,14 @@ class MessageIndex extends React.Component{
             },
             load: function() {
                 return this.perform("load")
+            },
+            remove: function(data) {
+                return this.perform('remove', data)
             }
           }
         );
         this.props.fetchAllMessages();
     }
-
 
     componentDidUpdate() {
         this.bottom.current.scrollIntoView();
@@ -44,13 +47,18 @@ class MessageIndex extends React.Component{
     render(){
         const allMessages = this.props.messages.map(message => {
             return (
-                <div ref={this.bottom} className="message-credentials">
-                    author: time and date:
+                <div className="message-credentials" key={message.id}>
+                    <span className="author-message">
+                        author: {message.id}
+                    </span>
+                    <span className="time-message">
+                        time and date:
+                    </span>
                     <br />
                     <div className="message">
                         {message.body}
 
-                    <button className="delete-button" onClick={()=> this.props.deleteMessage(message.id)} value="delete message">Delete</button>
+                    <button className="delete-button" onClick={()=> App.cable.subscriptions.subscriptions[0].remove(message)} value="delete message">Delete</button>
                     </div>
                 </div>
             )
@@ -60,6 +68,7 @@ class MessageIndex extends React.Component{
             <div className='message-container'>
                 <div className='channel-background'>
                     {allMessages}
+                    <div ref={this.bottom}/>
                 </div>
                     <MessageForm sendMessage={this.props.sendMessage} />
             </div>

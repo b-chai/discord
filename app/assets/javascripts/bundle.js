@@ -37,7 +37,8 @@ var receiveMessage = function receiveMessage(message) {
     type: RECEIVE_MESSAGE,
     message: message
   };
-};
+}; // no longer used with websockets
+
 var removeMessage = function removeMessage(messageId) {
   return {
     type: REMOVE_MESSAGE,
@@ -439,8 +440,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, MessageIndex);
 
-    _this = _super.call(this, props); // this.state = { message: []};
-
+    _this = _super.call(this, props);
     _this.bottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
     return _this;
   } // componentDidMount(){
@@ -463,6 +463,9 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
 
             case 'load':
               return _this2.props.fetchAllMessages();
+
+            case 'remove':
+              return _this2.props.removeMessage(data.id);
           }
         },
         speak: function speak(data) {
@@ -470,6 +473,9 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         },
         load: function load() {
           return this.perform("load");
+        },
+        remove: function remove(data) {
+          return this.perform('remove', data);
         }
       });
       this.props.fetchAllMessages();
@@ -482,18 +488,20 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
-
       var allMessages = this.props.messages.map(function (message) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          ref: _this3.bottom,
-          className: "message-credentials"
-        }, "author: time and date:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "message-credentials",
+          key: message.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+          className: "author-message"
+        }, "author: ", message.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+          className: "time-message"
+        }, "time and date:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "message"
         }, message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "delete-button",
           onClick: function onClick() {
-            return _this3.props.deleteMessage(message.id);
+            return App.cable.subscriptions.subscriptions[0].remove(message);
           },
           value: "delete message"
         }, "Delete")));
@@ -502,7 +510,9 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         className: "message-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-background"
-      }, allMessages), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
+      }, allMessages, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        ref: this.bottom
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
         sendMessage: this.props.sendMessage
       }));
     }
@@ -547,32 +557,12 @@ var mDTP = function mDTP(dispatch) {
     sendMessage: function sendMessage(message) {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.sendMessage)(message));
     },
-    editMessage: function (_editMessage) {
-      function editMessage(_x) {
-        return _editMessage.apply(this, arguments);
-      }
-
-      editMessage.toString = function () {
-        return _editMessage.toString();
-      };
-
-      return editMessage;
-    }(function (message) {
-      return dispatch(editMessage(message));
-    }),
-    deleteMessage: function (_deleteMessage) {
-      function deleteMessage(_x2) {
-        return _deleteMessage.apply(this, arguments);
-      }
-
-      deleteMessage.toString = function () {
-        return _deleteMessage.toString();
-      };
-
-      return deleteMessage;
-    }(function (messageId) {
-      return dispatch(deleteMessage(messageId));
-    })
+    editMessage: function editMessage(message) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.editMessage)(message));
+    },
+    removeMessage: function removeMessage(messageId) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.removeMessage)(messageId));
+    }
   };
 };
 

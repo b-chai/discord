@@ -14,6 +14,8 @@ export const receiveMessage = message => ({
     message
 })
 
+// no longer used with websockets
+
 export const removeMessage = messageId => ({
     type: REMOVE_MESSAGE,
     messageId

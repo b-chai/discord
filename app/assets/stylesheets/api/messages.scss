@@ -50,3 +50,16 @@
 .message-container::-webkit-scrollbar{
     display: none;
 }
+
+.author-message {
+    display: inline;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.time-message {
+    display: inline;
+    font-size: 12px;
+    margin-left: 1%;
+    color: #8e9297;
+}

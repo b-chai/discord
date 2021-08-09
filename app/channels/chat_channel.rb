@@ -18,6 +18,15 @@ class ChatChannel < ApplicationCable::Channel
     ChatChannel.broadcast_to('chat_channel', socket)
   end
 
+  def remove(data)
+    message = Message.find(data['id'])
+    if message
+      message.destroy
+      socket = { id: message.id, type: 'remove'}
+      ChatChannel.broadcast_to('chat_channel', socket)
+    end
+  end
+
   def unsubscribed
   end
 
