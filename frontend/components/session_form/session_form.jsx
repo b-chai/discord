@@ -78,7 +78,16 @@ class SessionForm extends React.Component {
             <br />
               <input className="session-submit" type="submit" value={this.props.formType} />
             <br />
-              Please {this.props.formType} or {this.props.navLink}
+              {/* Please {this.props.formType} or {this.props.navLink} */}
+              {
+                this.props.formType === "Login" ?
+                <div className="login-bottom-text">
+                  Need an account? {this.props.navLink}
+                </div> :
+                <div>
+                  {this.props.navLink}
+                </div>
+              }
             </div>
 
 

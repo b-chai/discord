@@ -1,3 +1,39 @@
 // Place all the styles related to the api/messages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.message-button {
+    display: none;
+}
+
+.message-box {
+    display: absolute;
+    width: 100%;
+    bottom: 1px;
+    background-color: rgb(64,68,75);
+    padding-left: 16px;
+    padding-right: 16px;
+    line-height: 16px;
+    border-radius: 8px;
+    max-height: 50vw;
+    min-height: 3vw;
+    border-style: none;
+}
+
+.message-box:focus {
+    outline:none;
+}
+
+.channel-background {
+    background-color: #36393f;
+    height: 100vh;
+    width: 100vw;
+}
+
+.message-credentials {
+    color: green;
+}
+
+.message {
+    color: white;
+}
