@@ -16,10 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "receiveAllMessages": () => (/* binding */ receiveAllMessages),
 /* harmony export */   "receiveMessage": () => (/* binding */ receiveMessage),
 /* harmony export */   "removeMessage": () => (/* binding */ removeMessage),
-/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages),
-/* harmony export */   "sendMessage": () => (/* binding */ sendMessage),
-/* harmony export */   "editMessage": () => (/* binding */ editMessage),
-/* harmony export */   "deleteMessage": () => (/* binding */ deleteMessage)
+/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages)
 /* harmony export */ });
 /* harmony import */ var _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/message_api_util */ "./frontend/util/message_api_util.js");
 
@@ -37,8 +34,7 @@ var receiveMessage = function receiveMessage(message) {
     type: RECEIVE_MESSAGE,
     message: message
   };
-}; // no longer used with websockets
-
+};
 var removeMessage = function removeMessage(messageId) {
   return {
     type: REMOVE_MESSAGE,
@@ -49,27 +45,6 @@ var fetchAllMessages = function fetchAllMessages() {
   return function (dispatch) {
     return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllMessages().then(function (res) {
       return dispatch(receiveAllMessages(res));
-    });
-  };
-};
-var sendMessage = function sendMessage(message) {
-  return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.sendMessage(message).then(function (res) {
-      return dispatch(receiveMessage(res));
-    });
-  };
-};
-var editMessage = function editMessage(message) {
-  return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.editMessage(message).then(function (res) {
-      return dispatch(receiveMessage(res));
-    });
-  };
-};
-var deleteMessage = function deleteMessage(messageId) {
-  return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.deleteMessage(messageId).then(function () {
-      return dispatch(removeMessage(messageId));
     });
   };
 };
@@ -282,6 +257,101 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/messages/edit_form.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/components/messages/edit_form.jsx ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var EditForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(EditForm, _React$Component);
+
+  var _super = _createSuper(EditForm);
+
+  function EditForm(props) {
+    var _this;
+
+    _classCallCheck(this, EditForm);
+
+    _this = _super.call(this, props);
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.state = {
+      id: _this.props.message.id,
+      body: _this.props.message.body
+    };
+    return _this;
+  }
+
+  _createClass(EditForm, [{
+    key: "handleChange",
+    value: function handleChange(e) {
+      this.setState({
+        body: e.target.value
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      App.cable.subscriptions.subscriptions[0].update(this.state);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "text",
+        placeholder: this.props.message.body,
+        onChange: function onChange(e) {
+          return _this2.handleChange(e);
+        },
+        value: this.state.body
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "submit",
+        value: "submit"
+      })));
+    }
+  }]);
+
+  return EditForm;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EditForm);
+
+/***/ }),
+
 /***/ "./frontend/components/messages/message_form.jsx":
 /*!*******************************************************!*\
   !*** ./frontend/components/messages/message_form.jsx ***!
@@ -347,13 +417,8 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      // e.preventDefault();
-      // this.props.sendMessage(this.state)
-      console.log(this.state);
+      // console.log(this.state)
       App.cable.subscriptions.subscriptions[0].speak({
-        body: this.state.body
-      });
-      App.cable.subscriptions.subscriptions[0].load({
         body: this.state.body
       });
       this.setState({
@@ -402,7 +467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/message_actions */ "./frontend/actions/message_actions.js");
+/* harmony import */ var _edit_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit_form */ "./frontend/components/messages/edit_form.jsx");
 /* harmony import */ var _message_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./message_form */ "./frontend/components/messages/message_form.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -443,10 +508,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.bottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
     return _this;
-  } // componentDidMount(){
-  //     this.props.fetchAllMessages()
-  // }
-
+  }
 
   _createClass(MessageIndex, [{
     key: "componentDidMount",
@@ -459,10 +521,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         received: function received(data) {
           switch (data.type) {
             case 'message':
-              return _this2.props.sendMessage(data.body);
-
-            case 'load':
-              return _this2.props.fetchAllMessages();
+              return _this2.props.receiveMessage(data.message);
 
             case 'remove':
               return _this2.props.removeMessage(data.id);
@@ -471,11 +530,14 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         speak: function speak(data) {
           return this.perform("speak", data);
         },
-        load: function load() {
-          return this.perform("load");
+        load: function load(data) {
+          return this.perform("load", data);
         },
         remove: function remove(data) {
           return this.perform('remove', data);
+        },
+        update: function update(data) {
+          return this.perform('update', data);
         }
       });
       this.props.fetchAllMessages();
@@ -504,7 +566,9 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
             return App.cable.subscriptions.subscriptions[0].remove(message);
           },
           value: "delete message"
-        }, "Delete")));
+        }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_edit_form__WEBPACK_IMPORTED_MODULE_1__.default, {
+          message: message
+        })));
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "message-container"
@@ -557,8 +621,8 @@ var mDTP = function mDTP(dispatch) {
     sendMessage: function sendMessage(message) {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.sendMessage)(message));
     },
-    editMessage: function editMessage(message) {
-      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.editMessage)(message));
+    receiveMessage: function receiveMessage(message) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.receiveMessage)(message));
     },
     removeMessage: function removeMessage(messageId) {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.removeMessage)(messageId));

@@ -7,15 +7,18 @@ class ChatChannel < ApplicationCable::Channel
   def speak(data)
     message = Message.new(body: data['body'])
     if message.save
-      socket = { body: message.body, type: 'message' }
+      socket = { message: message, type: 'message' }
       ChatChannel.broadcast_to('chat_channel', socket)
     end
   end
 
-  def load
-    messages = Message.all
-    socket = { messages: messages, type: 'load' }
-    ChatChannel.broadcast_to('chat_channel', socket)
+  def update(data)
+    message = Message.find(data['id'])
+    if message
+      message.update(body: data['body'])
+      socket = { message: message, type: 'message' }
+      ChatChannel.broadcast_to('chat_channel', socket)
+    end
   end
 
   def remove(data)

@@ -1,5 +1,5 @@
 import React from "react"
-import { RECEIVE_MESSAGE, RECEIVE_MESSAGES } from "../../actions/message_actions";
+import EditForm from "./edit_form";
 import MessageForm from "./message_form"
 
 class MessageIndex extends React.Component{
@@ -8,10 +8,6 @@ class MessageIndex extends React.Component{
         this.bottom = React.createRef()
     }
 
-    // componentDidMount(){
-    //     this.props.fetchAllMessages()
-    // }
-
     componentDidMount() {
         App.cable.subscriptions.create(
           { channel: "ChatChannel" },
@@ -19,9 +15,7 @@ class MessageIndex extends React.Component{
             received: data => {
               switch (data.type) {
                 case 'message':
-                    return this.props.sendMessage(data.body)
-                case 'load':
-                    return this.props.fetchAllMessages()
+                    return this.props.receiveMessage(data.message)
                 case 'remove':
                     return this.props.removeMessage(data.id)
               }
@@ -29,11 +23,14 @@ class MessageIndex extends React.Component{
             speak: function(data) {
                 return this.perform("speak", data)
             },
-            load: function() {
-                return this.perform("load")
+            load: function(data) {
+                return this.perform("load", data)
             },
             remove: function(data) {
                 return this.perform('remove', data)
+            },
+            update: function(data) {
+                return this.perform('update', data)
             }
           }
         );
@@ -54,11 +51,12 @@ class MessageIndex extends React.Component{
                     <span className="time-message">
                         time and date:
                     </span>
-                    <br />
+                    <br/>
                     <div className="message">
                         {message.body}
 
                     <button className="delete-button" onClick={()=> App.cable.subscriptions.subscriptions[0].remove(message)} value="delete message">Delete</button>
+                    <EditForm message={message}/>
                     </div>
                 </div>
             )
