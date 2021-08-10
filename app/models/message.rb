@@ -2,9 +2,8 @@
 #
 # Table name: messages
 #
-#  id        :bigint           not null, primary key
-#  body      :string
-#  author_id :integer          not null
+#  id   :bigint           not null, primary key
+#  body :string
 #
 class Message < ApplicationRecord
     # validates :author_id, presence:true

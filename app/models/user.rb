@@ -21,6 +21,10 @@ class User < ApplicationRecord
     # foreign_key: :author_id,
     # class_name: :Message
 
+    has_many :servers,
+    foreign_key: :owner_id,
+    class_name: :Server
+
     # SPIRE
 
     def self.find_by_credentials(username,password)
