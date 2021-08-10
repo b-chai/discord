@@ -8,7 +8,7 @@ class Api::ServersController < ApplicationController
         @server = Server.new(server_params)
 
         if @server.save
-            render 'api/servers/index'
+            render 'api/servers/show'
         else
             render json: @server.errors.full_messages, status:422
         end
@@ -20,9 +20,17 @@ class Api::ServersController < ApplicationController
     end
 
     def update
+        @server = Server.find(params[:id])
+
+        if @server.update
+            render 'api/servers/show'
+        end
     end
 
     def destroy
+        @server = Server.find(params[:id])
+        @server.destroy
+        render 'api/servers/index'
     end
 
     def server_params

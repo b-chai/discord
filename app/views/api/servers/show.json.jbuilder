@@ -1,1 +1,1 @@
-json.extract! server, :id, :server_name, :server_icon, :owner_id
+json.partial! "api/servers/server", server: @server
