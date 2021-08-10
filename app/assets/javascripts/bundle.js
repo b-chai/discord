@@ -16,10 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "receiveAllMessages": () => (/* binding */ receiveAllMessages),
 /* harmony export */   "receiveMessage": () => (/* binding */ receiveMessage),
 /* harmony export */   "removeMessage": () => (/* binding */ removeMessage),
-/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages),
-/* harmony export */   "sendMessage": () => (/* binding */ sendMessage),
-/* harmony export */   "editMessage": () => (/* binding */ editMessage),
-/* harmony export */   "deleteMessage": () => (/* binding */ deleteMessage)
+/* harmony export */   "fetchAllMessages": () => (/* binding */ fetchAllMessages)
 /* harmony export */ });
 /* harmony import */ var _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/message_api_util */ "./frontend/util/message_api_util.js");
 
@@ -48,27 +45,6 @@ var fetchAllMessages = function fetchAllMessages() {
   return function (dispatch) {
     return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllMessages().then(function (res) {
       return dispatch(receiveAllMessages(res));
-    });
-  };
-};
-var sendMessage = function sendMessage(message) {
-  return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.sendMessage(message).then(function (res) {
-      return dispatch(receiveMessage(res));
-    });
-  };
-};
-var editMessage = function editMessage(message) {
-  return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.editMessage(message).then(function (res) {
-      return dispatch(receiveMessage(res));
-    });
-  };
-};
-var deleteMessage = function deleteMessage(messageId) {
-  return function (dispatch) {
-    return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.deleteMessage(messageId).then(function () {
-      return dispatch(removeMessage(messageId));
     });
   };
 };
@@ -330,8 +306,8 @@ var EditForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
-      body: _this.props.message.body,
-      id: _this.props.message.id
+      id: _this.props.message.id,
+      body: _this.props.message.body
     };
     return _this;
   }
@@ -346,7 +322,7 @@ var EditForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      this.props.editMessage(this.state);
+      App.cable.subscriptions.subscriptions[0].update(this.state);
     }
   }, {
     key: "render",
@@ -357,7 +333,7 @@ var EditForm = /*#__PURE__*/function (_React$Component) {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
-        placeholder: "Edit message",
+        placeholder: this.props.message.body,
         onChange: function onChange(e) {
           return _this2.handleChange(e);
         },
@@ -424,6 +400,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.update = _this.update.bind(_assertThisInitialized(_this));
     _this.state = {
       body: ''
     };
@@ -431,8 +408,8 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(MessageForm, [{
-    key: "handleChange",
-    value: function handleChange(e) {
+    key: "update",
+    value: function update(e) {
       this.setState({
         body: e.target.value
       });
@@ -440,7 +417,12 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      this.props.sendMessage(this.state);
+      App.cable.subscriptions.subscriptions[0].speak({
+        body: this.state.body
+      });
+      this.setState({
+        body: ''
+      });
     }
   }, {
     key: "render",
@@ -450,15 +432,17 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        className: "message-box",
         type: "text",
-        placeholder: "type here",
+        placeholder: "message to \"this channel\"",
         onChange: function onChange(e) {
-          return _this2.handleChange(e);
+          return _this2.update(e);
         },
         value: this.state.body
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "submit",
-        value: "submit"
+        value: "submit",
+        className: "message-button"
       })));
     }
   }]);
@@ -516,31 +500,81 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(MessageIndex);
 
   function MessageIndex(props) {
+    var _this;
+
     _classCallCheck(this, MessageIndex);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.bottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+    return _this;
   }
 
   _createClass(MessageIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
+      App.cable.subscriptions.create({
+        channel: "ChatChannel"
+      }, {
+        received: function received(data) {
+          switch (data.type) {
+            case 'message':
+              return _this2.props.receiveMessage(data.message);
+
+            case 'remove':
+              return _this2.props.removeMessage(data.id);
+          }
+        },
+        speak: function speak(data) {
+          return this.perform("speak", data);
+        },
+        load: function load(data) {
+          return this.perform("load", data);
+        },
+        remove: function remove(data) {
+          return this.perform('remove', data);
+        },
+        update: function update(data) {
+          return this.perform('update', data);
+        }
+      });
       this.props.fetchAllMessages();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.bottom.current.scrollIntoView();
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
-
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, " Messages "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.messages.map(function (message) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "message_id: ", message.id, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      var allMessages = this.props.messages.map(function (message) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "message-credentials",
+          key: message.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+          className: "author-message"
+        }, "author: ", message.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+          className: "time-message"
+        }, "time and date:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "message"
+        }, message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          className: "delete-button",
           onClick: function onClick() {
-            return _this.props.deleteMessage(message.id);
+            return App.cable.subscriptions.subscriptions[0].remove(message);
           },
           value: "delete message"
         }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_edit_form__WEBPACK_IMPORTED_MODULE_1__.default, {
-          editMessage: _this.props.editMessage,
           message: message
-        }));
+        })));
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "message-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-background"
+      }, allMessages, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        ref: this.bottom
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
         sendMessage: this.props.sendMessage
       }));
@@ -583,14 +617,11 @@ var mDTP = function mDTP(dispatch) {
     fetchAllMessages: function fetchAllMessages() {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.fetchAllMessages)());
     },
-    sendMessage: function sendMessage(message) {
-      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.sendMessage)(message));
+    receiveMessage: function receiveMessage(message) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.receiveMessage)(message));
     },
-    editMessage: function editMessage(message) {
-      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.editMessage)(message));
-    },
-    deleteMessage: function deleteMessage(messageId) {
-      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.deleteMessage)(messageId));
+    removeMessage: function removeMessage(messageId) {
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.removeMessage)(messageId));
     }
   };
 };
@@ -658,8 +689,9 @@ var mapStateToProps = function mapStateToProps(_ref) {
     errors: errors.session,
     formType: 'Login',
     navLink: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-      to: "/signup"
-    }, "Sign Up")
+      to: "/signup",
+      className: "navlink"
+    }, "Register")
   };
 };
 
@@ -801,7 +833,9 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
         className: "session-submit",
         type: "submit",
         value: this.props.formType
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), "Please ", this.props.formType, " or ", this.props.navLink)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), this.props.formType === "Login" ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "login-bottom-text"
+      }, "Need an account? ", this.props.navLink) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, this.props.navLink))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "demo"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "button",
@@ -845,8 +879,9 @@ var mapStateToProps = function mapStateToProps(_ref) {
     errors: errors.session,
     formType: 'Signup',
     navLink: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-      to: "/login"
-    }, "log in instead")
+      to: "/login",
+      className: "navlink"
+    }, "Already have an account?")
   };
 };
 

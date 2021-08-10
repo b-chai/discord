@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Roboto:ital,wght@1,300&display=swap');
 
+
+// outside api folder for background-image
 .login-background {
     background-image: image-url("discord_login.png");
     height: 100vh;
@@ -32,7 +34,12 @@
     font-size: 16px;
     margin-top:8px;
     margin-bottom: 8px;
+    min-width: 30vw;
 }
+
+// .login-input:focus {
+//     outline-color:#01adf0;
+// }
 
 .session-submit {
     background-color: #5865f2;
@@ -99,4 +106,13 @@ div .demo {
     align-items: center;
     background: #36393f;
     padding: 32px;
+}
+
+.login-bottom-text {
+    color: #8e9297;
+}
+
+.navlink {
+    text-decoration: none;
+    color: #01adf0;
 }

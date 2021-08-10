@@ -23,18 +23,3 @@ export const fetchAllMessages = () => dispatch => {
     return messageUtil.fetchAllMessages()
     .then(res => dispatch(receiveAllMessages(res)))
 }
-
-export const sendMessage = (message) => dispatch => {
-    return messageUtil.sendMessage(message)
-    .then(res => dispatch(receiveMessage(res)))
-}
-
-export const editMessage = (message) => dispatch => {
-    return messageUtil.editMessage(message)
-    .then(res => dispatch(receiveMessage(res)))
-}
-
-export const deleteMessage = (messageId) => dispatch => {
-    return messageUtil.deleteMessage(messageId)
-    .then( () => dispatch(removeMessage(messageId)))
-}

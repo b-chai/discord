@@ -5,8 +5,8 @@ class EditForm extends React.Component {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
-            body: this.props.message.body,
-            id: this.props.message.id
+            id: this.props.message.id,
+            body: this.props.message.body
         }
     }
 
@@ -17,14 +17,18 @@ class EditForm extends React.Component {
     }
 
     handleSubmit(){
-        this.props.editMessage(this.state)
+        App.cable.subscriptions.subscriptions[0].update(this.state)
     }
 
     render(){
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
-                        <input type="text" placeholder='Edit message' onChange={e=>this.handleChange(e)} value={this.state.body}/>
+                        <input 
+                        type="text" 
+                        placeholder={this.props.message.body} 
+                        onChange={e=>this.handleChange(e)} 
+                        value={this.state.body}/>
                     <input type="submit" value="submit" />
                 </form>
             </div>

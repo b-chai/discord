@@ -4,25 +4,34 @@ class MessageForm extends React.Component {
     constructor(props){
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.update = this.update.bind(this)
         this.state = {body: ''}
     }
 
-    handleChange(e){
+    update(e){
         this.setState({
             body: e.target.value
         })
+        
     }
 
     handleSubmit(){
-        this.props.sendMessage(this.state)
+        App.cable.subscriptions.subscriptions[0].speak({body: this.state.body});
+        this.setState({body: ''})
     }
 
     render(){
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
-                        <input type="text" placeholder='type here' onChange={e=>this.handleChange(e)} value={this.state.body}/>
-                    <input type="submit" value="submit" />
+                        <input 
+                        className="message-box"
+                        type="text" 
+                        placeholder='message to "this channel"' 
+                        onChange={e=>this.update(e)} 
+                        value={this.state.body}/>
+
+                    <input type="submit" value="submit" className='message-button'/>
                 </form>
             </div>
         )
