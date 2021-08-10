@@ -14,7 +14,6 @@ export const receiveMessage = message => ({
     message
 })
 
-
 export const removeMessage = messageId => ({
     type: REMOVE_MESSAGE,
     messageId

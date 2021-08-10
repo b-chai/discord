@@ -16,7 +16,6 @@ class MessageForm extends React.Component {
     }
 
     handleSubmit(){
-        // console.log(this.state)
         App.cable.subscriptions.subscriptions[0].speak({body: this.state.body});
         this.setState({body: ''})
     }

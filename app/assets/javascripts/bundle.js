@@ -417,7 +417,6 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit() {
-      // console.log(this.state)
       App.cable.subscriptions.subscriptions[0].speak({
         body: this.state.body
       });
@@ -617,9 +616,6 @@ var mDTP = function mDTP(dispatch) {
   return {
     fetchAllMessages: function fetchAllMessages() {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.fetchAllMessages)());
-    },
-    sendMessage: function sendMessage(message) {
-      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.sendMessage)(message));
     },
     receiveMessage: function receiveMessage(message) {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.receiveMessage)(message));
