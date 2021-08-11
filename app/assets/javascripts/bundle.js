@@ -51,6 +51,88 @@ var fetchAllMessages = function fetchAllMessages() {
 
 /***/ }),
 
+/***/ "./frontend/actions/server_actions.js":
+/*!********************************************!*\
+  !*** ./frontend/actions/server_actions.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RECEIVE_SERVER": () => (/* binding */ RECEIVE_SERVER),
+/* harmony export */   "RECEIVE_SERVERS": () => (/* binding */ RECEIVE_SERVERS),
+/* harmony export */   "REMOVE_SERVER": () => (/* binding */ REMOVE_SERVER),
+/* harmony export */   "receiveAllServers": () => (/* binding */ receiveAllServers),
+/* harmony export */   "receiveServer": () => (/* binding */ receiveServer),
+/* harmony export */   "removeServer": () => (/* binding */ removeServer),
+/* harmony export */   "fetchAllServers": () => (/* binding */ fetchAllServers),
+/* harmony export */   "createServer": () => (/* binding */ createServer),
+/* harmony export */   "showServer": () => (/* binding */ showServer),
+/* harmony export */   "editServer": () => (/* binding */ editServer),
+/* harmony export */   "deleteServer": () => (/* binding */ deleteServer)
+/* harmony export */ });
+/* harmony import */ var _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/server_api_util */ "./frontend/util/server_api_util.js");
+
+var RECEIVE_SERVER = "RECEIVE_SERVER";
+var RECEIVE_SERVERS = "RECEIVE_SERVERS";
+var REMOVE_SERVER = "REMOVE_SERVER";
+var receiveAllServers = function receiveAllServers(servers) {
+  return {
+    type: RECEIVE_SERVERS,
+    servers: servers
+  };
+};
+var receiveServer = function receiveServer(server) {
+  return {
+    type: RECEIVE_SERVER,
+    server: server
+  };
+};
+var removeServer = function removeServer(serverId) {
+  return {
+    type: REMOVE_SERVER,
+    serverId: serverId
+  };
+};
+var fetchAllServers = function fetchAllServers() {
+  return function (dispatch) {
+    return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllServers().then(function (res) {
+      return dispatch(receiveAllServers(res));
+    });
+  };
+};
+var createServer = function createServer(server) {
+  return function (dispatch) {
+    return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__.createServer(server).then(function (res) {
+      return dispatch(receiveServer(res));
+    });
+  };
+};
+var showServer = function showServer(server) {
+  return function (dispatch) {
+    return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__.showServer(server).then(function (res) {
+      return dispatch(receiveServer(server));
+    });
+  };
+};
+var editServer = function editServer(server) {
+  return function (dispatch) {
+    return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__.editServer(server).then(function (res) {
+      return dispatch(receiveServer(server));
+    });
+  };
+};
+var deleteServer = function deleteServer(serverId) {
+  return function (dispatch) {
+    return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__.deleteServer(serverId).then(function (res) {
+      return dispatch(removeServer(serverId));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -908,16 +990,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
 /* harmony import */ var _message_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./message_reducer */ "./frontend/reducers/message_reducer.js");
+/* harmony import */ var _server_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./server_reducer */ "./frontend/reducers/server_reducer.js");
+
 
 
  // combines reducers that handles data
 
-var entitiesReducer = (0,redux__WEBPACK_IMPORTED_MODULE_2__.combineReducers)({
+var entitiesReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_0__.default,
-  messages: _message_reducer__WEBPACK_IMPORTED_MODULE_1__.default
+  messages: _message_reducer__WEBPACK_IMPORTED_MODULE_1__.default,
+  servers: _server_reducer__WEBPACK_IMPORTED_MODULE_2__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (entitiesReducer);
 
@@ -1028,6 +1113,47 @@ var rootReducer = (0,redux__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
   errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_2__.default
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (rootReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/server_reducer.js":
+/*!*********************************************!*\
+  !*** ./frontend/reducers/server_reducer.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/server_actions */ "./frontend/actions/server_actions.js");
+
+
+var serverReducer = function serverReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var nextState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_server_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_SERVERS:
+      return Object.assign({}, state, action.servers);
+
+    case _actions_server_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_SERVER:
+      nextState[action.server.id] = action.server;
+      return nextState;
+
+    case _actions_server_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_SERVER:
+      delete nextState[action.serverId];
+      return nextState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (serverReducer);
 
 /***/ }),
 
@@ -1275,6 +1401,60 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var AuthRoute = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(Auth));
 var ProtectedRoute = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.withRouter)((0,react_redux__WEBPACK_IMPORTED_MODULE_1__.connect)(mapStateToProps)(Protected));
+
+/***/ }),
+
+/***/ "./frontend/util/server_api_util.js":
+/*!******************************************!*\
+  !*** ./frontend/util/server_api_util.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "fetchAllServers": () => (/* binding */ fetchAllServers),
+/* harmony export */   "createServer": () => (/* binding */ createServer),
+/* harmony export */   "showServer": () => (/* binding */ showServer),
+/* harmony export */   "editServer": () => (/* binding */ editServer),
+/* harmony export */   "deleteServer": () => (/* binding */ deleteServer)
+/* harmony export */ });
+var fetchAllServers = function fetchAllServers() {
+  return $.ajax({
+    method: "GET",
+    url: "api/servers"
+  });
+};
+var createServer = function createServer(server) {
+  return $.ajax({
+    method: "POST",
+    url: "api/servers",
+    data: {
+      server: server
+    }
+  });
+};
+var showServer = function showServer(server) {
+  return $.ajax({
+    method: "GET",
+    url: "api/servers/".concat(server.id)
+  });
+};
+var editServer = function editServer(server) {
+  return $.ajax({
+    method: "PATCH",
+    url: "api/servers/".concat(server.id),
+    data: {
+      server: server
+    }
+  });
+};
+var deleteServer = function deleteServer(serverId) {
+  return $.ajax({
+    method: "DELETE",
+    url: "api/servers/".concat(serverId)
+  });
+};
 
 /***/ }),
 
