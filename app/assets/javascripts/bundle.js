@@ -819,11 +819,29 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "display",
+    value: function display() {
+      var form = document.querySelector('.server-form');
+
+      if (form.style.display === "none") {
+        form.style.display = "block";
+      } else {
+        form.style.display = "none";
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "form-activator",
+        onClick: function onClick() {
+          return _this2.display();
+        }
+      }, "+"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "server-form"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
         "for": "server name"
@@ -839,7 +857,10 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "submit",
         value: "Create Server"
-      })));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "close-button",
+        onClick: this.display
+      }, "X"))));
     }
   }]);
 
@@ -910,9 +931,11 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
       var allServers = this.props.server.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "server-button"
-        }, ele.id));
+        }, ele.server_name[0].toUpperCase()));
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, allServers, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_form__WEBPACK_IMPORTED_MODULE_1__.default, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "server-list"
+      }, allServers, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_form__WEBPACK_IMPORTED_MODULE_1__.default, {
         createServer: this.props.createServer
       }));
     }

@@ -22,20 +22,33 @@ class ServerForm extends React.Component{
         })
     }
 
+    display(){
+        const form = document.querySelector('.server-form')
+        if (form.style.display === "none"){
+            form.style.display = "block"
+        }else{
+            form.style.display = "none"
+        }
+    }
+
     render(){
         return(
             <div>
-                <form onSubmit={this.handleSubmit}>
-                <label for="server name">Server Name
-                    <input type="text" 
-                    onChange={e=>this.updateName(e)}/>
-                </label>
-                <br />
-                <label for="server name">Server Icon
-                    <input type="text" />
-                </label>
-                <input type="submit" value="Create Server" />
-                </form>
+                <button className="form-activator" onClick={()=>this.display()}>+</button>
+                <div className='server-form'>
+                    <form onSubmit={this.handleSubmit}>
+                    <label for="server name">Server Name
+                        <input type="text" 
+                        onChange={e=>this.updateName(e)}/>
+                    </label>
+                    <br />
+                    <label for="server name">Server Icon
+                        <input type="text" />
+                    </label>
+                    <input type="submit" value="Create Server" />
+                    <button className="close-button" onClick={this.display}>X</button>
+                    </form>
+                </div>
             </div>
         )
     }

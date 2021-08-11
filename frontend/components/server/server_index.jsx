@@ -15,14 +15,14 @@ class ServerIndex extends React.Component{
             return (
                 <div>
                     <button className="server-button">
-                        {ele.id}
+                        {ele.server_name[0].toUpperCase()}
                     </button>
                 </div>
             )
         })
 
         return(
-            <div>
+            <div className="server-list">
                 {allServers}
                 <ServerForm createServer={this.props.createServer}/>
             </div>
