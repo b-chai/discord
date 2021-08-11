@@ -12,7 +12,6 @@ class MessageForm extends React.Component {
         this.setState({
             body: e.target.value
         })
-        
     }
 
     handleSubmit(){

@@ -4,7 +4,6 @@ import { RECEIVE_SERVERS, RECEIVE_SERVER, REMOVE_SERVER } from "../actions/serve
 const serverReducer = (state = {}, action) => {
     Object.freeze(state)
     let nextState = Object.assign({}, state)
-
     switch (action.type) {
         case RECEIVE_SERVERS:
             return Object.assign({}, state, action.servers)

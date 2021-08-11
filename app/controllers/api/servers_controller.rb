@@ -1,7 +1,8 @@
 class Api::ServersController < ApplicationController
 
     def index
-        @servers = Servers.all
+        @servers = Server.all
+        render 'api/servers/index'
     end
 
     def create
