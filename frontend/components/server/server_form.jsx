@@ -35,18 +35,23 @@ class ServerForm extends React.Component{
         return(
             <div>
                 <button className="form-activator" onClick={()=>this.display()}>+</button>
+                
                 <div className='server-form'>
-                    <form onSubmit={this.handleSubmit}>
-                    <label for="server name">Server Name
+                    <button className="close-button" onClick={this.display}>X</button>
+                    <div className="server-header">Customize your server</div>
+                    <span className="server-subtext">Give your new server a personality with a name and an icon. You can always change it later.</span>
+
+                    <form className="server-input" onSubmit={this.handleSubmit}>
+                    <label for="server name" className="server-subtext">Server Name
+                    <br />
                         <input type="text" 
                         onChange={e=>this.updateName(e)}/>
                     </label>
                     <br />
-                    <label for="server name">Server Icon
+                    {/* <label for="server name">Server Icon
                         <input type="text" />
-                    </label>
+                    </label> */}
                     <input type="submit" value="Create Server" />
-                    <button className="close-button" onClick={this.display}>X</button>
                     </form>
                 </div>
             </div>
