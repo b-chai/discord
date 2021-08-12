@@ -15,7 +15,7 @@ class ServerIndex extends React.Component{
             return (
                 <div>
                     <button className="server-button">
-                        {ele.server_name[0].toUpperCase()}
+                        {ele.serverName[0].toUpperCase()}
                     </button>
                 </div>
             )

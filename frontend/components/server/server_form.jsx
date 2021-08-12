@@ -5,20 +5,21 @@ class ServerForm extends React.Component{
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
-            server_name: '',
-            server_icon: '',
+            serverName: '',
+            serverIcon: '',
             ownerId: 1,
         }
     }
 
     handleSubmit(){
         console.log(this.state)
-        this.props.createServer()
+        this.props.createServer(this.state)
+        this.state.serverName = ''
     }
 
     updateName(e){
         this.setState({
-            server_name: e.target.value
+            serverName: e.target.value
         })
     }
 
@@ -46,7 +47,8 @@ class ServerForm extends React.Component{
                     <br />
                         <input 
                         type="text" 
-                        onChange={e=>this.updateName(e)}/>
+                        onChange={e=>this.updateName(e)}
+                        value={this.state.serverName}/>
                     </label>
                     <br />
                     {/* <label for="server name">Server Icon

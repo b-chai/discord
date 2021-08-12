@@ -17,9 +17,9 @@ class User < ApplicationRecord
     validates :password, length: {minimum: 6}, allow_nil:true
     after_validation :ensure_session_token
 
-    # has_many :messages,
-    # foreign_key: :author_id,
-    # class_name: :Message
+    has_many :messages,
+    foreign_key: :author_id,
+    class_name: :Message
 
     has_many :servers,
     foreign_key: :owner_id,

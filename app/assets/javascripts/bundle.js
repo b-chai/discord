@@ -490,7 +490,8 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.update = _this.update.bind(_assertThisInitialized(_this));
     _this.state = {
-      body: ''
+      body: '',
+      authorId: _this.props.currentUserId
     };
     return _this;
   }
@@ -506,7 +507,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit() {
       App.cable.subscriptions.subscriptions[0].speak({
-        body: this.state.body
+        message: this.state
       });
       this.setState({
         body: ''
@@ -664,7 +665,8 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       }, allMessages, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         ref: this.bottom
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
-        sendMessage: this.props.sendMessage
+        sendMessage: this.props.sendMessage,
+        currentUserId: this.props.currentUserId
       }));
     }
   }]);
@@ -696,7 +698,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mSTP = function mSTP(state) {
   return {
-    messages: Object.values(state.entities.messages)
+    messages: Object.values(state.entities.messages),
+    currentUserId: state.session.id
   };
 };
 
@@ -798,8 +801,8 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
-      server_name: '',
-      server_icon: '',
+      serverName: '',
+      serverIcon: '',
       ownerId: 1
     };
     return _this;
@@ -809,13 +812,14 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit() {
       console.log(this.state);
-      this.props.createServer();
+      this.props.createServer(this.state);
+      this.state.serverName = '';
     }
   }, {
     key: "updateName",
     value: function updateName(e) {
       this.setState({
-        server_name: e.target.value
+        serverName: e.target.value
       });
     }
   }, {
@@ -858,7 +862,8 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
         type: "text",
         onChange: function onChange(e) {
           return _this2.updateName(e);
-        }
+        },
+        value: this.state.serverName
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         className: "create-server-button",
         type: "submit",
@@ -934,7 +939,7 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
       var allServers = this.props.server.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "server-button"
-        }, ele.server_name[0].toUpperCase()));
+        }, ele.serverName[0].toUpperCase()));
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "server-list"

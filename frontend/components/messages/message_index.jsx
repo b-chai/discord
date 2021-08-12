@@ -68,7 +68,7 @@ class MessageIndex extends React.Component{
                     {allMessages}
                     <div ref={this.bottom}/>
                 </div>
-                    <MessageForm sendMessage={this.props.sendMessage} />
+                    <MessageForm sendMessage={this.props.sendMessage} currentUserId={this.props.currentUserId}/>
             </div>
         )
     }

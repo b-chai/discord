@@ -3,7 +3,8 @@ import { fetchAllMessages,receiveMessage, removeMessage } from '../../actions/me
 import MessageIndex from './message_index'
 
 const mSTP = (state) => ({
-    messages: Object.values(state.entities.messages)
+    messages: Object.values(state.entities.messages),
+    currentUserId: state.session.id
 })
 
 const mDTP = dispatch => ({
