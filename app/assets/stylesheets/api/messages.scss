@@ -6,8 +6,9 @@
     display: none;
 }
 
+
 .message-box {
-    display: fixed;
+    position: sticky;
     width: 80%;
     bottom: 0px;
     background-color: rgb(64,68,75);
@@ -26,7 +27,6 @@
     }
 }
 
-
 .message-credentials {
     color: teal;
 }
@@ -44,12 +44,12 @@
     overflow: auto;
     background-color: #36393f;
     height: 100vh;
-    width: 100vw;
-}
-
-// removes scrollbar but keeps functionality (for chrome)
-.message-container::-webkit-scrollbar{
-    display: none;
+    width: 80vw;
+    
+    // removes scrollbar but keeps functionality (for chrome)
+    &::-webkit-scrollbar{
+        display: none;
+    }
 }
 
 .author-message {

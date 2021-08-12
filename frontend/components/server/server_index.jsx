@@ -1,4 +1,6 @@
 import React from 'react'
+import GreetingContainer from '../greeting/greeting_container'
+import MessageIndexContainer from '../messages/message_index_container'
 import ServerForm from './server_form'
 
 class ServerIndex extends React.Component{
@@ -22,9 +24,17 @@ class ServerIndex extends React.Component{
         })
 
         return(
-            <div className="server-list">
-                {allServers}
-                <ServerForm createServer={this.props.createServer}/>
+            <div className="flex">
+                <div className="server-list">
+                    {allServers}
+                    <ServerForm createServer={this.props.createServer}/>
+                </div>
+                <div className="greeting">
+                    <GreetingContainer />
+                </div>
+                <div className="message-index">
+                    <MessageIndexContainer/>
+                </div>
             </div>
         )
     }
