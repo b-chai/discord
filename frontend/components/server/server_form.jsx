@@ -51,9 +51,6 @@ class ServerForm extends React.Component{
                         value={this.state.serverName}/>
                     </label>
                     <br />
-                    {/* <label for="server name">Server Icon
-                        <input type="text" />
-                    </label> */}
                     <input className="create-server-button"type="submit" value="Create Server" />
                     </form>
                 </div>

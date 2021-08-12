@@ -6,6 +6,7 @@ class MessageIndex extends React.Component{
     constructor(props){
         super(props)
         this.bottom = React.createRef()
+        // this.formattedTime=this.formattedTime.bind(this)
     }
 
     componentDidMount() {
@@ -41,15 +42,23 @@ class MessageIndex extends React.Component{
         this.bottom.current.scrollIntoView();
     }
 
+    formattedTime(data){
+        const date = data.slice(0,10)
+        const time = data.slice(11,19)
+        const newTime = date + ' ' + time
+
+        return newTime
+    }
+
     render(){
         const allMessages = this.props.messages.map(message => {
             return (
                 <div className="message-credentials" key={message.id}>
                     <span className="author-message">
-                        author: {message.id}
+                        {message.authorName}
                     </span>
                     <span className="time-message">
-                        time and date:
+                        {this.formattedTime(message.createdAt)}
                     </span>
                     <br/>
                     <div className="message">

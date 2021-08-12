@@ -7,9 +7,9 @@
 }
 
 .message-box {
-    display: absolute;
-    width: 90%;
-    bottom: 1px;
+    display: fixed;
+    width: 80%;
+    bottom: 0px;
     background-color: rgb(64,68,75);
     margin-left: 5px;
     margin-right: 5px;
@@ -20,11 +20,12 @@
     max-height: 50vw;
     min-height: 2vw;
     border-style: none;
+
+    &:focus {
+        outline:none;
+    }
 }
 
-.message-box:focus {
-    outline:none;
-}
 
 .message-credentials {
     color: teal;

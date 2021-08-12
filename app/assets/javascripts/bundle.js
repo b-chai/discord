@@ -594,7 +594,8 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, MessageIndex);
 
     _this = _super.call(this, props);
-    _this.bottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+    _this.bottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef(); // this.formattedTime=this.formattedTime.bind(this)
+
     return _this;
   }
 
@@ -636,17 +637,27 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       this.bottom.current.scrollIntoView();
     }
   }, {
+    key: "formattedTime",
+    value: function formattedTime(data) {
+      var date = data.slice(0, 10);
+      var time = data.slice(11, 19);
+      var newTime = date + ' ' + time;
+      return newTime;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var allMessages = this.props.messages.map(function (message) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "message-credentials",
           key: message.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
           className: "author-message"
-        }, "author: ", message.id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+        }, message.authorName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
           className: "time-message"
-        }, "time and date:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        }, _this3.formattedTime(message.createdAt)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "message"
         }, message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "delete-button",
