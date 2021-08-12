@@ -23,6 +23,7 @@
 
     &:hover{
         background-color: #5865f2;
+        cursor: pointer;
     }
 }
 
@@ -42,6 +43,7 @@
     background-color: #36393f;
     &:hover{
         background-color: #5865f2;
+        cursor: pointer;
     }
 }
 
@@ -75,7 +77,7 @@
     background-color: white;
 
     &:hover{
-        color: black;
+        color: black;        
     }
 }
 
@@ -84,6 +86,7 @@
     font-size: 24px;
     line-height: 30px;
     font-family: "Noto Sans JP","Helvetica Neue";
+    margin-bottom: 20px;
 }
 
 .server-subtext{
@@ -101,6 +104,10 @@
     right:0;
     left:0;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: space-evenly;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.create-server-button{
+    width: 30%;
 }

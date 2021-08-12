@@ -798,8 +798,8 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
-      serverName: '',
-      serverIcon: '',
+      server_name: '',
+      server_icon: '',
       ownerId: 1
     };
     return _this;
@@ -808,14 +808,14 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
   _createClass(ServerForm, [{
     key: "handleSubmit",
     value: function handleSubmit() {
+      console.log(this.state);
       this.props.createServer();
     }
   }, {
     key: "updateName",
     value: function updateName(e) {
-      console.log(this.state);
       this.setState({
-        serverName: e.target.value
+        server_name: e.target.value
       });
     }
   }, {
@@ -860,6 +860,7 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
           return _this2.updateName(e);
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        className: "create-server-button",
         type: "submit",
         value: "Create Server"
       }))));
