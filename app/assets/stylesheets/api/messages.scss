@@ -6,10 +6,10 @@
     display: none;
 }
 
+
 .message-box {
-    display: absolute;
-    width: 90%;
-    bottom: 1px;
+    width: 80%;
+    bottom: 0px;
     background-color: rgb(64,68,75);
     margin-left: 5px;
     margin-right: 5px;
@@ -20,10 +20,17 @@
     max-height: 50vw;
     min-height: 2vw;
     border-style: none;
+
+    &:focus {
+        outline:none;
+    }
 }
 
-.message-box:focus {
-    outline:none;
+.sticky-message{
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background-color: #36393f;
 }
 
 .message-credentials {
@@ -43,12 +50,12 @@
     overflow: auto;
     background-color: #36393f;
     height: 100vh;
-    width: 100vw;
-}
-
-// removes scrollbar but keeps functionality (for chrome)
-.message-container::-webkit-scrollbar{
-    display: none;
+    width: 80vw;
+    
+    // removes scrollbar but keeps functionality (for chrome)
+    &::-webkit-scrollbar{
+        display: none;
+    }
 }
 
 .author-message {

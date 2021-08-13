@@ -10,14 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_05_210536) do
+ActiveRecord::Schema.define(version: 2021_08_12_165944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "messages", force: :cascade do |t|
     t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "author_id", null: false
+    t.index ["author_id"], name: "index_messages_on_author_id"
     t.index ["body"], name: "index_messages_on_body"
+  end
+
+  create_table "servers", force: :cascade do |t|
+    t.string "server_name", null: false
+    t.string "server_icon"
+    t.integer "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_servers_on_owner_id"
   end
 
   create_table "users", force: :cascade do |t|

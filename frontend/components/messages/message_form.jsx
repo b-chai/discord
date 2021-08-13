@@ -5,18 +5,20 @@ class MessageForm extends React.Component {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.update = this.update.bind(this)
-        this.state = {body: ''}
+        this.state = {
+            body: '',
+            authorId: this.props.currentUserId
+        }
     }
 
     update(e){
         this.setState({
             body: e.target.value
         })
-        
     }
 
     handleSubmit(){
-        App.cable.subscriptions.subscriptions[0].speak({body: this.state.body});
+        App.cable.subscriptions.subscriptions[0].speak({message: this.state});
         this.setState({body: ''})
     }
 
