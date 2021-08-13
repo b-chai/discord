@@ -6,7 +6,6 @@ class MessageIndex extends React.Component{
     constructor(props){
         super(props)
         this.bottom = React.createRef()
-        // this.formattedTime=this.formattedTime.bind(this)
     }
 
     componentDidMount() {
@@ -77,7 +76,9 @@ class MessageIndex extends React.Component{
                     {allMessages}
                     <div ref={this.bottom}/>
                 </div>
+                <div className="sticky-message">
                     <MessageForm sendMessage={this.props.sendMessage} currentUserId={this.props.currentUserId}/>
+                </div>
             </div>
         )
     }

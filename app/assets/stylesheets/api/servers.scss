@@ -116,3 +116,22 @@
     display: flex;
     flex-direction: row;
 }
+
+.server-update-form{
+    display: none;
+
+    position: absolute;
+    height: 40%; /* Full height */
+    background-color: white; /* Fallback color */
+
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%; /* Could be more or less, depending on screen size */
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 10vh;
+    text-align: center;
+    border-radius: 2%;
+}

@@ -8,7 +8,6 @@
 
 
 .message-box {
-    position: sticky;
     width: 80%;
     bottom: 0px;
     background-color: rgb(64,68,75);
@@ -25,6 +24,13 @@
     &:focus {
         outline:none;
     }
+}
+
+.sticky-message{
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background-color: #36393f;
 }
 
 .message-credentials {
