@@ -6,17 +6,18 @@ import SignUpFormContainer from './session_form/signup_form_container';
 import LogInFormContainer from './session_form/login_form_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import MessageIndexContainer from './messages/message_index_container'
+import ServerIndexContainer from './server/server_index_container';
 
 const App = () => (
-  <div className="header-link">
+  <div className="app">
     <header>
-      <Link to="/">
+      {/* <Link to="/">
         <h1>Discord Clone</h1>
-      </Link>
-      <GreetingContainer />
+      </Link> */}
     </header>
     <Switch>
-      <ProtectedRoute exact path="/messages" component={MessageIndexContainer}/>
+      <ProtectedRoute exact path="/servers" component={ServerIndexContainer} />}
+      {/* <ProtectedRoute exact path="/messages" component={MessageIndexContainer}/> */}
       <AuthRoute exact path="/login" component={LogInFormContainer} />
       <AuthRoute exact path="/signup" component={SignUpFormContainer} />
     </Switch>
