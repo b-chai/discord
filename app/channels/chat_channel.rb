@@ -16,7 +16,6 @@ class ChatChannel < ApplicationCable::Channel
         updatedAt: message['updated_at'],
         authorName: message.author.username
       }
-      puts message
       socket = { message: message, type: 'message' }
       ChatChannel.broadcast_to('chat_channel', socket)
     end

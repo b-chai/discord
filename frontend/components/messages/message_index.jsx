@@ -63,7 +63,9 @@ class MessageIndex extends React.Component{
                     <div className="message">
                         {message.body}
 
-                    <button className="delete-button" onClick={()=> App.cable.subscriptions.subscriptions[0].remove(message)} value="delete message">Delete</button>
+                    <button className="delete-button" onClick={()=> App.cable.subscriptions.subscriptions[0].remove(
+                        
+                    )} value="delete message">Delete</button>
                     <EditForm message={message}/>
                     </div>
                 </div>
