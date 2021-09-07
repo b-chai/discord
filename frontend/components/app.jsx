@@ -11,11 +11,6 @@ import Homepage from './home/homepage';
 
 const App = () => (
   <div className="app">
-    <header>
-      {/* <Link to="/">
-        <h1>Discord Clone</h1>
-      </Link> */}
-    </header>
     <Switch>
       <ProtectedRoute exact path="/servers" component={ServerIndexContainer} />}
       <ProtectedRoute exact path="/messages" component={MessageIndexContainer}/>
