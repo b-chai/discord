@@ -12,6 +12,7 @@ const Homepage = (props) =>{
                     </Link>
                     <GreetingContainer/>
                 </header>
+                
                 <div className="intro">
                     <div>Imagine a place...</div>
                     <div>...where you can belong to a school club, a gaming group, or a worldwide art community. Where just you and a handful of friends can spend time together. A place that makes it easy to talk every day and hang out more often.</div>
@@ -22,7 +23,7 @@ const Homepage = (props) =>{
             
             <div>
                 <div> Create an invite-only place where you belong</div>
-                <div>Discord servers are organized into topic-based channels where you can collaborate,share, ad just talk about your day without clogging up a group chat.</div>
+                <div>Discord servers are organized into topic-based channels where you can collaborate,share, and just talk about your day without clogging up a group chat.</div>
                 <img src="discord_splash2.png" alt="second splash image" />
             </div>
 

@@ -381,7 +381,7 @@ var Homepage = function Homepage(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Imagine a place..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "...where you can belong to a school club, a gaming group, or a worldwide art community. Where just you and a handful of friends can spend time together. A place that makes it easy to talk every day and hang out more often."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Get Started"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     src: "app\\assets\\images\\discord_splash.png",
     alt: "splash image"
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, " Create an invite-only place where you belong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Discord servers are organized into topic-based channels where you can collaborate,share, ad just talk about your day without clogging up a group chat."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, " Create an invite-only place where you belong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Discord servers are organized into topic-based channels where you can collaborate,share, and just talk about your day without clogging up a group chat."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     src: "discord_splash2.png",
     alt: "second splash image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Where hanging out is easy"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Grab a seat in a voice channel when you're free. Friends in your server can see you're around and instantly pop in to talk without having to call."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
@@ -1361,8 +1361,20 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
       }));
     }
   }, {
+    key: "demoLogin",
+    value: function demoLogin(e) {
+      e.preventDefault();
+      var demo = {
+        username: "test",
+        password: "testpassword"
+      };
+      this.props.processForm(demo);
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "login-background"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1409,7 +1421,10 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
         className: "demo"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         type: "button",
-        className: "session-submit"
+        className: "session-submit",
+        onClick: function onClick(e) {
+          return _this3.demoLogin(e);
+        }
       }, " Demo Login "))));
     }
   }]);

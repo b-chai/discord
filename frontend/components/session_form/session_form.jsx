@@ -35,6 +35,12 @@ class SessionForm extends React.Component {
     );
   }
 
+  demoLogin(e){
+    e.preventDefault();
+    let demo = { username: "test", password: "testpassword"};
+    this.props.processForm(demo)
+  }
+
   render() {
     return (
       <div className="login-background">
@@ -93,7 +99,7 @@ class SessionForm extends React.Component {
 
           </form>
             <div className="demo">
-                <button type='button' className="session-submit"> Demo Login </button>
+                <button type='button' className="session-submit" onClick={e=> this.demoLogin(e)}> Demo Login </button>
             </div>
         </div>
       </div>
