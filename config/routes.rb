@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :messages, only: [:index,:create, :update, :destroy]
     resource :session, only: [:create, :destroy]
     resources :servers, except: [:edit, :new]
+    resources :channels
   end
 
   mount ActionCable.server, at: '/cable'
