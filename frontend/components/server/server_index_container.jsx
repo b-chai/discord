@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { createServer, editServer, fetchAllServers, deleteServer, showServer } from '../../actions/server_actions'
-
 import ServerIndex from './server_index'
 
 const mSTP = state => ({

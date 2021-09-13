@@ -361,19 +361,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _channels__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./channels */ "./frontend/components/channel/channels.jsx");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _channels__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channels */ "./frontend/components/channel/channels.jsx");
+
 
 
 
 var mSTP = function mSTP(state) {
-  return {};
+  return {
+    channel: Object.values(state.entities.channels)
+  };
 };
 
 var mDTP = function mDTP(dispatch) {
-  return {};
+  return {
+    createChannel: function createChannel(channel) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.createChannel)(channel));
+    },
+    showChannel: function showChannel(channel) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.showChannel)(channel));
+    },
+    editChannel: function editChannel(channel) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.editChannel)(channel));
+    },
+    deleteChannel: function deleteChannel(channelId) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.deleteChannel)(channelId));
+    }
+  };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_channels__WEBPACK_IMPORTED_MODULE_1__.default));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_channels__WEBPACK_IMPORTED_MODULE_2__.default));
 
 /***/ }),
 
@@ -475,7 +492,9 @@ var Greeting = function Greeting(_ref) {
       className: "header-group"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
       className: "header-name"
-    }, "Welcome, ", currentUser.username, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Open DiscordClone"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+    }, "Welcome, ", currentUser.username, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, " ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+      to: "/server"
+    }), " Open DiscordClone"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "logout-button",
       onClick: logout
     }, "Log Out")));
