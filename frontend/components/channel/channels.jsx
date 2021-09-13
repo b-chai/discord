@@ -9,6 +9,7 @@ class ChannelIndex extends React.Component {
         return(
             <div>
                 test message
+                <button> random button that doesnt work</button>
             </div>
         )
     }

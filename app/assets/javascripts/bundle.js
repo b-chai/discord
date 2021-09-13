@@ -444,7 +444,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
   _createClass(ChannelIndex, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "test message");
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "test message", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, " random button that doesnt work"));
     }
   }]);
 
@@ -909,7 +909,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         }, message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "delete-button",
           onClick: function onClick() {
-            return App.cable.subscriptions.subscriptions[0].remove();
+            return App.cable.subscriptions.subscriptions[0].remove(message);
           },
           value: "delete message"
         }, "Delete"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_edit_form__WEBPACK_IMPORTED_MODULE_1__.default, {
