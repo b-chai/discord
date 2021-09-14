@@ -1,4 +1,5 @@
 import React from 'react'
+import ChannelIndexContainer from '../channel/channel_index_container'
 import GreetingContainer from '../greeting/greeting_container'
 import MessageIndexContainer from '../messages/message_index_container'
 import ServerForm from './server_form'
@@ -47,6 +48,9 @@ class ServerIndex extends React.Component{
                     <ServerForm createServer={this.props.createServer}/>
                 </div>
                 <div className="greeting">
+                    <div className="channel-index">
+                        <ChannelIndexContainer/>
+                    </div>
                     <GreetingContainer />
                 </div>
                 <div className="message-index">

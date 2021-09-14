@@ -1,3 +1,118 @@
 // Place all the styles related to the api/channel controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.server-list{
+    background-color: #202225;
+}
+
+.server-button{
+    font-size: 20px;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    transition: 0.1s ease-in-out;
+    border: transparent;
+    margin: 10px;
+    color: white;
+    background-color: #36393f;
+
+    &:hover{
+        background-color: #5865f2;
+        cursor: pointer;
+    }
+}
+
+.form-activator{
+    font-size: 20px;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    transition: 0.1s ease-in-out;
+    border: transparent;
+    margin: 10px;
+    color: white;
+    background-color: #36393f;
+    &:hover{
+        background-color: #5865f2;
+        cursor: pointer;
+    }
+}
+
+.server-form{
+    display: none;
+
+    position: absolute;
+    height: 40%; /* Full height */
+    background-color: white; /* Fallback color */
+
+    padding: 20px;
+    border: 1px solid #888;
+    width: 20%; /* Could be more or less, depending on screen size */
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 10vh;
+    text-align: center;
+    border-radius: 2%;
+}
+
+.close-button{
+    color: gray;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    border-style: none;
+    background-color: white;
+
+    &:hover{
+        color: black;        
+    }
+}
+
+.channel-header{
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 30px;
+    font-family: "Noto Sans JP","Helvetica Neue";
+    margin-bottom: 20px;
+}
+
+.channel-subtext{
+    color: #4f5660;
+    font-family: "Noto Sans JP","Helvetica Neue";
+    font-weight: lighter;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.channel{
+    color: white;
+}
+
+// .channel-input{
+//     display: flex;
+//     position:absolute;
+//     bottom:10vh;
+//     right:0;
+//     left:0;
+//     flex-direction: column;
+//     justify-content: space-evenly;
+//     align-items: center;
+// }
+
+// .create-channel-button{
+//     width: 30%;
+// }

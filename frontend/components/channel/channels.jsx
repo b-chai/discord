@@ -1,15 +1,29 @@
 import React from 'react'
+import ChannelForm from './channel_form'
 
 class ChannelIndex extends React.Component {
     constructor(props){
         super(props)
     }
 
+    componentDidMount(){
+        this.props.fetchAllChannels()
+    }
+
     render(){
+
+        const listChannels = this.props.channels.map(ele => {
+            return (
+                <div className="channel">
+                    # &nbsp; {ele.channelName}
+                </div>
+            )
+        })
+
         return(
             <div>
-                test message
-                <button> random button that doesnt work</button>
+                <ChannelForm createChannel={this.props.createChannel}/>
+                {listChannels}
             </div>
         )
     }
