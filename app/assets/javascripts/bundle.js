@@ -296,17 +296,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
-/* harmony import */ var _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./greeting/greeting_container */ "./frontend/components/greeting/greeting_container.js");
-/* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
-/* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
-/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
-/* harmony import */ var _messages_message_index_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./messages/message_index_container */ "./frontend/components/messages/message_index_container.jsx");
-/* harmony import */ var _server_server_index_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./server/server_index_container */ "./frontend/components/server/server_index_container.jsx");
-/* harmony import */ var _channel_channel_index_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./channel/channel_index_container */ "./frontend/components/channel/channel_index_container.js");
-/* harmony import */ var _home_homepage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./home/homepage */ "./frontend/components/home/homepage.jsx");
-
-
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
+/* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
+/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
+/* harmony import */ var _messages_message_index_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./messages/message_index_container */ "./frontend/components/messages/message_index_container.jsx");
+/* harmony import */ var _server_server_index_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./server/server_index_container */ "./frontend/components/server/server_index_container.jsx");
+/* harmony import */ var _home_homepage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./home/homepage */ "./frontend/components/home/homepage.jsx");
 
 
 
@@ -319,29 +315,25 @@ __webpack_require__.r(__webpack_exports__);
 var App = function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "app"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.ProtectedRoute, {
-    exact: true,
-    path: "/channels",
-    component: _channel_channel_index_container__WEBPACK_IMPORTED_MODULE_7__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.ProtectedRoute, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
     path: "/servers",
-    component: _server_server_index_container__WEBPACK_IMPORTED_MODULE_6__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.ProtectedRoute, {
+    component: _server_server_index_container__WEBPACK_IMPORTED_MODULE_5__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
     path: "/messages",
-    component: _messages_message_index_container__WEBPACK_IMPORTED_MODULE_5__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.AuthRoute, {
+    component: _messages_message_index_container__WEBPACK_IMPORTED_MODULE_4__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.AuthRoute, {
     exact: true,
     path: "/login",
-    component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.AuthRoute, {
+    component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_2__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.AuthRoute, {
     exact: true,
     path: "/signup",
-    component: _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_2__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+    component: _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_1__.default
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
     path: "/",
-    component: _home_homepage__WEBPACK_IMPORTED_MODULE_8__.default
+    component: _home_homepage__WEBPACK_IMPORTED_MODULE_6__.default
   })));
 };
 
@@ -434,7 +426,9 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", null, "Text Channels", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+        className: "text-channel"
+      }, "TEXT CHANNELS", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         onClick: function onClick() {
           return _this2.display();
         }
@@ -471,58 +465,10 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
-/***/ "./frontend/components/channel/channel_index_container.js":
-/*!****************************************************************!*\
-  !*** ./frontend/components/channel/channel_index_container.js ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
-/* harmony import */ var _channels__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channels */ "./frontend/components/channel/channels.jsx");
-
-
-
-
-var mSTP = function mSTP(state) {
-  return {
-    channels: Object.values(state.entities.channels)
-  };
-};
-
-var mDTP = function mDTP(dispatch) {
-  return {
-    fetchAllChannels: function fetchAllChannels() {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.fetchAllChannels)());
-    },
-    createChannel: function createChannel(channel) {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.createChannel)(channel));
-    },
-    showChannel: function showChannel(channel) {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.showChannel)(channel));
-    },
-    editChannel: function editChannel(channel) {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.editChannel)(channel));
-    },
-    deleteChannel: function deleteChannel(channelId) {
-      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.deleteChannel)(channelId));
-    }
-  };
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_channels__WEBPACK_IMPORTED_MODULE_2__.default));
-
-/***/ }),
-
-/***/ "./frontend/components/channel/channels.jsx":
-/*!**************************************************!*\
-  !*** ./frontend/components/channel/channels.jsx ***!
-  \**************************************************/
+/***/ "./frontend/components/channel/channel_index.jsx":
+/*!*******************************************************!*\
+  !*** ./frontend/components/channel/channel_index.jsx ***!
+  \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -578,17 +524,22 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this = this;
 
+      // Creates list of channels
       var listChannels = this.props.channels.map(function (ele) {
-        console.log(ele);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "channel"
-        }, "# \xA0 ", ele.channelName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          className: "channel-name",
+          onClick: function onClick() {
+            return _this.props.showChannel(ele);
+          }
+        }, "# \xA0 ", ele.channelName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
             return _this.props.deleteChannel(ele.id);
           }
         }, " X "));
       });
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_form__WEBPACK_IMPORTED_MODULE_1__.default, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "( SERVER NAME HERE )"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_form__WEBPACK_IMPORTED_MODULE_1__.default, {
         createChannel: this.props.createChannel
       }), listChannels);
     }
@@ -598,6 +549,54 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChannelIndex);
+
+/***/ }),
+
+/***/ "./frontend/components/channel/channel_index_container.js":
+/*!****************************************************************!*\
+  !*** ./frontend/components/channel/channel_index_container.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _channel_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channel_index */ "./frontend/components/channel/channel_index.jsx");
+
+
+
+
+var mSTP = function mSTP(state) {
+  return {
+    channels: Object.values(state.entities.channels)
+  };
+};
+
+var mDTP = function mDTP(dispatch) {
+  return {
+    fetchAllChannels: function fetchAllChannels() {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.fetchAllChannels)());
+    },
+    createChannel: function createChannel(channel) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.createChannel)(channel));
+    },
+    showChannel: function showChannel(channel) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.showChannel)(channel));
+    },
+    editChannel: function editChannel(channel) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.editChannel)(channel));
+    },
+    deleteChannel: function deleteChannel(channelId) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.deleteChannel)(channelId));
+    }
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_channel_index__WEBPACK_IMPORTED_MODULE_2__.default));
 
 /***/ }),
 
@@ -1337,9 +1336,13 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(ServerIndex);
 
   function ServerIndex(props) {
+    var _this;
+
     _classCallCheck(this, ServerIndex);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    console.log(props);
+    return _this;
   }
 
   _createClass(ServerIndex, [{
@@ -1361,19 +1364,19 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       var allServers = this.props.server.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "server-update-form"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_update_form__WEBPACK_IMPORTED_MODULE_5__.default, {
-          editServer: _this.props.editServer,
-          deleteServer: _this.props.deleteServer,
+          editServer: _this2.props.editServer,
+          deleteServer: _this2.props.deleteServer,
           server: ele
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "server-button",
           onClick: function onClick() {
-            return _this.display();
+            return _this2.display();
           },
           key: ele.id
         }, ele.serverName[0].toUpperCase()));
@@ -1390,7 +1393,7 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
         className: "channel-index"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_index_container__WEBPACK_IMPORTED_MODULE_1__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "message-index"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_messages_message_index_container__WEBPACK_IMPORTED_MODULE_3__.default, null)));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_messages_message_index_container__WEBPACK_IMPORTED_MODULE_3__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null));
     }
   }]);
 

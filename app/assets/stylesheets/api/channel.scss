@@ -2,12 +2,22 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
-.server-list{
-    background-color: #202225;
+.text-channel{
+    color:rgb(136,139,145);
 }
 
-.server-button{
+.channel{
+    display: flex;
+    justify-content: space-between;
+}
+
+.channel-name{
+    color:rgb(136,139,145);
+    background-color: #2F3136;
+    border: none;
+}
+
+.channel-button{
     font-size: 20px;
     font-weight: 300;
     display: flex;
@@ -48,7 +58,7 @@
     }
 }
 
-.server-form{
+.channel-form{
     display: none;
 
     position: absolute;
@@ -101,6 +111,7 @@
 .channel{
     color: white;
 }
+
 
 // .channel-input{
 //     display: flex;

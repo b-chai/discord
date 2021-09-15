@@ -34,7 +34,7 @@ class ChannelForm extends React.Component{
     render(){
         return(
             <div>
-                <span>Text Channels
+                <span className='text-channel'>TEXT CHANNELS
                     <button onClick={()=>this.display()}>+</button>
                 </span>
 

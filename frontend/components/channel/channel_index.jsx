@@ -11,12 +11,13 @@ class ChannelIndex extends React.Component {
     }
 
     render(){
-
+        // Creates list of channels
         const listChannels = this.props.channels.map(ele => {
-            console.log(ele)
             return (
                 <div className="channel">
-                    # &nbsp; {ele.channelName}
+                   <button className="channel-name" onClick={()=> this.props.showChannel(ele)}>
+                        # &nbsp; {ele.channelName}
+                    </button>
                     <button onClick={()=>this.props.deleteChannel(ele.id)}> X </button>
                 </div>
             )
@@ -24,6 +25,10 @@ class ChannelIndex extends React.Component {
 
         return(
             <div>
+                <div>
+                    ( SERVER NAME HERE )
+                </div>
+
                 <ChannelForm createChannel={this.props.createChannel}/>
                 {listChannels}
             </div>

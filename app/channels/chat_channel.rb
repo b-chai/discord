@@ -2,12 +2,16 @@ class ChatChannel < ApplicationCable::Channel
 
   def subscribed
     stream_for 'chat_channel'
+    puts '------------------------------------------------------------'
+    puts params
+    puts '------------------------------------------------------------'
   end
 
   def speak(data)
     message = Message.new(body: data['message']['body'], 
       author_id: data['message']['authorId'])
     if message.save
+      # adds timestamps and author's name
       message = {
         id: message['id'],
         body: message['body'], 

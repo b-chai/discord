@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { createChannel, deleteChannel, editChannel, fetchAllChannels, showChannel } from "../../actions/channel_actions";
-import ChannelIndex from "./channels";
+import ChannelIndex from "./channel_index";
 
 const mSTP = state => ({
     channels: Object.values(state.entities.channels)
