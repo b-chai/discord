@@ -576,10 +576,17 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       var listChannels = this.props.channels.map(function (ele) {
+        console.log(ele);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "channel"
-        }, "# \xA0 ", ele.channelName);
+        }, "# \xA0 ", ele.channelName, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          onClick: function onClick() {
+            return _this.props.deleteChannel(ele.id);
+          }
+        }, " X "));
       });
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_form__WEBPACK_IMPORTED_MODULE_1__.default, {
         createChannel: this.props.createChannel

@@ -31,6 +31,7 @@ class Api::ChannelsController < ApplicationController
     def destroy
         @channel = Channel.find(params[:id])
         @channel.destroy
+        @channels = Channel.all
         render 'api/channels/index'
     end
 

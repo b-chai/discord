@@ -13,9 +13,11 @@ class ChannelIndex extends React.Component {
     render(){
 
         const listChannels = this.props.channels.map(ele => {
+            console.log(ele)
             return (
                 <div className="channel">
                     # &nbsp; {ele.channelName}
+                    <button onClick={()=>this.props.deleteChannel(ele.id)}> X </button>
                 </div>
             )
         })
