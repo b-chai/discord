@@ -1,22 +1,11 @@
 .homepage{
-    display: flex;
-    flex-direction: column;
-    align-content: space-between;
-    height: 100vh;
-    width: 100vw;
     background-color: white;
-    text-align: center;
 }
 
 .navbar{
     display: flex;
     justify-content: space-around;
-}
-
-.splash-top{
-    background-image: image-url("discord_splash.png");
-    object-fit: contain;
-    height: 625px;
+    z-index: 2;
 }
 
 .intro{
@@ -24,6 +13,49 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100vw;
+}
+
+.splash1{
+    width: 100vw;
+    margin-top: -16px;
+}
+
+.splash1-text{
+    position: absolute;
+    margin-bottom: 40px;
     width: 50vw;
-    background-color: orange; // temporary
+    text-align: center;
+}
+
+.splash2-text{
+    position: absolute;
+    right: 5px;
+    width: 30%;
+}
+
+.splash3-text{
+    position: absolute;
+    left: 5px;
+    width: 30%;
+}
+
+.splash4-text{
+    position: absolute;
+    right: 5px;
+    width: 30%
+}
+
+.splash5-text{
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px; // needs width or wont center
+}
+
+footer{
+    text-align: center;
 }
