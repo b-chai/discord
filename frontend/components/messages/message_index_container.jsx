@@ -2,10 +2,11 @@ import { connect } from 'react-redux'
 import { fetchAllMessages,receiveMessage, removeMessage } from '../../actions/message_actions'
 import MessageIndex from './message_index'
 
-const mSTP = (state) => ({
+const mSTP = (state) => {
+    return({
     messages: Object.values(state.entities.messages),
     currentUserId: state.session.id
-})
+})}
 
 const mDTP = dispatch => ({
     fetchAllMessages: ()=> dispatch(fetchAllMessages()),

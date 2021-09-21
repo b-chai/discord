@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
 .homepage{
     background-color: white;
 }
@@ -10,21 +13,19 @@
 
 .intro{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100vw;
 }
 
 .splash1{
-    width: 100vw;
-    margin-top: -16px;
+    min-width: 100vw;
+    // margin-top: -16px;
 }
 
 .splash1-text{
     position: absolute;
     margin-bottom: 40px;
-    width: 50vw;
+    width: 45vw;
     text-align: center;
 }
 
@@ -58,4 +59,18 @@
 
 footer{
     text-align: center;
+}
+
+.top-text1{
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    font-size: 56px;
+    font-weight: bolder;
+}
+
+.top-text2{
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 40px;
+    font-size: clamp(16px,2vw,20px);
 }

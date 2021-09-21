@@ -42,7 +42,7 @@ class ServerUpdateForm extends React.Component{
                     <span className="server-subtext">Update the server information here.</span>
 
                     <form className="server-input" onSubmit={()=>this.handleSubmit()}>
-                    <label for="server name" className="server-subtext">Server Name
+                    <label className="server-subtext">Server Name
                     <br />
                         <input 
                         type="text" 

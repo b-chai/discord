@@ -14,7 +14,7 @@ class ChannelIndex extends React.Component {
         // Creates list of channels
         const listChannels = this.props.channels.map(ele => {
             return (
-                <div className="channel">
+                <div className="channel" key={ele.id}>
                    <button className="channel-name" onClick={()=> this.props.showChannel(ele)}>
                         # &nbsp; {ele.channelName}
                     </button>

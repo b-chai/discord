@@ -43,7 +43,7 @@ class ServerForm extends React.Component{
                     <span className="server-subtext">Give your new server a personality with a name and an icon. You can always change it later.</span>
 
                     <form className="server-input" onSubmit={this.handleSubmit}>
-                    <label for="server name" className="server-subtext">Server Name
+                    <label className="server-subtext">Server Name
                     <br />
                         <input 
                         type="text" 

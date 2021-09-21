@@ -44,7 +44,7 @@ class ChannelForm extends React.Component{
                     <span className="channel-subtext">in Text Channels</span>
 
                     <form onSubmit={this.handleSubmit}>
-                    <label for="channel name" >Channel Name
+                    <label>Channel Name
                     <br />
                         <input 
                         type="text" 

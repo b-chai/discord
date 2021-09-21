@@ -296,14 +296,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
 /* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
-/* harmony import */ var _messages_message_index_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./messages/message_index_container */ "./frontend/components/messages/message_index_container.jsx");
-/* harmony import */ var _server_server_index_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./server/server_index_container */ "./frontend/components/server/server_index_container.jsx");
-/* harmony import */ var _home_homepage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./home/homepage */ "./frontend/components/home/homepage.jsx");
-
+/* harmony import */ var _server_server_index_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./server/server_index_container */ "./frontend/components/server/server_index_container.jsx");
+/* harmony import */ var _home_homepage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./home/homepage */ "./frontend/components/home/homepage.jsx");
 
 
 
@@ -315,14 +313,14 @@ __webpack_require__.r(__webpack_exports__);
 var App = function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "app"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Switch, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
     path: "/servers",
-    component: _server_server_index_container__WEBPACK_IMPORTED_MODULE_5__.default
+    component: _server_server_index_container__WEBPACK_IMPORTED_MODULE_4__.default
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
     exact: true,
-    path: "/messages",
-    component: _messages_message_index_container__WEBPACK_IMPORTED_MODULE_4__.default
+    path: "/servers/:serverId",
+    component: _server_server_index_container__WEBPACK_IMPORTED_MODULE_4__.default
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.AuthRoute, {
     exact: true,
     path: "/login",
@@ -331,9 +329,9 @@ var App = function App() {
     exact: true,
     path: "/signup",
     component: _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_1__.default
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Route, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, {
     path: "/",
-    component: _home_homepage__WEBPACK_IMPORTED_MODULE_6__.default
+    component: _home_homepage__WEBPACK_IMPORTED_MODULE_5__.default
   })));
 };
 
@@ -443,9 +441,7 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
         className: "channel-subtext"
       }, "in Text Channels"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
         onSubmit: this.handleSubmit
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-        "for": "channel name"
-      }, "Channel Name", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Channel Name", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         onChange: function onChange(e) {
           return _this2.updateName(e);
@@ -527,7 +523,8 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
       // Creates list of channels
       var listChannels = this.props.channels.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "channel"
+          className: "channel",
+          key: ele.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "channel-name",
           onClick: function onClick() {
@@ -733,7 +730,11 @@ var Homepage = function Homepage(props) {
     alt: "splash image"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash1-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Imagine a place..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "...where you can belong to a school club, a gaming group, or a worldwide art community. Where just you and a handful of friends can spend time together. A place that makes it easy to talk every day and hang out more often."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Get Started")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "top-text1"
+  }, "IMAGINE A PLACE..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "top-text2"
+  }, "...where you can belong to a school club, a gaming group, or a worldwide art community. Where just you and a handful of friends can spend time together. A place that makes it easy to talk every day and hang out more often."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Get Started")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash2-text"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, " Create an invite-only place where you belong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Discord servers are organized into topic-based channels where you can collaborate,share, and just talk about your day without clogging up a group chat.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     src: _images_discord_splash2_png__WEBPACK_IMPORTED_MODULE_3__.default,
@@ -1283,7 +1284,6 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
         className: "server-input",
         onSubmit: this.handleSubmit
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-        "for": "server name",
         className: "server-subtext"
       }, "Server Name", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
@@ -1352,36 +1352,39 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var ServerIndex = /*#__PURE__*/function (_React$Component) {
   _inherits(ServerIndex, _React$Component);
 
   var _super = _createSuper(ServerIndex);
 
   function ServerIndex(props) {
-    var _this;
-
     _classCallCheck(this, ServerIndex);
 
-    _this = _super.call(this, props);
-    console.log(props);
-    return _this;
+    return _super.call(this, props);
   }
 
   _createClass(ServerIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchAllServers();
-    }
-  }, {
-    key: "display",
-    value: function display() {
-      var form = document.querySelector('.server-update-form');
+    } // display(){
+    //     const form = document.querySelector('.server-update-form')
+    //     if (form.style.display === "none"){
+    //         form.style.display = "block"
+    //     }else{
+    //         form.style.display = "none"
+    //     }
+    // }
 
-      if (form.style.display === "none") {
-        form.style.display = "block";
-      } else {
-        form.style.display = "none";
-      }
+  }, {
+    key: "clickServer",
+    value: function clickServer(server) {
+      var _this = this;
+
+      this.props.showServer(server).then(function () {
+        return _this.props.history.replace("servers/".concat(server.id));
+      });
     }
   }, {
     key: "render",
@@ -1389,7 +1392,9 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var allServers = this.props.server.map(function (ele) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          key: ele.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "server-update-form"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_update_form__WEBPACK_IMPORTED_MODULE_5__.default, {
           editServer: _this2.props.editServer,
@@ -1398,11 +1403,14 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "server-button",
           onClick: function onClick() {
-            return _this2.display();
-          },
-          key: ele.id
+            return _this2.clickServer(ele);
+          }
         }, ele.serverName[0].toUpperCase()));
       });
+      console.log("-----------------");
+      console.log(this.props);
+      console.log(this.props.match.params);
+      console.log("-----------------");
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "flex"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1413,9 +1421,13 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
         className: "greeting"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-index"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_index_container__WEBPACK_IMPORTED_MODULE_1__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_index_container__WEBPACK_IMPORTED_MODULE_1__.default, {
+        serverId: this.props.match.params
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "message-index"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_messages_message_index_container__WEBPACK_IMPORTED_MODULE_3__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_messages_message_index_container__WEBPACK_IMPORTED_MODULE_3__.default, {
+        serverId: this.props.match.params
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null));
     }
   }]);
 
@@ -1575,7 +1587,6 @@ var ServerUpdateForm = /*#__PURE__*/function (_React$Component) {
           return _this2.handleSubmit();
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", {
-        "for": "server name",
         className: "server-subtext"
       }, "Server Name", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
