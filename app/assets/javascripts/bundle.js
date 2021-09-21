@@ -699,13 +699,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../greeting/greeting_container */ "./frontend/components/greeting/greeting_container.js");
 /* harmony import */ var _images_discord_splash1_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../images/discord_splash1.png */ "./frontend/images/discord_splash1.png");
 /* harmony import */ var _images_discord_splash2_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../images/discord_splash2.png */ "./frontend/images/discord_splash2.png");
 /* harmony import */ var _images_discord_splash3_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../images/discord_splash3.png */ "./frontend/images/discord_splash3.png");
 /* harmony import */ var _images_discord_splash4_png__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../images/discord_splash4.png */ "./frontend/images/discord_splash4.png");
 /* harmony import */ var _images_discord_splash5_png__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../images/discord_splash5.png */ "./frontend/images/discord_splash5.png");
+/* harmony import */ var _images_discord_logo_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../images/discord_logo.png */ "./frontend/images/discord_logo.png");
+
 
 
 
@@ -720,12 +722,16 @@ var Homepage = function Homepage(props) {
     className: "homepage"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "navbar"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__.Link, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
     to: "/"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Discord Clone")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "logo",
+    src: _images_discord_logo_png__WEBPACK_IMPORTED_MODULE_7__.default,
+    alt: "logo"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "intro"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    className: "splash1",
+    className: "splash-image",
     src: _images_discord_splash1_png__WEBPACK_IMPORTED_MODULE_2__.default,
     alt: "splash image"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -736,25 +742,45 @@ var Homepage = function Homepage(props) {
     className: "top-text2"
   }, "...where you can belong to a school club, a gaming group, or a worldwide art community. Where just you and a handful of friends can spend time together. A place that makes it easy to talk every day and hang out more often."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Get Started")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash2-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, " Create an invite-only place where you belong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Discord servers are organized into topic-based channels where you can collaborate,share, and just talk about your day without clogging up a group chat.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "title"
+  }, " Create an invite-only place where you belong"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "subtext"
+  }, "Discord servers are organized into topic-based channels where you can collaborate,share, and just talk about your day without clogging up a group chat.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "splash-image",
     src: _images_discord_splash2_png__WEBPACK_IMPORTED_MODULE_3__.default,
     alt: "second splash image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash3-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Where hanging out is easy"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Grab a seat in a voice channel when you're free. Friends in your server can see you're around and instantly pop in to talk without having to call.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "title"
+  }, "Where hanging out is easy"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "subtext"
+  }, "Grab a seat in a voice channel when you're free. Friends in your server can see you're around and instantly pop in to talk without having to call.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "splash-image",
     src: _images_discord_splash3_png__WEBPACK_IMPORTED_MODULE_4__.default,
     alt: "third splash image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash4-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "From few to a fandom"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Get any community running with moderation tools and custom member access. Give members special powers, set up private channels, and more.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "title"
+  }, "From few to a fandom"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "subtext"
+  }, "Get any community running with moderation tools and custom member access. Give members special powers, set up private channels, and more.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "splash-image",
     src: _images_discord_splash4_png__WEBPACK_IMPORTED_MODULE_5__.default,
     alt: "fourth splash image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash5-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Reliable Tech For Staying Close"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Low-latency voice and video feels like you're in the same room. Wave hello over video, watch friends stream their games, or gather up and have a drawing session with screen share.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "bottom-title"
+  }, "Reliable Tech For Staying Close"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "subtext"
+  }, "Low-latency voice and video feels like you're in the same room. Wave hello over video, watch friends stream their games, or gather up and have a drawing session with screen share.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "splash-image",
     src: _images_discord_splash5_png__WEBPACK_IMPORTED_MODULE_6__.default,
     alt: "fifth splash image"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("footer", null, "Imagine a place"));
+  })));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Homepage);
@@ -38757,6 +38783,21 @@ function warning(condition, message) {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (warning);
 
+
+/***/ }),
+
+/***/ "./frontend/images/discord_logo.png":
+/*!******************************************!*\
+  !*** ./frontend/images/discord_logo.png ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("data:image/png;base64,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");
 
 /***/ }),
 
