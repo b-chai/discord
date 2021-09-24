@@ -109,3 +109,13 @@ footer{
     font-size: 56px;
     font-weight: bolder;
 }
+
+.login-signup>*{
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    border-radius: 25%;
+    padding: 10px;
+    background-color: white;
+    margin: 10px
+}

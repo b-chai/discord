@@ -9,6 +9,9 @@ import ServerUpdateForm from './server_update_form'
 class ServerIndex extends React.Component{
     constructor(props){
         super(props)
+        // this.state={
+        //     currentServer = this.props.server[0]
+        // }
     }
 
     componentDidMount(){
@@ -46,10 +49,10 @@ class ServerIndex extends React.Component{
                 </div>
             )
         })
-        console.log("-----------------")
-        console.log(this.props)
-        console.log(this.props.match.params)
-        console.log("-----------------")
+        // console.log("-----------------")
+        // console.log(this.props)
+        // console.log(this.props.match.params)
+        // console.log("-----------------")
         return(
             <div className="flex">
                 {/* server sidebar */}

@@ -7,7 +7,8 @@ class MessageForm extends React.Component {
         this.update = this.update.bind(this)
         this.state = {
             body: '',
-            authorId: this.props.currentUserId
+            authorId: this.props.currentUserId,
+            channelId: this.props.channelId
         }
     }
 

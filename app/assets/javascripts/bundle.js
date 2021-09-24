@@ -505,9 +505,15 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(ChannelIndex);
 
   function ChannelIndex(props) {
+    var _this;
+
     _classCallCheck(this, ChannelIndex);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    console.log("------------");
+    console.log(_this.props);
+    console.log("------------");
+    return _this;
   }
 
   _createClass(ChannelIndex, [{
@@ -516,9 +522,27 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
       this.props.fetchAllChannels();
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      // Sets first channel as default
+      // after channels are fetched
+      this.state = {
+        currentChannel: this.props.channels[0]
+      };
+    }
+  }, {
+    key: "selectChannel",
+    value: function selectChannel(channel) {
+      this.setState({
+        currentChannel: channel.id
+      });
+      this.props.history.replace("/".concat(this.state.currentChannel));
+      console.log(this.state);
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       // Creates list of channels
       var listChannels = this.props.channels.map(function (ele) {
@@ -527,12 +551,12 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
           key: ele.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "channel-name",
-          onClick: function onClick() {
-            return _this.props.showChannel(ele);
+          onClick: function onClick(e) {
+            return _this2.selectChannel(ele);
           }
         }, "# \xA0 ", ele.channelName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
-            return _this.props.deleteChannel(ele.id);
+            return _this2.props.deleteChannel(ele.id);
           }
         }, " X "));
       });
@@ -622,7 +646,7 @@ var Greeting = function Greeting(_ref) {
       className: "login-signup"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/login"
-    }, "Login"), "\xA0or\xA0", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
+    }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: "/signup"
     }, "Sign up!"));
   };
@@ -933,7 +957,8 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     _this.update = _this.update.bind(_assertThisInitialized(_this));
     _this.state = {
       body: '',
-      authorId: _this.props.currentUserId
+      authorId: _this.props.currentUserId,
+      channelId: _this.props.channelId
     };
     return _this;
   }
@@ -1387,7 +1412,9 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
   function ServerIndex(props) {
     _classCallCheck(this, ServerIndex);
 
-    return _super.call(this, props);
+    return _super.call(this, props); // this.state={
+    //     currentServer = this.props.server[0]
+    // }
   }
 
   _createClass(ServerIndex, [{
@@ -1432,11 +1459,11 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
             return _this2.clickServer(ele);
           }
         }, ele.serverName[0].toUpperCase()));
-      });
-      console.log("-----------------");
-      console.log(this.props);
-      console.log(this.props.match.params);
-      console.log("-----------------");
+      }); // console.log("-----------------")
+      // console.log(this.props)
+      // console.log(this.props.match.params)
+      // console.log("-----------------")
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "flex"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -38872,7 +38899,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "4a399e82a8d196d57698ddc7e21ee705.png");
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "c51ecb72c8d428cd8b201104abd28d42.png");
 
 /***/ }),
 
