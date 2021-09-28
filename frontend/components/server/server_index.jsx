@@ -60,22 +60,6 @@ class ServerIndex extends React.Component{
                     {allServers}
                     <ServerForm createServer={this.props.createServer}/>
                 </div>
-
-                {/* text channel side bar */}
-                <div className="greeting">
-                    <div className="channel-index">
-                        <ChannelIndexContainer serverId={this.props.match.params} />
-                    </div>
-                    <GreetingContainer />
-                </div>
-
-                {/* Messages */}
-                <div className="message-index">
-                    <MessageIndexContainer serverId={this.props.match.params}/>
-                </div>
-
-                {/* User list */}
-                <div></div>
             </div>
         )
     }

@@ -3,7 +3,8 @@ import { createChannel, deleteChannel, editChannel, fetchAllChannels, showChanne
 import ChannelIndex from "./channel_index";
 
 const mSTP = state => ({
-    channels: Object.values(state.entities.channels)
+    channels: Object.values(state.entities.channels),
+    currentChannel: ''
 })
 
 const mDTP = dispatch => ({
