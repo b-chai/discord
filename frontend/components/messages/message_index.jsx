@@ -1,4 +1,5 @@
 import React from "react"
+import { withRouter } from "react-router";
 import EditForm from "./edit_form";
 import MessageForm from "./message_form"
 
@@ -10,10 +11,13 @@ class MessageIndex extends React.Component{
 
     componentDidMount() {
         App.cable.subscriptions.create(
-          { channel: "ChatChannel" },
+          { channel: "ChatChannel", channelId: this.props.match.params.channelId},
           {
             received: data => {
               switch (data.type) {
+                case 'index':
+                    
+                    // return this.props.fetchAllMessages()
                 case 'message':
                     return this.props.receiveMessage(data.message)
                 case 'remove':
@@ -34,7 +38,7 @@ class MessageIndex extends React.Component{
             }
           }
         );
-        this.props.fetchAllMessages();
+        // this.props.fetchAllMessages();
     }
 
     componentDidUpdate() {
@@ -84,4 +88,4 @@ class MessageIndex extends React.Component{
     }
 }
 
-export default MessageIndex
+export default withRouter(MessageIndex)

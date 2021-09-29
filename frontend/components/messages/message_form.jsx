@@ -1,4 +1,5 @@
 import React from "react"
+import { withRouter } from 'react-router'
 
 class MessageForm extends React.Component {
     constructor(props){
@@ -8,7 +9,7 @@ class MessageForm extends React.Component {
         this.state = {
             body: '',
             authorId: this.props.currentUserId,
-            channelId: this.props.channelId
+            channelId: this.props.match.params.channelId
         }
     }
 
@@ -41,4 +42,4 @@ class MessageForm extends React.Component {
     }
 }
 
-export default MessageForm
+export default withRouter(MessageForm)

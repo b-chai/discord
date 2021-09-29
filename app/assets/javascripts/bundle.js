@@ -942,6 +942,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -966,6 +967,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var MessageForm = /*#__PURE__*/function (_React$Component) {
   _inherits(MessageForm, _React$Component);
 
@@ -982,7 +984,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       body: '',
       authorId: _this.props.currentUserId,
-      channelId: _this.props.channelId
+      channelId: _this.props.match.params.channelId
     };
     return _this;
   }
@@ -1030,7 +1032,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
   return MessageForm;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MessageForm);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router__WEBPACK_IMPORTED_MODULE_1__.withRouter)(MessageForm));
 
 /***/ }),
 
@@ -1046,6 +1048,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _edit_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit_form */ "./frontend/components/messages/edit_form.jsx");
 /* harmony import */ var _message_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./message_form */ "./frontend/components/messages/message_form.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1074,6 +1077,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var MessageIndex = /*#__PURE__*/function (_React$Component) {
   _inherits(MessageIndex, _React$Component);
 
@@ -1095,10 +1099,13 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       App.cable.subscriptions.create({
-        channel: "ChatChannel"
+        channel: "ChatChannel",
+        channelId: this.props.match.params.channelId
       }, {
         received: function received(data) {
           switch (data.type) {
+            case 'index': // return this.props.fetchAllMessages()
+
             case 'message':
               return _this2.props.receiveMessage(data.message);
 
@@ -1118,8 +1125,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         update: function update(data) {
           return this.perform('update', data);
         }
-      });
-      this.props.fetchAllMessages();
+      }); // this.props.fetchAllMessages();
     }
   }, {
     key: "componentDidUpdate",
@@ -1177,7 +1183,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
   return MessageIndex;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (MessageIndex);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router__WEBPACK_IMPORTED_MODULE_3__.withRouter)(MessageIndex));
 
 /***/ }),
 
