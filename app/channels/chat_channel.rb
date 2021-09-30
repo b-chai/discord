@@ -5,12 +5,12 @@ class ChatChannel < ApplicationCable::Channel
     # stream_for `chat_channel`
   end
 
-  def load(id)
+  def load(data)
     puts '------------------'
-    puts id
+    puts data
     puts '------------------'
-    channelId = id.to_i || params['channelId']
-    data = Message.where(channelId: id)
+    channelId = data || params['channelId']
+    data = Message.where(channelId: data['id'])
     messages = { messages: data, type: 'index'}
     ChatChannel.broadcast_to(`chat_channel_#{params['channelId']}`, messages)
   end

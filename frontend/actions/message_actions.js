@@ -19,8 +19,7 @@ export const removeMessage = messageId => ({
     messageId
 })
 
-export const fetchAllMessages = messages => dispatch => {
-    const hash = Object.assign({}, messages)
+export const fetchAllMessages = channelId => dispatch => {
     return messageUtil.fetchAllMessages()
-    .then(res => dispatch(receiveAllMessages(hash)))
+    .then(res => dispatch(receiveAllMessages(res)))
 }

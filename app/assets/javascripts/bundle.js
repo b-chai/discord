@@ -123,11 +123,10 @@ var removeMessage = function removeMessage(messageId) {
     messageId: messageId
   };
 };
-var fetchAllMessages = function fetchAllMessages(messages) {
+var fetchAllMessages = function fetchAllMessages(channelId) {
   return function (dispatch) {
-    var hash = Object.assign({}, messages);
     return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllMessages().then(function (res) {
-      return dispatch(receiveAllMessages(hash));
+      return dispatch(receiveAllMessages(res));
     });
   };
 };
@@ -371,13 +370,226 @@ var Application = function Application() {
 
 /***/ }),
 
+/***/ "./frontend/components/channel/channel_form.jsx":
+/*!******************************************************!*\
+  !*** ./frontend/components/channel/channel_form.jsx ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var ChannelForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(ChannelForm, _React$Component);
+
+  var _super = _createSuper(ChannelForm);
+
+  function ChannelForm(props) {
+    var _this;
+
+    _classCallCheck(this, ChannelForm);
+
+    _this = _super.call(this, props);
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.state = {
+      channelName: '',
+      serverId: 2
+    };
+    return _this;
+  }
+
+  _createClass(ChannelForm, [{
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      console.log(this.state);
+      this.props.createChannel(this.state);
+      this.state.channelName = '';
+    }
+  }, {
+    key: "updateName",
+    value: function updateName(e) {
+      this.setState({
+        channelName: e.target.value
+      });
+    }
+  }, {
+    key: "display",
+    value: function display() {
+      var form = document.querySelector('.channel-form');
+
+      if (form.style.display === "none") {
+        form.style.display = "block";
+      } else {
+        form.style.display = "none";
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+        className: "text-channel"
+      }, "TEXT CHANNELS", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: function onClick() {
+          return _this2.display();
+        }
+      }, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-form"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "close-button",
+        onClick: this.display
+      }, "X"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-header"
+      }, "Create Text Channel"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+        className: "channel-subtext"
+      }, "in Text Channels"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Channel Name", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "text",
+        onChange: function onChange(e) {
+          return _this2.updateName(e);
+        },
+        value: this.state.channelName
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+        type: "submit",
+        value: "Create Channel"
+      }))));
+    }
+  }]);
+
+  return ChannelForm;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ChannelForm);
+
+/***/ }),
+
 /***/ "./frontend/components/channel/channel_index.jsx":
 /*!*******************************************************!*\
   !*** ./frontend/components/channel/channel_index.jsx ***!
   \*******************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/ben/AppAcademy/fullstack_project/discord/frontend/components/channel/channel_index.jsx: Unexpected keyword 'this'. (18:8)\n\n\u001b[0m \u001b[90m 16 |\u001b[39m         \u001b[36mconst\u001b[39m \u001b[0m\n\u001b[0m \u001b[90m 17 |\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 18 |\u001b[39m         \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mprops\u001b[33m.\u001b[39mhistory\u001b[33m.\u001b[39mreplace(\u001b[32m`/servers/${channel.id}`\u001b[39m)\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 19 |\u001b[39m         \u001b[33mApp\u001b[39m\u001b[33m.\u001b[39mcable\u001b[33m.\u001b[39msubscriptions\u001b[33m.\u001b[39msubscriptions[\u001b[35m0\u001b[39m]\u001b[33m.\u001b[39mload(channel\u001b[33m.\u001b[39mid)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 20 |\u001b[39m         console\u001b[33m.\u001b[39mlog(\u001b[33mApp\u001b[39m\u001b[33m.\u001b[39mcable\u001b[33m.\u001b[39msubscriptions\u001b[33m.\u001b[39msubscriptions[\u001b[35m0\u001b[39m]\u001b[33m.\u001b[39mload(channel\u001b[33m.\u001b[39mid))\u001b[0m\n\u001b[0m \u001b[90m 21 |\u001b[39m         \u001b[90m// this.setState({currentChannel: this.props.match.params.channelId})\u001b[39m\u001b[0m\n    at Object._raise (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:788:17)\n    at Object.raiseWithData (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:781:17)\n    at Object.raise (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:742:17)\n    at Object.checkReservedWord (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:12285:12)\n    at Object.parseIdentifierName (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:12246:12)\n    at Object.parseIdentifier (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:12218:23)\n    at Object.parseBindingAtom (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:10459:17)\n    at Object.parseVarId (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:13361:20)\n    at Object.parseVar (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:13337:12)\n    at Object.parseVarStatement (/home/ben/AppAcademy/fullstack_project/discord/node_modules/@babel/parser/lib/index.js:13154:10)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _channel_form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./channel_form */ "./frontend/components/channel/channel_form.jsx");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var ChannelIndex = /*#__PURE__*/function (_React$Component) {
+  _inherits(ChannelIndex, _React$Component);
+
+  var _super = _createSuper(ChannelIndex);
+
+  function ChannelIndex(props) {
+    _classCallCheck(this, ChannelIndex);
+
+    return _super.call(this, props);
+  }
+
+  _createClass(ChannelIndex, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchAllChannels();
+    }
+  }, {
+    key: "selectChannel",
+    value: function selectChannel(channel) {
+      var info = {
+        type: 'index',
+        id: channel.id
+      };
+      App.cable.subscriptions.subscriptions[0].load(info);
+      this.props.history.replace("/servers/".concat(channel.id)); // this.setState({currentChannel: this.props.match.params.channelId})
+      // console.log(this.props.match.params.channelId)
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      // Creates list of channels
+      var listChannels = this.props.channels.map(function (ele) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "channel",
+          key: ele.id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          className: "channel-name",
+          onClick: function onClick() {
+            return _this.selectChannel(ele);
+          }
+        }, "# \xA0 ", ele.channelName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          onClick: function onClick() {
+            return _this.props.deleteChannel(ele.id);
+          }
+        }, " X "));
+      });
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "( SERVER NAME HERE )"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_form__WEBPACK_IMPORTED_MODULE_1__.default, {
+        createChannel: this.props.createChannel
+      }), listChannels);
+    }
+  }]);
+
+  return ChannelIndex;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router__WEBPACK_IMPORTED_MODULE_2__.withRouter)(ChannelIndex));
 
 /***/ }),
 
@@ -893,7 +1105,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
               console.log('------------------------------');
               console.log('indexing');
               console.log('------------------------------');
-              return _this2.props.fetchAllMessages(data.messages);
+              return _this2.props.fetchAllMessages(data.id);
 
             case 'message':
               return _this2.props.receiveMessage(data.message);
@@ -923,11 +1135,10 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "formattedTime",
-    value: function formattedTime(data) {
-      var date = data.slice(0, 10);
-      var time = data.slice(11, 19);
-      var newTime = date + ' ' + time;
-      return newTime;
+    value: function formattedTime(data) {// const date = data.slice(0,10)
+      // const time = data.slice(11,19)
+      // const newTime = date + ' ' + time
+      // return newTime
     }
   }, {
     key: "render",

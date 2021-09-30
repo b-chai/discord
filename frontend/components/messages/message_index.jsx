@@ -14,12 +14,12 @@ class MessageIndex extends React.Component{
           { channel: `ChatChannel`, channelId: this.props.match.params.channelId},
           {
             received: data => {
-              switch (data.type) {
-                case 'index':
+                switch (data.type) {
+                    case 'index':
                     console.log('------------------------------')
                     console.log('indexing')
                     console.log('------------------------------')
-                    return this.props.fetchAllMessages(data.messages)
+                    return this.props.fetchAllMessages(data.id)
                 case 'message':
                     return this.props.receiveMessage(data.message)
                 case 'remove':
@@ -48,11 +48,11 @@ class MessageIndex extends React.Component{
     }
 
     formattedTime(data){
-        const date = data.slice(0,10)
-        const time = data.slice(11,19)
-        const newTime = date + ' ' + time
+        // const date = data.slice(0,10)
+        // const time = data.slice(11,19)
+        // const newTime = date + ' ' + time
 
-        return newTime
+        // return newTime
     }
 
     render(){
