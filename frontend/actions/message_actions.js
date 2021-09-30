@@ -19,7 +19,8 @@ export const removeMessage = messageId => ({
     messageId
 })
 
-export const fetchAllMessages = () => dispatch => {
+export const fetchAllMessages = messages => dispatch => {
+    const hash = Object.assign({}, messages)
     return messageUtil.fetchAllMessages()
-    .then(res => dispatch(receiveAllMessages(res)))
+    .then(res => dispatch(receiveAllMessages(hash)))
 }

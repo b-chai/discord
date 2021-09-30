@@ -11,15 +11,15 @@ class ChannelIndex extends React.Component {
         this.props.fetchAllChannels()
     }
 
-    componentDidUpdate(){
-        // Sets first channel as default
-        // after channels are fetched
-    }
-
     selectChannel(channel){
+
+        const 
+
         this.props.history.replace(`/servers/${channel.id}`)
-        this.setState({currentChannel: this.props.match.params.channelId})
-        console.log(this.props.match.params.channelId)
+        App.cable.subscriptions.subscriptions[0].load(channel.id);
+        console.log(App.cable.subscriptions.subscriptions[0].load(channel.id))
+        // this.setState({currentChannel: this.props.match.params.channelId})
+        // console.log(this.props.match.params.channelId)
     }
 
     render(){

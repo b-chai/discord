@@ -9,7 +9,7 @@ const mSTP = (state) => {
 })}
 
 const mDTP = dispatch => ({
-    fetchAllMessages: ()=> dispatch(fetchAllMessages()),
+    fetchAllMessages: (messages)=> dispatch(fetchAllMessages(messages)),
     receiveMessage: (message)=> dispatch(receiveMessage(message)),
     removeMessage: (messageId)=> dispatch(removeMessage(messageId))
 })

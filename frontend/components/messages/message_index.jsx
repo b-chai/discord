@@ -11,13 +11,15 @@ class MessageIndex extends React.Component{
 
     componentDidMount() {
         App.cable.subscriptions.create(
-          { channel: "ChatChannel", channelId: this.props.match.params.channelId},
+          { channel: `ChatChannel`, channelId: this.props.match.params.channelId},
           {
             received: data => {
               switch (data.type) {
                 case 'index':
-                    
-                    // return this.props.fetchAllMessages()
+                    console.log('------------------------------')
+                    console.log('indexing')
+                    console.log('------------------------------')
+                    return this.props.fetchAllMessages(data.messages)
                 case 'message':
                     return this.props.receiveMessage(data.message)
                 case 'remove':
@@ -37,8 +39,8 @@ class MessageIndex extends React.Component{
                 return this.perform('update', data)
             }
           }
-        );
-        // this.props.fetchAllMessages();
+        )
+        
     }
 
     componentDidUpdate() {
@@ -58,10 +60,11 @@ class MessageIndex extends React.Component{
             return (
                 <div className="message-credentials" key={message.id}>
                     <span className="author-message">
+                        {/* Not working -- needs to be fixed */}
                         {message.authorName}
                     </span>
                     <span className="time-message">
-                        {this.formattedTime(message.createdAt)}
+                        {this.formattedTime(message.created_at)}
                     </span>
                     <br/>
                     <div className="message">
