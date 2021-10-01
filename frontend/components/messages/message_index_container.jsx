@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchAllMessages,receiveMessage, removeMessage } from '../../actions/message_actions'
+import { fetchAllMessages,receiveMessage, removeMessage, receiveAllMessages } from '../../actions/message_actions'
 import MessageIndex from './message_index'
 
 const mSTP = (state) => {
@@ -9,7 +9,8 @@ const mSTP = (state) => {
 })}
 
 const mDTP = dispatch => ({
-    fetchAllMessages: (messages)=> dispatch(fetchAllMessages(messages)),
+    fetchAllMessages: (messages)=> dispatch(receiveAllMessages(messages)),
+    // fetchAllMessages: (messages)=> dispatch(fetchAllMessages(messages)),
     receiveMessage: (message)=> dispatch(receiveMessage(message)),
     removeMessage: (messageId)=> dispatch(removeMessage(messageId))
 })

@@ -15,11 +15,11 @@ class MessageIndex extends React.Component{
           {
             received: data => {
                 switch (data.type) {
-                    case 'index':
-                    console.log('------------------------------')
-                    console.log('indexing')
-                    console.log('------------------------------')
-                    return this.props.fetchAllMessages(data.id)
+                case 'index':
+                    // console.log('-------------------')
+                    // console.log(data)
+                    // console.log('-------------------')
+                    return this.props.fetchAllMessages(data)
                 case 'message':
                     return this.props.receiveMessage(data.message)
                 case 'remove':
@@ -40,7 +40,6 @@ class MessageIndex extends React.Component{
             }
           }
         )
-        
     }
 
     componentDidUpdate() {
@@ -48,15 +47,30 @@ class MessageIndex extends React.Component{
     }
 
     formattedTime(data){
-        // const date = data.slice(0,10)
-        // const time = data.slice(11,19)
-        // const newTime = date + ' ' + time
+        // temporary fix for snake_case and camelCase
+        if (data.createdAt){
+            const date = data.createdAt.slice(0,10)
+            const time = data.createdAt.slice(11,19)
+            const newTime = date + ' ' + time
 
-        // return newTime
+            return newTime    
+        } else if (data.created_at){
+            const date = data.created_at.slice(0,10)
+            const time = data.created_at.slice(11,19)
+            const newTime = date + ' ' + time
+
+            return newTime
+        }
+
+        return null
+
     }
 
     render(){
         const allMessages = this.props.messages.map(message => {
+            console.log('----------------')
+            console.log(message, "allmessages")
+            console.log('----------------')
             return (
                 <div className="message-credentials" key={message.id}>
                     <span className="author-message">
@@ -64,7 +78,7 @@ class MessageIndex extends React.Component{
                         {message.authorName}
                     </span>
                     <span className="time-message">
-                        {this.formattedTime(message.created_at)}
+                        {this.formattedTime(message)}
                     </span>
                     <br/>
                     <div className="message">

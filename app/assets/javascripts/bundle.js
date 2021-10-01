@@ -105,10 +105,10 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 var RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 var REMOVE_MESSAGE = "REMOVE_MESSAGE";
-var receiveAllMessages = function receiveAllMessages(messages) {
+var receiveAllMessages = function receiveAllMessages(data, channel) {
   return {
     type: RECEIVE_MESSAGES,
-    messages: messages
+    messages: data.messages
   };
 };
 var receiveMessage = function receiveMessage(message) {
@@ -122,11 +122,15 @@ var removeMessage = function removeMessage(messageId) {
     type: REMOVE_MESSAGE,
     messageId: messageId
   };
-};
+}; // export const fetchAllMessages = channelId => dispatch => {
+//     return messageUtil.fetchAllMessages()
+//     .then(res => dispatch(receiveAllMessages(res,channelId)))
+// }
+
 var fetchAllMessages = function fetchAllMessages(channelId) {
   return function (dispatch) {
     return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllMessages().then(function (res) {
-      return dispatch(receiveAllMessages(res));
+      return dispatch(receiveAllMessages(res, channelId));
     });
   };
 };
@@ -428,7 +432,6 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
   _createClass(ChannelForm, [{
     key: "handleSubmit",
     value: function handleSubmit() {
-      console.log(this.state);
       this.props.createChannel(this.state);
       this.state.channelName = '';
     }
@@ -556,8 +559,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
         id: channel.id
       };
       App.cable.subscriptions.subscriptions[0].load(info);
-      this.props.history.replace("/servers/".concat(channel.id)); // this.setState({currentChannel: this.props.match.params.channelId})
-      // console.log(this.props.match.params.channelId)
+      this.props.history.replace("/servers/".concat(channel.id));
     }
   }, {
     key: "render",
@@ -1102,10 +1104,10 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         received: function received(data) {
           switch (data.type) {
             case 'index':
-              console.log('------------------------------');
-              console.log('indexing');
-              console.log('------------------------------');
-              return _this2.props.fetchAllMessages(data.id);
+              // console.log('-------------------')
+              // console.log(data)
+              // console.log('-------------------')
+              return _this2.props.fetchAllMessages(data);
 
             case 'message':
               return _this2.props.receiveMessage(data.message);
@@ -1135,10 +1137,24 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "formattedTime",
-    value: function formattedTime(data) {// const date = data.slice(0,10)
-      // const time = data.slice(11,19)
-      // const newTime = date + ' ' + time
-      // return newTime
+    value: function formattedTime(data) {
+      // temporary fix for snake_case and camelCase
+      if (data.createdAt) {
+        var date = data.createdAt.slice(0, 10);
+        var time = data.createdAt.slice(11, 19);
+        var newTime = date + ' ' + time;
+        return newTime;
+      } else if (data.created_at) {
+        var _date = data.created_at.slice(0, 10);
+
+        var _time = data.created_at.slice(11, 19);
+
+        var _newTime = _date + ' ' + _time;
+
+        return _newTime;
+      }
+
+      return null;
     }
   }, {
     key: "render",
@@ -1146,6 +1162,9 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       var _this3 = this;
 
       var allMessages = this.props.messages.map(function (message) {
+        console.log('----------------');
+        console.log(message, "allmessages");
+        console.log('----------------');
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "message-credentials",
           key: message.id
@@ -1153,7 +1172,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
           className: "author-message"
         }, message.authorName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
           className: "time-message"
-        }, _this3.formattedTime(message.created_at)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        }, _this3.formattedTime(message)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "message"
         }, message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "delete-button",
@@ -1215,8 +1234,9 @@ var mSTP = function mSTP(state) {
 var mDTP = function mDTP(dispatch) {
   return {
     fetchAllMessages: function fetchAllMessages(messages) {
-      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.fetchAllMessages)(messages));
+      return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.receiveAllMessages)(messages));
     },
+    // fetchAllMessages: (messages)=> dispatch(fetchAllMessages(messages)),
     receiveMessage: function receiveMessage(message) {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.receiveMessage)(message));
     },
@@ -1962,7 +1982,6 @@ var channelReducer = function channelReducer() {
       return Object.assign({}, state, action.channels);
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CHANNEL:
-      console.log(action);
       nextState[action.channel.id] = action.channels;
       return nextState;
 
@@ -2056,6 +2075,9 @@ var messageReducer = function messageReducer() {
 
   switch (action.type) {
     case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MESSAGES:
+      // console.log('---------------')
+      // console.log(action)
+      // console.log('---------------')
       return Object.assign({}, state, action.messages);
 
     case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MESSAGE:
@@ -2071,7 +2093,8 @@ var messageReducer = function messageReducer() {
   }
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (messageReducer);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (messageReducer); // TO DO
+// Filter messages
 
 /***/ }),
 

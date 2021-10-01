@@ -6,13 +6,22 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def load(data)
-    puts '------------------'
-    puts data
-    puts '------------------'
-    channelId = data || params['channelId']
     data = Message.where(channelId: data['id'])
     messages = { messages: data, type: 'index'}
-    ChatChannel.broadcast_to(`chat_channel_#{params['channelId']}`, messages)
+
+    messages_hash = {}
+    data.each do |message|
+        messages_hash[message.id] = create_return_message(message)
+    end
+    
+    # puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    # puts messages
+    # puts '========================================='
+    # puts messages_hash
+    # puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    
+    socket = {type: "index", messages: messages_hash}
+    ChatChannel.broadcast_to(`chat_channel_#{params['channelId']}`, socket)
   end
 
   def speak(data)
@@ -57,6 +66,19 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
+  end
+
+  private
+  def create_return_message(message)
+      {
+        id: message['id'],
+        body: message['body'], 
+        authorId: message['author_id'],
+        created_at: message['created_at'],
+        updatedAt: message['updated_at'],
+        authorName: message.author.username,
+        channelId: message['channelId']
+      }
   end
 
 end
