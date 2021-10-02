@@ -12,7 +12,7 @@ const App = () => (
     <Switch>
 
       {/* App */}
-      <ProtectedRoute path="/servers" component={Application}/>
+      <ProtectedRoute path="/servers/" component={Application}/>
 
       {/* Login/Signup page */}
       <AuthRoute exact path="/login" component={LogInFormContainer} />

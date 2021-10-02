@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 
 class ChannelForm extends React.Component{
     constructor(props){
@@ -6,7 +7,7 @@ class ChannelForm extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
             channelName: '',
-            serverId: 2,
+            serverId: this.props.match.params.serverId,
         }
     }
 
@@ -59,4 +60,4 @@ class ChannelForm extends React.Component{
     }
 }
 
-export default ChannelForm
+export default withRouter(ChannelForm)

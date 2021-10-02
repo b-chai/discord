@@ -1,8 +1,5 @@
 import React from 'react'
-import { Link, Route } from 'react-router-dom'
-import ChannelIndexContainer from '../channel/channel_index_container'
-import GreetingContainer from '../greeting/greeting_container'
-import MessageIndexContainer from '../messages/message_index_container'
+import { withRouter } from 'react-router-dom'
 import ServerForm from './server_form'
 import ServerUpdateForm from './server_update_form'
 
@@ -27,9 +24,11 @@ class ServerIndex extends React.Component{
     //     }
     // }
 
-    clickServer(server){
-        this.props.showServer(server)
-        .then(()=>this.props.history.replace(`servers/${server.id}`))
+    selectServer(server){
+        // this.props.showServer(server)
+        // .then(()=>this.props.history.replace(`servers/${server.id}`))
+        this.props.history.replace(`servers/${server.id}`)
+        console.log(this.props)
     }
 
     render(){
@@ -43,7 +42,7 @@ class ServerIndex extends React.Component{
                         server={ele}/>
                     </div>
                     
-                    <button className="server-button" onClick={()=>this.clickServer(ele)} >
+                    <button className="server-button" onClick={()=>this.selectServer(ele)} >
                         {ele.serverName[0].toUpperCase()}
                     </button>
                 </div>
@@ -65,4 +64,4 @@ class ServerIndex extends React.Component{
     }
 }
 
-export default ServerIndex
+export default withRouter(ServerIndex)

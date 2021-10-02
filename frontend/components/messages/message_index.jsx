@@ -68,9 +68,6 @@ class MessageIndex extends React.Component{
 
     render(){
         const allMessages = this.props.messages.map(message => {
-            console.log('----------------')
-            console.log(message, "allmessages")
-            console.log('----------------')
             return (
                 <div className="message-credentials" key={message.id}>
                     <span className="author-message">

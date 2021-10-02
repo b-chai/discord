@@ -16,7 +16,7 @@ const Greeting = ({ currentUser, logout }) => {
     <div className="sidebar-content">
       <hgroup className="header-group">
         <h2 className="header-name">Welcome, {currentUser.username}!</h2>
-        <button> <Link to="/server"></Link> Open DiscordClone</button>
+        <Link to="/servers"><button>  Open DiscordClone</button></Link>
         <button className="logout-button" onClick={logout}>Log Out</button>
       </hgroup>
     </div>
