@@ -4,8 +4,7 @@ export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES"
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE"
 export const REMOVE_MESSAGE = "REMOVE_MESSAGE"
 
-export const receiveAllMessages = (data,channel) => {
-
+export const receiveAllMessages = (data) => {
     return ({
     type: RECEIVE_MESSAGES,
     messages: data.messages
@@ -29,4 +28,3 @@ export const fetchAllMessages = channelId => dispatch => {
     return messageUtil.fetchAllMessages()
     .then(res => dispatch(receiveAllMessages(res,channelId)))
 }
-

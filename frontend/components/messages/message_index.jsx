@@ -40,6 +40,9 @@ class MessageIndex extends React.Component{
             }
           }
         )
+        // App.cable.subscriptions.subscriptions[0].load(info);
+        this.props.fetchAllMessages(8)
+        // console.log(this.props.fetchAllMessages(8))
     }
 
     componentDidUpdate() {
@@ -92,7 +95,7 @@ class MessageIndex extends React.Component{
             <div className='message-container'>
                 <div className='channel-background'>
                     {allMessages}
-                    <div ref={this.bottom}/>
+                    <div className="empty-space" ref={this.bottom}/>
                 </div>
                 <div className="sticky-message">
                     <MessageForm sendMessage={this.props.sendMessage} currentUserId={this.props.currentUserId}/>

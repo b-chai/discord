@@ -105,7 +105,7 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 var RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 var REMOVE_MESSAGE = "REMOVE_MESSAGE";
-var receiveAllMessages = function receiveAllMessages(data, channel) {
+var receiveAllMessages = function receiveAllMessages(data) {
   return {
     type: RECEIVE_MESSAGES,
     messages: data.messages
@@ -362,10 +362,10 @@ var Application = function Application() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "flex"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
-    path: "/servers",
+    path: "/servers/:serverId/:channelId",
     component: _server_server_index_container__WEBPACK_IMPORTED_MODULE_2__.default
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
-    path: "/servers/:channelId",
+    path: "/servers/:serverId/:channelId",
     component: _server_contents_server_contents__WEBPACK_IMPORTED_MODULE_1__.default
   }));
 };
@@ -556,15 +556,14 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "selectChannel",
     value: function selectChannel(channel) {
-      // clear message index
       // populates message index
       var info = {
         type: 'index',
         id: channel.id
       };
       App.cable.subscriptions.subscriptions[0].load(info);
-      this.props.history.replace("/servers/".concat(channel.id));
-      console.log(this.state);
+      var serverId = this.props.match.params.serverId;
+      this.props.history.replace("/servers/".concat(serverId, "/").concat(channel.id)); // console.log(this.props.match.params.serverId)
     }
   }, {
     key: "render",
@@ -687,7 +686,7 @@ var Greeting = function Greeting(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
       className: "header-name"
     }, "Welcome, ", currentUser.username, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      to: "/servers"
+      to: "/servers/1"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "  Open DiscordClone")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "logout-button",
       onClick: logout
@@ -1133,7 +1132,9 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         update: function update(data) {
           return this.perform('update', data);
         }
-      });
+      }); // App.cable.subscriptions.subscriptions[0].load(info);
+
+      this.props.fetchAllMessages(8); // console.log(this.props.fetchAllMessages(8))
     }
   }, {
     key: "componentDidUpdate",
@@ -1191,6 +1192,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-background"
       }, allMessages, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "empty-space",
         ref: this.bottom
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "sticky-message"
@@ -1482,8 +1484,8 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
     value: function selectServer(server) {
       // this.props.showServer(server)
       // .then(()=>this.props.history.replace(`servers/${server.id}`))
-      this.props.history.replace("servers/".concat(server.id));
-      console.log(this.props);
+      // todo - grab first channel id of server
+      this.props.history.replace("/servers/".concat(server.id, "/1"));
     }
   }, {
     key: "render",
@@ -2071,10 +2073,7 @@ var messageReducer = function messageReducer() {
 
   switch (action.type) {
     case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MESSAGES:
-      // console.log('---------------')
-      // console.log(action)
-      // console.log('---------------')
-      return Object.assign({}, state, action.messages);
+      return Object.assign({}, action.messages);
 
     case _actions_message_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_MESSAGE:
       nextState[action.message.id] = action.message;
@@ -2089,8 +2088,7 @@ var messageReducer = function messageReducer() {
   }
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (messageReducer); // TO DO
-// Filter messages
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (messageReducer);
 
 /***/ }),
 
@@ -2389,7 +2387,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_1___default())));
+  return (// createStore(rootReducer,preloadedState,applyMiddleware(thunk, logger))
+    (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default))
+  );
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);
@@ -2521,12 +2521,23 @@ var Auth = function Auth(_ref) {
       path = _ref.path,
       loggedIn = _ref.loggedIn,
       exact = _ref.exact;
+  // console.log("------------")
+  // console.log(useSelector((state)=> console.log(state)))
+  // console.log("------------")
+  // const server = useSelector((state)=> state.entities.servers)
+  // const channel = useSelector((state)=> state.entities.channels)
+  // const firstServer = Object.keys(server)[0]
+  // const firstChannel = Object.keys(channel)[0]
+  // console.log(server,channel)
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Route, {
     path: path,
     exact: exact,
     render: function render(props) {
-      return !loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, props) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Redirect, {
-        to: "/servers"
+      return !loggedIn ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, props) :
+      /*#__PURE__*/
+      // todo - update route
+      react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Redirect, {
+        to: "/servers/1/1"
       });
     }
   });
@@ -39394,11 +39405,11 @@ document.addEventListener("DOMContentLoaded", function () {
     delete window.currentUser;
   } else {
     store = (0,_store_store__WEBPACK_IMPORTED_MODULE_3__.default)();
-  }
+  } // window.login = sessionAPIUtil.login
+  // window.logout = sessionAPIUtil.logout
+  // window.signup = sessionAPIUtil.signup
 
-  window.login = _util_session_api_util__WEBPACK_IMPORTED_MODULE_2__.login;
-  window.logout = _util_session_api_util__WEBPACK_IMPORTED_MODULE_2__.logout;
-  window.signup = _util_session_api_util__WEBPACK_IMPORTED_MODULE_2__.signup;
+
   window.getState = store.getState;
   window.dispatch = store.dispatch;
   react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_root__WEBPACK_IMPORTED_MODULE_4__.default, {

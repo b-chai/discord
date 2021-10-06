@@ -12,17 +12,13 @@ class ChannelIndex extends React.Component {
     }
 
     selectChannel(channel){
-
-        // clear message index
-
-
         // populates message index
         const info = {type: 'index', id: channel.id}
         App.cable.subscriptions.subscriptions[0].load(info);
-        this.props.history.replace(`/servers/${channel.id}`)
-        
-        console.log(this.state)
 
+        const serverId = this.props.match.params.serverId
+        this.props.history.replace(`/servers/${serverId}/${channel.id}`)
+        // console.log(this.props.match.params.serverId)
     }
 
     render(){

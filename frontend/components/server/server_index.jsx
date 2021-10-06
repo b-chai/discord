@@ -27,8 +27,9 @@ class ServerIndex extends React.Component{
     selectServer(server){
         // this.props.showServer(server)
         // .then(()=>this.props.history.replace(`servers/${server.id}`))
-        this.props.history.replace(`servers/${server.id}`)
-        console.log(this.props)
+        
+        // todo - grab first channel id of server
+        this.props.history.replace(`/servers/${server.id}/1`);
     }
 
     render(){

@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
     store = configureStore();
     }
 
-    window.login = sessionAPIUtil.login
-    window.logout = sessionAPIUtil.logout
-    window.signup = sessionAPIUtil.signup
+    // window.login = sessionAPIUtil.login
+    // window.logout = sessionAPIUtil.logout
+    // window.signup = sessionAPIUtil.signup
 
     window.getState = store.getState
     window.dispatch = store.dispatch

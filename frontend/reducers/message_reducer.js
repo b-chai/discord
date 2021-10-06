@@ -6,10 +6,7 @@ const messageReducer = (state = {}, action) => {
 
     switch(action.type) {
         case RECEIVE_MESSAGES:
-            // console.log('---------------')
-            // console.log(action)
-            // console.log('---------------')
-            return Object.assign({}, state, action.messages)
+            return Object.assign({}, action.messages)
         case RECEIVE_MESSAGE:
             nextState[action.message.id] = action.message
             return nextState
@@ -22,7 +19,3 @@ const messageReducer = (state = {}, action) => {
 }
 
 export default messageReducer
-
-
-// TO DO
-// Filter messages

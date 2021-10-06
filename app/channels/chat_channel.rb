@@ -3,10 +3,15 @@ class ChatChannel < ApplicationCable::Channel
   def subscribed
     stream_for `chat_channel_#{params['channelId']}`
     # stream_for `chat_channel`
+
+    self.load({"id"=> params['channelId']})
   end
 
-  def load(data)
-    data = Message.where(channelId: data['id'])
+  def load(info)
+    puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    puts info
+    puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
+    data = Message.where(channelId: info['id'])
     messages = { messages: data, type: 'index'}
 
     messages_hash = {}

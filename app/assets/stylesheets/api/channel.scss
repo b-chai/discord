@@ -112,18 +112,9 @@
     color: white;
 }
 
-
-// .channel-input{
-//     display: flex;
-//     position:absolute;
-//     bottom:10vh;
-//     right:0;
-//     left:0;
-//     flex-direction: column;
-//     justify-content: space-evenly;
-//     align-items: center;
-// }
-
-// .create-channel-button{
-//     width: 30%;
-// }
+.header-group{
+    position: fixed;
+    bottom: 20px;
+    color:white;
+    padding: 10px
+}
