@@ -8,8 +8,6 @@ const Application = () => {
         <div className="flex">
             <ProtectedRoute path='/servers/:serverId/:channelId' component={ServerIndexContainer}/>
             <ProtectedRoute path='/servers/:serverId/:channelId' component={ServerContent}/>
-            {/* ideal route */}
-            {/* <Route path='/:serverId/:channelId' component={ServerContent}/> */}
         </div>
     )
 }

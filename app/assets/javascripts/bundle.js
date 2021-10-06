@@ -55,7 +55,7 @@ var fetchAllChannels = function fetchAllChannels() {
 var createChannel = function createChannel(channel) {
   return function (dispatch) {
     return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__.createChannel(channel).then(function (res) {
-      return dispatch(receiveChannel(channel));
+      return dispatch(receiveChannel(res));
     });
   };
 };
@@ -552,7 +552,11 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchAllChannels();
-    }
+      console.log('didmount');
+    } // componentDidUpdate(){
+    //     this.props.fetchAllChannels()
+    // }
+
   }, {
     key: "selectChannel",
     value: function selectChannel(channel) {
@@ -681,12 +685,10 @@ var Greeting = function Greeting(_ref) {
   var personalGreeting = function personalGreeting() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       className: "sidebar-content"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hgroup", {
-      className: "header-group"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hgroup", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
       className: "header-name"
     }, "Welcome, ", currentUser.username, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      to: "/servers/1"
+      to: "/servers/1/1"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "  Open DiscordClone")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "logout-button",
       onClick: logout
@@ -1977,10 +1979,11 @@ var channelReducer = function channelReducer() {
 
   switch (action.type) {
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CHANNELS:
+      // todo - servers will need to update proper channel
       return Object.assign({}, state, action.channels);
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CHANNEL:
-      nextState[action.channel.id] = action.channels;
+      nextState[action.channel.id] = action.channel;
       return nextState;
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.REMOVE_CHANNEL:
@@ -2349,7 +2352,9 @@ var ServerContent = /*#__PURE__*/function (_React$Component) {
         className: "channel-index"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_channel_channel_index_container__WEBPACK_IMPORTED_MODULE_1__.default, {
         serverId: this.props.match.params
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "header-group"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__.default, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "message-index"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_components_messages_message_index_container__WEBPACK_IMPORTED_MODULE_3__.default, {
         serverId: this.props.match.params

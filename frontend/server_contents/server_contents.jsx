@@ -16,7 +16,9 @@ class ServerContent extends React.Component{
                 <div className="channel-index">
                     <ChannelIndexContainer serverId={this.props.match.params} />
                 </div>
-                <GreetingContainer />
+                <div className="header-group">
+                    <GreetingContainer />
+                </div>
             </div>
 
             {/* Messages */}

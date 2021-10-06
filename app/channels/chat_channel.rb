@@ -8,9 +8,6 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   def load(info)
-    puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-    puts info
-    puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
     data = Message.where(channelId: info['id'])
     messages = { messages: data, type: 'index'}
 
@@ -18,12 +15,6 @@ class ChatChannel < ApplicationCable::Channel
     data.each do |message|
         messages_hash[message.id] = create_return_message(message)
     end
-    
-    # puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
-    # puts messages
-    # puts '========================================='
-    # puts messages_hash
-    # puts '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
     
     socket = {type: "index", messages: messages_hash}
     ChatChannel.broadcast_to(`chat_channel_#{params['channelId']}`, socket)

@@ -9,7 +9,12 @@ class ChannelIndex extends React.Component {
 
     componentDidMount(){
         this.props.fetchAllChannels()
+        console.log('didmount')
     }
+
+    // componentDidUpdate(){
+    //     this.props.fetchAllChannels()
+    // }
 
     selectChannel(channel){
         // populates message index

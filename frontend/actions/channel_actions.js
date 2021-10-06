@@ -26,7 +26,7 @@ export const fetchAllChannels = () => dispatch => {
 
 export const createChannel = channel => dispatch => {
     return channelUtil.createChannel(channel)
-    .then(res=> dispatch(receiveChannel(channel)))
+    .then(res=> dispatch(receiveChannel(res)))
 }
 
 export const showChannel = channel => dispatch => {
