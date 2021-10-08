@@ -14,6 +14,7 @@ class ChannelForm extends React.Component{
     handleSubmit(){
         this.props.createChannel(this.state)
         this.state.channelName = ''
+        this.display()
     }
 
     updateName(e){

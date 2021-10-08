@@ -436,6 +436,7 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
     value: function handleSubmit() {
       this.props.createChannel(this.state);
       this.state.channelName = '';
+      this.display();
     }
   }, {
     key: "updateName",
@@ -552,11 +553,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchAllChannels();
-      console.log('didmount');
-    } // componentDidUpdate(){
-    //     this.props.fetchAllChannels()
-    // }
-
+    }
   }, {
     key: "selectChannel",
     value: function selectChannel(channel) {
@@ -567,7 +564,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
       };
       App.cable.subscriptions.subscriptions[0].load(info);
       var serverId = this.props.match.params.serverId;
-      this.props.history.replace("/servers/".concat(serverId, "/").concat(channel.id)); // console.log(this.props.match.params.serverId)
+      this.props.history.replace("/servers/".concat(serverId, "/").concat(channel.id));
     }
   }, {
     key: "render",
@@ -2392,9 +2389,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (// createStore(rootReducer,preloadedState,applyMiddleware(thunk, logger))
-    (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default))
-  );
+  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_1___default()))) // createStore(rootReducer,preloadedState,applyMiddleware(thunk))
+  ;
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);
