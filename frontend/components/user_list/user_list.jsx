@@ -5,10 +5,28 @@ class UserList extends React.Component{
         super(props)
     }
 
+    componentDidMount(){
+        this.props.fetchAllUsers()
+    }
+
     render(){
+        const listUsers = this.props.serverUsers.map(user => {
+            return(
+                <div className="users">
+                    <div className="user-avatar"/>
+                    <div className="usernames">
+                        {user.username}
+                    </div>
+                </div>
+            )
+        })
+
         return(
-            <div>
-                User List Here
+            <div className="user-list">
+                <div className="user-list-header">
+                    MEMBERS - {listUsers.length}
+                </div>
+                {listUsers}
             </div>
         )
     }

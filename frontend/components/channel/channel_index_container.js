@@ -14,9 +14,6 @@ const getChannels = (state, currentServerId) => {
 }
 
 const mSTP = (state,ownProps) => {
-    // console.log("-----------------")
-    // console.log(ownProps)
-    // console.log("-----------------")
     
     return({
     channels: Object.values(state.entities.channels),

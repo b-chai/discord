@@ -4,16 +4,11 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 
 
 const Auth = ({ component: Component, path, loggedIn, exact }) => {
-  // console.log("------------")
-  // console.log(useSelector((state)=> console.log(state)))
-  // console.log("------------")
 
   // const server = useSelector((state)=> state.entities.servers)
   // const channel = useSelector((state)=> state.entities.channels)
   // const firstServer = Object.keys(server)[0]
   // const firstChannel = Object.keys(channel)[0]
-
-  // console.log(server,channel)
 
   return (
   <Route path={path} exact={exact} render={(props) => (

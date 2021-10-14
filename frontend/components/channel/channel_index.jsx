@@ -35,9 +35,6 @@ class ChannelIndex extends React.Component {
             return selectedChannels;
         }
 
-        console.log('-------------------')
-        console.log(getChannels())
-        console.log('-------------------')
 
         // Creates list of channels
         const listChannels = this.props.channels.map(ele => {

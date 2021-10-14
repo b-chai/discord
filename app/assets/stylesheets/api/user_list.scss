@@ -1,0 +1,31 @@
+.user-list{
+    background-color: #2F3136;
+    height: 100vh;
+    width: 150%;
+}
+
+.user-list-header{
+    // display: flex;
+    // justify-content: center;
+    padding-left: 15px;
+    padding-top: 20px;
+    color: #7C8B91;
+}
+
+.users{
+    display: flex;
+    padding: 10px;
+}
+
+.user-avatar{
+    background: white url("../../images/user_avatar.jpg");
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.usernames{
+    color:white;
+    padding-top: 5px;
+    padding-left: 10px;
+}

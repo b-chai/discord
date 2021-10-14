@@ -12,7 +12,6 @@ class ServerForm extends React.Component{
     }
 
     handleSubmit(){
-        console.log(this.state)
         this.props.createServer(this.state)
         this.state.serverName = ''
     }

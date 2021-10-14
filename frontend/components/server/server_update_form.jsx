@@ -13,7 +13,6 @@ class ServerUpdateForm extends React.Component{
     }
 
     handleSubmit(){
-        console.log(this.state)
         this.props.editServer(this.state)
     }
 

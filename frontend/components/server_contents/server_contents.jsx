@@ -2,6 +2,7 @@ import React from "react";
 import ChannelIndexContainer from "../channel/channel_index_container";
 import GreetingContainer from "../greeting/greeting_container";
 import MessageIndexContainer from "../messages/message_index_container";
+import UserListContainer from "../user_list/user_list_container";
 
 class ServerContent extends React.Component{
     constructor(props){
@@ -27,7 +28,9 @@ class ServerContent extends React.Component{
             </div>
 
             {/* User list */}
-            <div></div>
+            <div>
+                <UserListContainer />
+            </div>
         </div>
         )
     }

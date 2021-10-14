@@ -16,9 +16,6 @@ class MessageIndex extends React.Component{
             received: data => {
                 switch (data.type) {
                 case 'index':
-                    // console.log('-------------------')
-                    // console.log(data)
-                    // console.log('-------------------')
                     return this.props.fetchAllMessages(data)
                 case 'message':
                     return this.props.receiveMessage(data.message)
@@ -42,7 +39,6 @@ class MessageIndex extends React.Component{
         )
         // App.cable.subscriptions.subscriptions[0].load(info);
         this.props.fetchAllMessages(8)
-        // console.log(this.props.fetchAllMessages(8))
     }
 
     componentDidUpdate() {

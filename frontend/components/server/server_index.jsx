@@ -49,10 +49,6 @@ class ServerIndex extends React.Component{
                 </div>
             )
         })
-        // console.log("-----------------")
-        // console.log(this.props)
-        // console.log(this.props.match.params)
-        // console.log("-----------------")
         return(
             <div className="flex">
                 {/* server sidebar */}

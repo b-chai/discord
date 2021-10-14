@@ -4,9 +4,6 @@ import Application from './main'
 
 const mapStateToProps = state => {
 
-    console.log('/////////////////////////////')
-    console.log(state)
-    console.log('/////////////////////////////')
     return({
         channels: Object.values(state.entities.channels)
     })

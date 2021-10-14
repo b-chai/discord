@@ -22,22 +22,9 @@ class Application extends React.Component {
     }
 
     componentDidMount(){
-
-        // console.log('-----------')
-        // console.log(this.props)
-        // console.log('-----------')
-
         this.props.fetchAllChannels()
         setTimeout(()=> this.setState({ loading: false}), 500)
     }
-
-    componentDidUpdate(){
-
-        console.log('===================')
-        console.log(this.props)
-        console.log('===================')
-    }
-
 
     render(){
         
