@@ -9,6 +9,7 @@ import splashImage5 from "../../images/discord_splash5.png"
 import discordLogo from "../../images/discord_logo.png"
 
 const Homepage = (props) =>{
+
     return(
         <div className="homepage">
             <div>

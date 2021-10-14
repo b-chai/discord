@@ -7,6 +7,10 @@ const channelReducer = (state = {}, action) => {
     switch (action.type) {
         case RECEIVE_CHANNELS:
             // todo - servers will need to update proper channel
+            // console.log("------------")
+            // console.log(action)
+            // console.log("------------")
+
             return Object.assign({},state, action.channels)
         case RECEIVE_CHANNEL:
             nextState[action.channel.id] = action.channel

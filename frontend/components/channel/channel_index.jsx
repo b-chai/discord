@@ -5,10 +5,11 @@ import ChannelForm from './channel_form'
 class ChannelIndex extends React.Component {
     constructor(props){
         super(props)
+        
     }
 
     componentDidMount(){
-        this.props.fetchAllChannels()
+        // list correct channels
     }
 
     selectChannel(channel){
@@ -21,6 +22,23 @@ class ChannelIndex extends React.Component {
     }
 
     render(){
+
+        const getChannels = () => {
+            const serverId = this.props.match.params.serverId
+            const allChannels = this.props.channels
+        
+            let selectedChannels = [];
+            for (let i = 0; i < allChannels.length; i++) {
+                if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
+            }
+        
+            return selectedChannels;
+        }
+
+        console.log('-------------------')
+        console.log(getChannels())
+        console.log('-------------------')
+
         // Creates list of channels
         const listChannels = this.props.channels.map(ele => {
             return (

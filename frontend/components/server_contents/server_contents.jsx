@@ -1,7 +1,7 @@
 import React from "react";
-import ChannelIndexContainer from "../components/channel/channel_index_container";
-import GreetingContainer from "../components/greeting/greeting_container";
-import MessageIndexContainer from "../components/messages/message_index_container";
+import ChannelIndexContainer from "../channel/channel_index_container";
+import GreetingContainer from "../greeting/greeting_container";
+import MessageIndexContainer from "../messages/message_index_container";
 
 class ServerContent extends React.Component{
     constructor(props){

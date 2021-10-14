@@ -2,10 +2,26 @@ import { connect } from "react-redux";
 import { createChannel, deleteChannel, editChannel, fetchAllChannels, showChannel } from "../../actions/channel_actions";
 import ChannelIndex from "./channel_index";
 
-const mSTP = state => ({
+const getChannels = (state, currentServerId) => {
+    const allChannels = Object.values(state.entities.channels);
+
+    let selectedChannels = [];
+    for (let i = 0; i < allChannels.length; i++) {
+        if (allChannels[i].serverId === currentServerId) selectedChannels.push(allChannels[i]);
+    }
+
+    return selectedChannels;
+}
+
+const mSTP = (state,ownProps) => {
+    // console.log("-----------------")
+    // console.log(ownProps)
+    // console.log("-----------------")
+    
+    return({
     channels: Object.values(state.entities.channels),
     currentChannel: ''
-})
+})}
 
 const mDTP = dispatch => ({
     fetchAllChannels: () => dispatch(fetchAllChannels()),
