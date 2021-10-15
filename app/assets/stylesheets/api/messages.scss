@@ -8,18 +8,18 @@
 
 
 .message-box {
-    width: 80%;
+    width: 67vw;
     position: fixed;
     bottom: 5px;
     background-color: rgb(64,68,75);
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 15px;
+    margin-bottom: 15px;
+    padding-top: 10px;
     padding-left: 16px;
     padding-right: 16px;
     line-height: 16px;
     border-radius: 8px;
-    max-height: 50vw;
-    min-height: 2vw;
+    min-height: 30px;
     border-style: none;
     color: white;
 
@@ -28,8 +28,34 @@
     }
 }
 
+.inner-message-box {
+    background-color: rgb(64,68,75);
+    line-height: 24px;
+    border-radius: 8px;
+    width: 100%;
+    border-style: none;
+    color: white;
+    padding-bottom: 10px;
+
+    &:focus {
+        outline:none;
+    }
+}
+
+
+.message-box-background{
+    height: 60px;
+    background-color: rgb(54,57,63);
+    width: 70vw;
+    position: fixed;
+    bottom: 0px;
+    min-height: 10px;
+    border-style: none;
+    color: white;
+}
+
 .empty-space{
-    width: 80%;
+    width: 70%;
     margin-bottom: 25px;
     margin-left: 5px;
     margin-right: 5px;
@@ -43,7 +69,6 @@
     position: sticky;
     bottom: 0;
     width: 100%;
-    background-color: #36393f;
 }
 
 .message-credentials {

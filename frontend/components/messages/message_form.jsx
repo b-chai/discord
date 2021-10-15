@@ -26,10 +26,10 @@ class MessageForm extends React.Component {
 
     render(){
         return(
-            <div>
-                <form onSubmit={this.handleSubmit}>
+            <div className='message-box-background'>
+                <form className ="message-box" onSubmit={this.handleSubmit}>
                         <input 
-                        className="message-box"
+                        className="inner-message-box"
                         type="text" 
                         placeholder='message to "this channel"' 
                         onChange={e=>this.update(e)} 
