@@ -13,7 +13,9 @@ class ServerForm extends React.Component{
 
     handleSubmit(){
         this.props.createServer(this.state)
+            .then(newServer => this.props.createChannel({channelName: "General", serverId: newServer.server.id}))
         this.state.serverName = ''
+        this.display()
     }
 
     updateName(e){

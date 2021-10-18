@@ -1506,8 +1506,16 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
   _createClass(ServerForm, [{
     key: "handleSubmit",
     value: function handleSubmit() {
-      this.props.createServer(this.state);
+      var _this2 = this;
+
+      this.props.createServer(this.state).then(function (newServer) {
+        return _this2.props.createChannel({
+          channelName: "General",
+          serverId: newServer.server.id
+        });
+      });
       this.state.serverName = '';
+      this.display();
     }
   }, {
     key: "updateName",
@@ -1530,12 +1538,12 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         className: "form-activator",
         onClick: function onClick() {
-          return _this2.display();
+          return _this3.display();
         }
       }, "+"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "server-form"
@@ -1554,7 +1562,7 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
       }, "Server Name", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         type: "text",
         onChange: function onChange(e) {
-          return _this2.updateName(e);
+          return _this3.updateName(e);
         },
         value: this.state.serverName
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
@@ -1643,6 +1651,8 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "selectServer",
     value: function selectServer(server) {
+      var _this = this;
+
       // this.props.showServer(server)
       // .then(()=>this.props.history.replace(`servers/${server.id}`))
       // const channelId = this.props.channels.forEach(channel => {
@@ -1657,13 +1667,28 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
       // console.log(this.props.match.params.serverId)
       // console.log(channelId)
       // console.log('-------------')
-      // todo - grab first channel id of server
-      this.props.history.replace("/servers/".concat(server.id, "/").concat(this.props.channels[0].id));
+      var getChannels = function getChannels() {
+        // serverId comes out as a string
+        var serverId = Number(_this.props.match.params.serverId);
+        var allChannels = _this.props.channels;
+        var selectedChannels = [];
+
+        for (var i = 0; i < allChannels.length; i++) {
+          if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
+        }
+
+        return selectedChannels;
+      };
+
+      var firstChannel = getChannels()[0].id ? getChannels()[0].id : 31;
+      console.log(firstChannel); // todo - grab first channel id of server
+
+      this.props.history.replace("/servers/".concat(server.id, "/").concat(firstChannel));
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       var allServers = this.props.server.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1671,13 +1696,13 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "server-update-form"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_update_form__WEBPACK_IMPORTED_MODULE_2__.default, {
-          editServer: _this.props.editServer,
-          deleteServer: _this.props.deleteServer,
+          editServer: _this2.props.editServer,
+          deleteServer: _this2.props.deleteServer,
           server: ele
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "server-button",
           onClick: function onClick() {
-            return _this.selectServer(ele);
+            return _this2.selectServer(ele);
           }
         }, ele.serverName[0].toUpperCase()));
       });
@@ -1686,7 +1711,8 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "server-list"
       }, allServers, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_form__WEBPACK_IMPORTED_MODULE_1__.default, {
-        createServer: this.props.createServer
+        createServer: this.props.createServer,
+        createChannel: this.props.createChannel
       })));
     }
   }]);
@@ -1710,8 +1736,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/server_actions */ "./frontend/actions/server_actions.js");
-/* harmony import */ var _server_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./server_index */ "./frontend/components/server/server_index.jsx");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/server_actions */ "./frontend/actions/server_actions.js");
+/* harmony import */ var _server_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./server_index */ "./frontend/components/server/server_index.jsx");
+
 
 
 
@@ -1726,24 +1754,27 @@ var mSTP = function mSTP(state) {
 var mDTP = function mDTP(dispatch) {
   return {
     fetchAllServers: function fetchAllServers() {
-      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__.fetchAllServers)());
+      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_2__.fetchAllServers)());
     },
     createServer: function createServer(server) {
-      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__.createServer)(server));
+      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_2__.createServer)(server));
     },
     showServer: function showServer(server) {
-      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__.showServer)(server));
+      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_2__.showServer)(server));
     },
     editServer: function editServer(server) {
-      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__.editServer)(server));
+      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_2__.editServer)(server));
     },
     deleteServer: function deleteServer(serverId) {
-      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__.deleteServer)(serverId));
+      return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_2__.deleteServer)(serverId));
+    },
+    createChannel: function createChannel(channel) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__.createChannel)(channel));
     }
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_server_index__WEBPACK_IMPORTED_MODULE_2__.default));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mSTP, mDTP)(_server_index__WEBPACK_IMPORTED_MODULE_3__.default));
 
 /***/ }),
 

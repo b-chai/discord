@@ -43,8 +43,25 @@ class ServerIndex extends React.Component{
         // console.log(channelId)
         // console.log('-------------')
 
+        const getChannels = () => {
+            // serverId comes out as a string
+            const serverId = Number(this.props.match.params.serverId)
+            const allChannels = this.props.channels
+        
+            let selectedChannels = [];
+            for (let i = 0; i < allChannels.length; i++) {
+                if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
+            }
+        
+            return selectedChannels;
+        }
+
+        const firstChannel = getChannels()[0].id ? getChannels()[0].id : 31
+
+        console.log(firstChannel)
+
         // todo - grab first channel id of server
-        this.props.history.replace(`/servers/${server.id}/${this.props.channels[0].id}`);
+        this.props.history.replace(`/servers/${server.id}/${firstChannel}`);
     }
 
     render(){
@@ -64,12 +81,13 @@ class ServerIndex extends React.Component{
                 </div>
             )
         })
+
         return(
             <div className="flex">
                 {/* server sidebar */}
                 <div className="server-list">
                     {allServers}
-                    <ServerForm createServer={this.props.createServer}/>
+                    <ServerForm createServer={this.props.createServer} createChannel={this.props.createChannel}/>
                 </div>
             </div>
         )
