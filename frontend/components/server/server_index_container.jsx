@@ -3,7 +3,8 @@ import { createServer, editServer, fetchAllServers, deleteServer, showServer } f
 import ServerIndex from './server_index'
 
 const mSTP = state => ({
-    server: Object.values(state.entities.servers)
+    server: Object.values(state.entities.servers),
+    channels: Object.values(state.entities.channels)
 })
 
 const mDTP = dispatch => ({

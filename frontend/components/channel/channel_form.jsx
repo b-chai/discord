@@ -19,7 +19,8 @@ class ChannelForm extends React.Component{
 
     updateName(e){
         this.setState({
-            channelName: e.target.value
+            channelName: e.target.value,
+            serverId: this.props.match.params.serverId
         })
     }
 

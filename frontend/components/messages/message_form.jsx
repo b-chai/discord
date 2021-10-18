@@ -15,7 +15,8 @@ class MessageForm extends React.Component {
 
     update(e){
         this.setState({
-            body: e.target.value
+            body: e.target.value,
+            channelId: this.props.match.params.channelId
         })
     }
 

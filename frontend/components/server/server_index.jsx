@@ -28,8 +28,23 @@ class ServerIndex extends React.Component{
         // this.props.showServer(server)
         // .then(()=>this.props.history.replace(`servers/${server.id}`))
         
+        // const channelId = this.props.channels.forEach(channel => {
+        //     if (channel.serverId === this.props.match.params.serverId){
+        //         return channel.serverId
+        //     }
+        // })
+
+        // const channelId = this.props.channels.indexOf(this.props.match.params.serverId)
+
+        // console.log('-------------')
+        // console.log(this.props)
+        // console.log(this.props.channels[0].serverId)
+        // console.log(this.props.match.params.serverId)
+        // console.log(channelId)
+        // console.log('-------------')
+
         // todo - grab first channel id of server
-        this.props.history.replace(`/servers/${server.id}/1`);
+        this.props.history.replace(`/servers/${server.id}/${this.props.channels[0].id}`);
     }
 
     render(){

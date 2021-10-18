@@ -580,7 +580,8 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
     key: "updateName",
     value: function updateName(e) {
       this.setState({
-        channelName: e.target.value
+        channelName: e.target.value,
+        serverId: this.props.match.params.serverId
       });
     }
   }, {
@@ -709,7 +710,8 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
       var _this = this;
 
       var getChannels = function getChannels() {
-        var serverId = _this.props.match.params.serverId;
+        // serverId comes out as a string
+        var serverId = Number(_this.props.match.params.serverId);
         var allChannels = _this.props.channels;
         var selectedChannels = [];
 
@@ -721,7 +723,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
       }; // Creates list of channels
 
 
-      var listChannels = this.props.channels.map(function (ele) {
+      var listChannels = getChannels().map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "channel",
           key: ele.id
@@ -1155,7 +1157,8 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     key: "update",
     value: function update(e) {
       this.setState({
-        body: e.target.value
+        body: e.target.value,
+        channelId: this.props.match.params.channelId
       });
     }
   }, {
@@ -1642,8 +1645,20 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
     value: function selectServer(server) {
       // this.props.showServer(server)
       // .then(()=>this.props.history.replace(`servers/${server.id}`))
+      // const channelId = this.props.channels.forEach(channel => {
+      //     if (channel.serverId === this.props.match.params.serverId){
+      //         return channel.serverId
+      //     }
+      // })
+      // const channelId = this.props.channels.indexOf(this.props.match.params.serverId)
+      // console.log('-------------')
+      // console.log(this.props)
+      // console.log(this.props.channels[0].serverId)
+      // console.log(this.props.match.params.serverId)
+      // console.log(channelId)
+      // console.log('-------------')
       // todo - grab first channel id of server
-      this.props.history.replace("/servers/".concat(server.id, "/1"));
+      this.props.history.replace("/servers/".concat(server.id, "/").concat(this.props.channels[0].id));
     }
   }, {
     key: "render",
@@ -1703,7 +1718,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mSTP = function mSTP(state) {
   return {
-    server: Object.values(state.entities.servers)
+    server: Object.values(state.entities.servers),
+    channels: Object.values(state.entities.channels)
   };
 };
 
@@ -2248,7 +2264,8 @@ var UserList = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var listUsers = this.props.serverUsers.map(function (user) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "users"
+          className: "users",
+          key: user.id
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "user-avatar"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -2328,7 +2345,6 @@ var channelReducer = function channelReducer() {
 
   switch (action.type) {
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CHANNELS:
-      // todo - servers will need to update proper channel
       return Object.assign({}, state, action.channels);
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_CHANNEL:

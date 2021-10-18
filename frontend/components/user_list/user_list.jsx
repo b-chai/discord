@@ -12,7 +12,7 @@ class UserList extends React.Component{
     render(){
         const listUsers = this.props.serverUsers.map(user => {
             return(
-                <div className="users">
+                <div className="users" key={user.id}>
                     <div className="user-avatar"/>
                     <div className="usernames">
                         {user.username}

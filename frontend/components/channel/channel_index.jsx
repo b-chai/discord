@@ -24,7 +24,8 @@ class ChannelIndex extends React.Component {
     render(){
 
         const getChannels = () => {
-            const serverId = this.props.match.params.serverId
+            // serverId comes out as a string
+            const serverId = Number(this.props.match.params.serverId)
             const allChannels = this.props.channels
         
             let selectedChannels = [];
@@ -35,9 +36,8 @@ class ChannelIndex extends React.Component {
             return selectedChannels;
         }
 
-
         // Creates list of channels
-        const listChannels = this.props.channels.map(ele => {
+        const listChannels = getChannels().map(ele => {
             return (
                 <div className="channel" key={ele.id}>
                    <button className="channel-name" onClick={()=>this.selectChannel(ele)}>
