@@ -7,6 +7,7 @@ class MessageIndex extends React.Component{
     constructor(props){
         super(props)
         this.bottom = React.createRef()
+        this.unhide = this.unhide.bind(this)
     }
 
     componentDidMount() {
@@ -65,6 +66,15 @@ class MessageIndex extends React.Component{
 
     }
 
+    unhide(id){
+        const bar = document.querySelector(`.id-${id}`)
+        if (bar.style.display === 'none'){
+            bar.style.display = "block"
+        }else{
+            bar.style.display = "none"
+        }
+    }
+
     render(){
         const allMessages = this.props.messages.map(message => {
             return (
@@ -79,9 +89,13 @@ class MessageIndex extends React.Component{
                     <br/>
                     <div className="message">
                         {message.body}
-
-                    <button className="delete-button" onClick={()=> App.cable.subscriptions.subscriptions[0].remove(message)} value="delete message">Delete</button>
-                    <EditForm message={message}/>
+                    </div>
+                    <button onClick={()=>this.unhide(message.id)}>
+                        Edit
+                    </button>
+                    <div className={`hide id-${message.id}`}>
+                        <button className="delete-button" onClick={()=> App.cable.subscriptions.subscriptions[0].remove(message)} value="delete message">Delete</button>
+                        <EditForm message={message}/>
                     </div>
                 </div>
             )

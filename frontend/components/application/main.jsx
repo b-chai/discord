@@ -33,8 +33,8 @@ class Application extends React.Component {
             this.state.loading ? 
 
             // Loading
-            <div>
-                Currently Loading
+            <div className="loading">
+                Loading . . .
             </div>
 
             :

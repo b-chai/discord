@@ -454,7 +454,9 @@ var Application = /*#__PURE__*/function (_React$Component) {
       return this.state.loading ?
       /*#__PURE__*/
       // Loading
-      react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Currently Loading") :
+      react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "loading"
+      }, "Loading . . .") :
       /*#__PURE__*/
       // Finished loading
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1258,6 +1260,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.bottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+    _this.unhide = _this.unhide.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1325,6 +1328,17 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       return null;
     }
   }, {
+    key: "unhide",
+    value: function unhide(id) {
+      var bar = document.querySelector(".id-".concat(id));
+
+      if (bar.style.display === 'none') {
+        bar.style.display = "block";
+      } else {
+        bar.style.display = "none";
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -1339,7 +1353,13 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
           className: "time-message"
         }, _this3.formattedTime(message)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "message"
-        }, message.body, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        }, message.body), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          onClick: function onClick() {
+            return _this3.unhide(message.id);
+          }
+        }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "hide id-".concat(message.id)
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "delete-button",
           onClick: function onClick() {
             return App.cable.subscriptions.subscriptions[0].remove(message);
