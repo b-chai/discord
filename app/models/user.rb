@@ -21,6 +21,14 @@ class User < ApplicationRecord
     foreign_key: :author_id,
     class_name: :Message
 
+    has_many :dm_messages_sent,
+    foreign_key: :author_id,
+    class_name: :DirectMessage
+
+    has_many :dm_messages_received,
+    foreign_key: :reader_id,
+    class_name: :DirectMessage
+
     has_many :servers,
     foreign_key: :owner_id,
     class_name: :Server

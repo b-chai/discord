@@ -8,6 +8,7 @@ class MessageIndex extends React.Component{
         super(props)
         this.bottom = React.createRef()
         this.unhide = this.unhide.bind(this)
+
     }
 
     componentDidMount() {
@@ -35,11 +36,14 @@ class MessageIndex extends React.Component{
             },
             update: function(data) {
                 return this.perform('update', data)
+            },
+            dm: function(data){
+                return this.perform('dm', data)
             }
           }
         )
         // App.cable.subscriptions.subscriptions[0].load(info);
-        this.props.fetchAllMessages(8)
+        // this.props.fetchAllMessages(8)
     }
 
     componentDidUpdate() {
@@ -68,7 +72,9 @@ class MessageIndex extends React.Component{
 
     unhide(id){
         const bar = document.querySelector(`.id-${id}`)
-        if (bar.style.display === 'none'){
+
+        // bar.style.display starts as empty, makes element show in one click instead of two
+        if (bar.style.display !== 'block'){
             bar.style.display = "block"
         }else{
             bar.style.display = "none"
@@ -80,7 +86,7 @@ class MessageIndex extends React.Component{
             return (
                 <div className="message-credentials" key={message.id}>
                     <span className="author-message">
-                        {/* Not working -- needs to be fixed */}
+                        {/* to do - needs to be fixed */}
                         {message.authorName}
                     </span>
                     <span className="time-message">
@@ -104,6 +110,12 @@ class MessageIndex extends React.Component{
         return (
             <div className='message-container'>
                 <div className='channel-background'>
+                    <div className="channel-intro">
+                        Welcome to CHANNEL NAME
+                    </div>
+                    <div className="channel-subtext">
+                        This is the start of the CHANNEL NAME channel
+                    </div>
                     {allMessages}
                     <div className="empty-space" ref={this.bottom}/>
                 </div>

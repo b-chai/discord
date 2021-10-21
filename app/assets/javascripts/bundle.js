@@ -383,8 +383,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _server_contents_server_contents__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../server_contents/server_contents */ "./frontend/components/server_contents/server_contents.jsx");
-/* harmony import */ var _server_server_index_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../server/server_index_container */ "./frontend/components/server/server_index_container.jsx");
-/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/route_util */ "./frontend/util/route_util.jsx");
+/* harmony import */ var _server_contents_dm_contents__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../server_contents/dm_contents */ "./frontend/components/server_contents/dm_contents.jsx");
+/* harmony import */ var _server_server_index_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../server/server_index_container */ "./frontend/components/server/server_index_container.jsx");
+/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/route_util */ "./frontend/util/route_util.jsx");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -406,6 +407,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -461,11 +463,17 @@ var Application = /*#__PURE__*/function (_React$Component) {
       // Finished loading
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "flex"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.ProtectedRoute, {
         path: "/servers/:serverId/:channelId",
-        component: _server_server_index_container__WEBPACK_IMPORTED_MODULE_2__.default
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__.ProtectedRoute, {
+        component: _server_server_index_container__WEBPACK_IMPORTED_MODULE_3__.default
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.ProtectedRoute, {
         path: "/servers/:serverId/:channelId",
+        component: _server_contents_server_contents__WEBPACK_IMPORTED_MODULE_1__.default
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.ProtectedRoute, {
+        path: "/servers/dm",
+        component: _server_server_index_container__WEBPACK_IMPORTED_MODULE_3__.default
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__.ProtectedRoute, {
+        path: "/servers/dm",
         component: _server_contents_server_contents__WEBPACK_IMPORTED_MODULE_1__.default
       }));
     }
@@ -849,7 +857,7 @@ var Greeting = function Greeting(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hgroup", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
       className: "header-name"
     }, "Welcome, ", currentUser.username, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      to: "/servers/1/1"
+      to: "/servers/dm"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "  Open DiscordClone")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "logout-button",
       onClick: logout
@@ -1296,10 +1304,12 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         },
         update: function update(data) {
           return this.perform('update', data);
+        },
+        dm: function dm(data) {
+          return this.perform('dm', data);
         }
       }); // App.cable.subscriptions.subscriptions[0].load(info);
-
-      this.props.fetchAllMessages(8);
+      // this.props.fetchAllMessages(8)
     }
   }, {
     key: "componentDidUpdate",
@@ -1330,9 +1340,9 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "unhide",
     value: function unhide(id) {
-      var bar = document.querySelector(".id-".concat(id));
+      var bar = document.querySelector(".id-".concat(id)); // bar.style.display starts as empty, makes element show in one click instead of two
 
-      if (bar.style.display === 'none') {
+      if (bar.style.display !== 'block') {
         bar.style.display = "block";
       } else {
         bar.style.display = "none";
@@ -1373,7 +1383,11 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         className: "message-container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-background"
-      }, allMessages, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-intro"
+      }, "Welcome to CHANNEL NAME"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-subtext"
+      }, "This is the start of the CHANNEL NAME channel"), allMessages, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "empty-space",
         ref: this.bottom
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1413,7 +1427,8 @@ __webpack_require__.r(__webpack_exports__);
 var mSTP = function mSTP(state) {
   return {
     messages: Object.values(state.entities.messages),
-    currentUserId: state.session.id
+    currentUserId: state.session.id,
+    channels: Object.values(state.entities.channels)
   };
 };
 
@@ -1422,7 +1437,6 @@ var mDTP = function mDTP(dispatch) {
     fetchAllMessages: function fetchAllMessages(messages) {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.receiveAllMessages)(messages));
     },
-    // fetchAllMessages: (messages)=> dispatch(fetchAllMessages(messages)),
     receiveMessage: function receiveMessage(message) {
       return dispatch((0,_actions_message_actions__WEBPACK_IMPORTED_MODULE_1__.receiveMessage)(message));
     },
@@ -1673,20 +1687,6 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
     value: function selectServer(server) {
       var _this = this;
 
-      // this.props.showServer(server)
-      // .then(()=>this.props.history.replace(`servers/${server.id}`))
-      // const channelId = this.props.channels.forEach(channel => {
-      //     if (channel.serverId === this.props.match.params.serverId){
-      //         return channel.serverId
-      //     }
-      // })
-      // const channelId = this.props.channels.indexOf(this.props.match.params.serverId)
-      // console.log('-------------')
-      // console.log(this.props)
-      // console.log(this.props.channels[0].serverId)
-      // console.log(this.props.match.params.serverId)
-      // console.log(channelId)
-      // console.log('-------------')
       var getChannels = function getChannels() {
         // serverId comes out as a string
         var serverId = Number(_this.props.match.params.serverId);
@@ -1700,10 +1700,19 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
         return selectedChannels;
       };
 
-      var firstChannel = getChannels()[0].id ? getChannels()[0].id : 31;
-      console.log(firstChannel); // todo - grab first channel id of server
+      var firstChannel = getChannels()[0].id; // todo - grab first channel id of server
 
+      var info = {
+        type: 'index',
+        id: firstChannel
+      };
+      App.cable.subscriptions.subscriptions[0].load(info);
       this.props.history.replace("/servers/".concat(server.id, "/").concat(firstChannel));
+    }
+  }, {
+    key: "selectDM",
+    value: function selectDM() {
+      this.props.history.replace('/servers/dm');
     }
   }, {
     key: "render",
@@ -1730,7 +1739,14 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
         className: "flex"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "server-list"
-      }, allServers, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_form__WEBPACK_IMPORTED_MODULE_1__.default, {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "server-button",
+        onClick: function onClick() {
+          return _this2.selectDM();
+        }
+      }, "DM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
+        className: "divider"
+      }), allServers, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_form__WEBPACK_IMPORTED_MODULE_1__.default, {
         createServer: this.props.createServer,
         createChannel: this.props.createChannel
       })));
@@ -1924,6 +1940,100 @@ var ServerUpdateForm = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
+/***/ "./frontend/components/server_contents/dm_contents.jsx":
+/*!*************************************************************!*\
+  !*** ./frontend/components/server_contents/dm_contents.jsx ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+/* harmony import */ var _channel_channel_index_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../channel/channel_index_container */ "./frontend/components/channel/channel_index_container.js");
+/* harmony import */ var _greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../greeting/greeting_container */ "./frontend/components/greeting/greeting_container.js");
+/* harmony import */ var _messages_message_index_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../messages/message_index_container */ "./frontend/components/messages/message_index_container.jsx");
+/* harmony import */ var _user_list_user_list_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../user_list/user_list_container */ "./frontend/components/user_list/user_list_container.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+
+var ServerContent = /*#__PURE__*/function (_React$Component) {
+  _inherits(ServerContent, _React$Component);
+
+  var _super = _createSuper(ServerContent);
+
+  function ServerContent(props) {
+    _classCallCheck(this, ServerContent);
+
+    return _super.call(this, props);
+  }
+
+  _createClass(ServerContent, [{
+    key: "checkPath",
+    value: function checkPath() {
+      if (this.props.match.path === '/servers/dm') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "flex"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "greeting"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-index"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_index_container__WEBPACK_IMPORTED_MODULE_1__.default, {
+        serverId: this.props.match.params
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "header-group"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__.default, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "message-index"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_messages_message_index_container__WEBPACK_IMPORTED_MODULE_3__.default, {
+        serverId: this.props.match.params
+      })));
+    }
+  }]);
+
+  return ServerContent;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_router__WEBPACK_IMPORTED_MODULE_5__.withRouter)(ServerContent));
+
+/***/ }),
+
 /***/ "./frontend/components/server_contents/server_contents.jsx":
 /*!*****************************************************************!*\
   !*** ./frontend/components/server_contents/server_contents.jsx ***!
@@ -1980,9 +2090,32 @@ var ServerContent = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(ServerContent, [{
+    key: "checkPath",
+    value: function checkPath() {
+      if (this.props.match.path === '/servers/dm') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      return this.checkPath() ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "flex"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "greeting"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-index"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_channel_index_container__WEBPACK_IMPORTED_MODULE_1__.default, {
+        serverId: this.props.match.params
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "header-group"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_2__.default, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "message-index"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_messages_message_index_container__WEBPACK_IMPORTED_MODULE_3__.default, {
+        serverId: this.props.match.params
+      }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "flex"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "greeting"
@@ -2908,7 +3041,7 @@ var Auth = function Auth(_ref) {
       /*#__PURE__*/
       // todo - update route
       react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Redirect, {
-        to: "/servers/1/1"
+        to: "/servers/dm"
       });
     }
   });

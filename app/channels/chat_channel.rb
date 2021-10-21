@@ -43,6 +43,17 @@ class ChatChannel < ApplicationCable::Channel
     end
   end
 
+  def dm(data)
+    
+    p '----------------'
+    p data
+    p '----------------'
+    
+    # message = DirectMessage.new(
+    #   body: data['message']['body'],
+    # )
+  end
+
   def update(data)
     message = Message.find(data['id'])
     if message

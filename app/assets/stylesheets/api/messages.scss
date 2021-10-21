@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
 .message-button {
     display: none;
 }
@@ -73,6 +75,8 @@
 
 .message-credentials {
     color: teal;
+    margin-left: 50px;
+    margin-bottom: 10px;
 }
 
 .message {
@@ -107,6 +111,21 @@
     font-size: 12px;
     margin-left: 1%;
     color: #8e9297;
+}
+
+.channel-intro{
+    color: white;
+    font-size: 48px;
+    font-family: 'Roboto', sans-serif;
+    margin: 10px;
+}
+
+.channel-subtext{
+    color: white;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: lighter;
+    padding: 10px;
 }
 
 .hide{

@@ -2,8 +2,9 @@
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
   namespace :api, defaults: {format: :json} do
-    resources :users, only: [:index,:show, :create, :edit, :destroy]
-    resources :messages, only: [:index,:create, :update, :destroy]
+    resources :users, only: [:index, :show, :create, :edit, :destroy]
+    resources :messages, only: [:index, :create, :update, :destroy]
+    resources :direct_messages, only: [:index, :create, :update, :destroy]
     resource :session, only: [:create, :destroy]
     resources :servers, except: [:edit, :new]
     resources :channels

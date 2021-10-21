@@ -25,23 +25,6 @@ class ServerIndex extends React.Component{
     // }
 
     selectServer(server){
-        // this.props.showServer(server)
-        // .then(()=>this.props.history.replace(`servers/${server.id}`))
-        
-        // const channelId = this.props.channels.forEach(channel => {
-        //     if (channel.serverId === this.props.match.params.serverId){
-        //         return channel.serverId
-        //     }
-        // })
-
-        // const channelId = this.props.channels.indexOf(this.props.match.params.serverId)
-
-        // console.log('-------------')
-        // console.log(this.props)
-        // console.log(this.props.channels[0].serverId)
-        // console.log(this.props.match.params.serverId)
-        // console.log(channelId)
-        // console.log('-------------')
 
         const getChannels = () => {
             // serverId comes out as a string
@@ -56,12 +39,18 @@ class ServerIndex extends React.Component{
             return selectedChannels;
         }
 
-        const firstChannel = getChannels()[0].id ? getChannels()[0].id : 31
+        const firstChannel = getChannels()[0].id
 
-        console.log(firstChannel)
+       
 
         // todo - grab first channel id of server
+        const info = {type: 'index', id: firstChannel}
+        App.cable.subscriptions.subscriptions[0].load(info);
         this.props.history.replace(`/servers/${server.id}/${firstChannel}`);
+    }
+
+    selectDM(){
+        this.props.history.replace('/servers/dm')
     }
 
     render(){
@@ -86,6 +75,13 @@ class ServerIndex extends React.Component{
             <div className="flex">
                 {/* server sidebar */}
                 <div className="server-list">
+
+                    <button className="server-button" onClick={()=>this.selectDM()}>
+                        DM
+                    </button>
+
+                    <hr className="divider"/>
+
                     {allServers}
                     <ServerForm createServer={this.props.createServer} createChannel={this.props.createChannel}/>
                 </div>

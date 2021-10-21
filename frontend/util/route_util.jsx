@@ -16,7 +16,7 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => {
       <Component {...props} />
     ) : (
       // todo - update route
-      <Redirect to="/servers/1/1" />
+      <Redirect to="/servers/dm" />
     )
   )} />
 )};
