@@ -1269,6 +1269,9 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.bottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
     _this.unhide = _this.unhide.bind(_assertThisInitialized(_this));
+    console.log('--------------------------');
+    console.log(_this.props);
+    console.log('--------------------------');
     return _this;
   }
 
@@ -1385,9 +1388,9 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         className: "channel-background"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-intro"
-      }, "Welcome to CHANNEL NAME"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "Welcome to #", this.props.currentChannel.channelName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-subtext"
-      }, "This is the start of the CHANNEL NAME channel"), allMessages, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "This is the start of the #", this.props.currentChannel.channelName, " channel"), allMessages, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "empty-space",
         ref: this.bottom
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1424,11 +1427,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mSTP = function mSTP(state) {
+var mSTP = function mSTP(state, ownProps) {
+  var currentChannel = Object.values(state.entities.channels).find(function (ele) {
+    return ele.id === Number(ownProps.serverId.channelId);
+  });
   return {
     messages: Object.values(state.entities.messages),
     currentUserId: state.session.id,
-    channels: Object.values(state.entities.channels)
+    currentChannel: currentChannel
   };
 };
 
@@ -1685,22 +1691,17 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "selectServer",
     value: function selectServer(server) {
-      var _this = this;
-
-      var getChannels = function getChannels() {
-        // serverId comes out as a string
-        var serverId = Number(_this.props.match.params.serverId);
-        var allChannels = _this.props.channels;
-        var selectedChannels = [];
-
-        for (var i = 0; i < allChannels.length; i++) {
-          if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
-        }
-
-        return selectedChannels;
-      };
-
-      var firstChannel = getChannels()[0].id; // todo - grab first channel id of server
+      // const getChannels = () => {
+      //     // serverId comes out as a string
+      //     const serverId = Number(this.props.match.params.serverId)
+      //     const allChannels = this.props.channels
+      //     let selectedChannels = [];
+      //     for (let i = 0; i < allChannels.length; i++) {
+      //         if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
+      //     }
+      //     return selectedChannels;
+      // }
+      var firstChannel = this.props.channels[0].id; // todo - grab first channel id of server
 
       var info = {
         type: 'index',
@@ -1717,7 +1718,7 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this = this;
 
       var allServers = this.props.server.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1725,13 +1726,13 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "server-update-form"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_update_form__WEBPACK_IMPORTED_MODULE_2__.default, {
-          editServer: _this2.props.editServer,
-          deleteServer: _this2.props.deleteServer,
+          editServer: _this.props.editServer,
+          deleteServer: _this.props.deleteServer,
           server: ele
         })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "server-button",
           onClick: function onClick() {
-            return _this2.selectServer(ele);
+            return _this.selectServer(ele);
           }
         }, ele.serverName[0].toUpperCase()));
       });
@@ -1742,7 +1743,7 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
         className: "server-button",
         onClick: function onClick() {
-          return _this2.selectDM();
+          return _this.selectDM();
         }
       }, "DM"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
         className: "divider"
@@ -1780,10 +1781,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mSTP = function mSTP(state) {
+var mSTP = function mSTP(state, ownProps) {
+  // console.log('-------------------')
+  // console.log(ownProps)
+  // console.log(state)
+  // console.log('-------------------')
+  var getChannels = function getChannels() {
+    // serverId comes out as a string
+    var serverId = Number(ownProps.match.params.serverId);
+    var allChannels = Object.values(state.entities.channels);
+    var selectedChannels = [];
+
+    for (var i = 0; i < allChannels.length; i++) {
+      if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
+    }
+
+    return selectedChannels;
+  }; // console.log(getChannels())
+
+
   return {
     server: Object.values(state.entities.servers),
-    channels: Object.values(state.entities.channels)
+    channels: getChannels()
   };
 };
 

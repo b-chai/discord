@@ -3,10 +3,30 @@ import { createChannel } from '../../actions/channel_actions'
 import { createServer, editServer, fetchAllServers, deleteServer, showServer } from '../../actions/server_actions'
 import ServerIndex from './server_index'
 
-const mSTP = state => ({
+const mSTP = (state,ownProps) => {
+    // console.log('-------------------')
+    // console.log(ownProps)
+    // console.log(state)
+    // console.log('-------------------')
+    
+    const getChannels = () => {
+        // serverId comes out as a string
+        const serverId = Number(ownProps.match.params.serverId)
+        const allChannels = Object.values(state.entities.channels)
+    
+        let selectedChannels = [];
+        for (let i = 0; i < allChannels.length; i++) {
+            if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
+        }
+    
+        return selectedChannels;
+    }
+
+    // console.log(getChannels())
+    return({
     server: Object.values(state.entities.servers),
-    channels: Object.values(state.entities.channels)
-})
+    channels: getChannels()
+})}
 
 const mDTP = dispatch => ({
     fetchAllServers: ()=> dispatch(fetchAllServers()),

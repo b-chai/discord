@@ -9,6 +9,9 @@ class MessageIndex extends React.Component{
         this.bottom = React.createRef()
         this.unhide = this.unhide.bind(this)
 
+        console.log('--------------------------')
+        console.log(this.props)
+        console.log('--------------------------')
     }
 
     componentDidMount() {
@@ -111,10 +114,10 @@ class MessageIndex extends React.Component{
             <div className='message-container'>
                 <div className='channel-background'>
                     <div className="channel-intro">
-                        Welcome to CHANNEL NAME
+                        Welcome to #{this.props.currentChannel.channelName}
                     </div>
                     <div className="channel-subtext">
-                        This is the start of the CHANNEL NAME channel
+                        This is the start of the #{this.props.currentChannel.channelName} channel
                     </div>
                     {allMessages}
                     <div className="empty-space" ref={this.bottom}/>

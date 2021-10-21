@@ -25,23 +25,20 @@ class ServerIndex extends React.Component{
     // }
 
     selectServer(server){
-
-        const getChannels = () => {
-            // serverId comes out as a string
-            const serverId = Number(this.props.match.params.serverId)
-            const allChannels = this.props.channels
+        // const getChannels = () => {
+        //     // serverId comes out as a string
+        //     const serverId = Number(this.props.match.params.serverId)
+        //     const allChannels = this.props.channels
         
-            let selectedChannels = [];
-            for (let i = 0; i < allChannels.length; i++) {
-                if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
-            }
+        //     let selectedChannels = [];
+        //     for (let i = 0; i < allChannels.length; i++) {
+        //         if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
+        //     }
         
-            return selectedChannels;
-        }
+        //     return selectedChannels;
+        // }
 
-        const firstChannel = getChannels()[0].id
-
-       
+        const firstChannel = this.props.channels[0].id
 
         // todo - grab first channel id of server
         const info = {type: 'index', id: firstChannel}
