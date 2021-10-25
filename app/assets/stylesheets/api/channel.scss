@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.channel-list :not(.channel-hr){
+    position: relative;
+    padding-left: 10px;
+}
+
 .text-channel{
     color:rgb(136,139,145);
 }
@@ -117,4 +122,34 @@
     bottom: 20px;
     color:white;
     padding: 10px
+}
+
+.server-name{
+    color:white
+}
+
+.channel-hr{
+    border-color: gray;
+    padding-left: -10px;
+}
+
+.server-setting{
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown {
+
+}
+
+.dropdown-button{
+    margin-right: 20px;
+}
+  
+.dropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    padding: 12px 16px;
+    z-index: 100;
 }

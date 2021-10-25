@@ -32,7 +32,7 @@ class MessageForm extends React.Component {
                         <input 
                         className="inner-message-box"
                         type="text" 
-                        placeholder='message to "this channel"' 
+                        placeholder={`message to #${this.props.currentChannel.channelName}`} 
                         onChange={e=>this.update(e)} 
                         value={this.state.body}/>
 

@@ -11,7 +11,7 @@ class ServerContent extends React.Component{
     }
 
     checkPath(){
-        if (this.props.match.path === '/servers/dm'){
+        if (this.props.match.path.includes('dm')){
             return true
         }else{
             return false

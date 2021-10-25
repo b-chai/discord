@@ -1,23 +1,17 @@
 import { connect } from "react-redux";
 import { createChannel, deleteChannel, editChannel, fetchAllChannels, showChannel } from "../../actions/channel_actions";
+import { editServer, deleteServer } from "../../actions/server_actions";
 import ChannelIndex from "./channel_index";
-
-const getChannels = (state, currentServerId) => {
-    const allChannels = Object.values(state.entities.channels);
-
-    let selectedChannels = [];
-    for (let i = 0; i < allChannels.length; i++) {
-        if (allChannels[i].serverId === currentServerId) selectedChannels.push(allChannels[i]);
-    }
-
-    return selectedChannels;
-}
 
 const mSTP = (state,ownProps) => {
     
+    const currentServer = Object.values(state.entities.servers).find(ele=>{
+        return ele.id === Number(ownProps.serverId.serverId)
+    })
+
     return({
     channels: Object.values(state.entities.channels),
-    currentChannel: ''
+    currentServer: currentServer
 })}
 
 const mDTP = dispatch => ({
@@ -25,7 +19,9 @@ const mDTP = dispatch => ({
     createChannel: (channel) => dispatch(createChannel(channel)),
     showChannel: (channel) => dispatch(showChannel(channel)),
     editChannel: (channel) => dispatch(editChannel(channel)),
-    deleteChannel: (channelId) => dispatch(deleteChannel(channelId))
+    deleteChannel: (channelId) => dispatch(deleteChannel(channelId)),
+    editServer: (server) => dispatch(editServer(server)),
+    deleteServer: (serverId) => dispatch(deleteServer(serverId))
 })
 
 export default connect(mSTP,mDTP)(ChannelIndex)

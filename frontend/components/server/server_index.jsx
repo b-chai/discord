@@ -11,12 +11,8 @@ class ServerIndex extends React.Component{
         // }
     }
 
-    componentDidMount(){
-        this.props.fetchAllServers()
-    }
-
     // display(){
-    //     const form = document.querySelector('.server-update-form')
+    //     const form = document.querySelector(`.server-id-${server.id}`)
     //     if (form.style.display === "none"){
     //         form.style.display = "block"
     //     }else{
@@ -24,37 +20,25 @@ class ServerIndex extends React.Component{
     //     }
     // }
 
+    
     selectServer(server){
-        // const getChannels = () => {
-        //     // serverId comes out as a string
-        //     const serverId = Number(this.props.match.params.serverId)
-        //     const allChannels = this.props.channels
-        
-        //     let selectedChannels = [];
-        //     for (let i = 0; i < allChannels.length; i++) {
-        //         if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
-        //     }
-        
-        //     return selectedChannels;
-        // }
+        const firstChannel = server.channelIds[0]
 
-        const firstChannel = this.props.channels[0].id
-
-        // todo - grab first channel id of server
         const info = {type: 'index', id: firstChannel}
-        App.cable.subscriptions.subscriptions[0].load(info);
+        App.cable.subscriptions.subscriptions[0].load(info)
+        
         this.props.history.replace(`/servers/${server.id}/${firstChannel}`);
     }
 
     selectDM(){
-        this.props.history.replace('/servers/dm')
+        this.props.history.replace('/servers/dm/1')
     }
 
     render(){
         const allServers = this.props.server.map(ele => {
             return (
                 <div key={ele.id}>
-                    <div className="server-update-form">
+                    <div className={`server-update-form server-id-${ele.id}`}>
                         <ServerUpdateForm 
                         editServer={this.props.editServer} 
                         deleteServer={this.props.deleteServer} 

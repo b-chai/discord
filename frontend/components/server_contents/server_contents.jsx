@@ -10,7 +10,7 @@ class ServerContent extends React.Component{
     }
 
     checkPath(){
-        if (this.props.match.path === '/servers/dm'){
+        if (this.props.location.pathname.includes('dm')){
             return true
         }else{
             return false
@@ -20,7 +20,8 @@ class ServerContent extends React.Component{
     render(){
         return(
             this.checkPath() ? 
-            
+
+            // Private chat
         <div className="flex">
              {/* text channel side bar */}
              <div className="greeting">
@@ -41,6 +42,7 @@ class ServerContent extends React.Component{
             
             :
 
+            // Public chat
         <div className="flex">
              {/* text channel side bar */}
              <div className="greeting">

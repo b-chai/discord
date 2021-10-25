@@ -9,9 +9,6 @@ class MessageIndex extends React.Component{
         this.bottom = React.createRef()
         this.unhide = this.unhide.bind(this)
 
-        console.log('--------------------------')
-        console.log(this.props)
-        console.log('--------------------------')
     }
 
     componentDidMount() {
@@ -84,8 +81,16 @@ class MessageIndex extends React.Component{
         }
     }
 
-    render(){
-        const allMessages = this.props.messages.map(message => {
+    checkPath(){
+        if (this.props.location.pathname.includes('dm')){
+            return true
+        }else{
+            return false
+        }
+    }
+
+    allMessages(){
+       const list = this.props.messages.map(message => {
             return (
                 <div className="message-credentials" key={message.id}>
                     <span className="author-message">
@@ -109,8 +114,24 @@ class MessageIndex extends React.Component{
                 </div>
             )
         })
+        return list
+    }
+
+    render(){
 
         return (
+
+            this.checkPath() ?
+
+            // Private Chat
+            <div>
+                Temporary chat
+                <div className="empty-space" ref={this.bottom}/>
+            </div>
+
+            :
+
+            // Public Chat
             <div className='message-container'>
                 <div className='channel-background'>
                     <div className="channel-intro">
@@ -119,11 +140,12 @@ class MessageIndex extends React.Component{
                     <div className="channel-subtext">
                         This is the start of the #{this.props.currentChannel.channelName} channel
                     </div>
-                    {allMessages}
+                    {this.allMessages()}
                     <div className="empty-space" ref={this.bottom}/>
                 </div>
                 <div className="sticky-message">
-                    <MessageForm sendMessage={this.props.sendMessage} currentUserId={this.props.currentUserId}/>
+                    <MessageForm sendMessage={this.props.sendMessage} currentUserId={this.props.currentUserId}
+                    currentChannel={this.props.currentChannel}/>
                 </div>
             </div>
         )

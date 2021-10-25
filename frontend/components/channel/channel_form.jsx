@@ -40,7 +40,7 @@ class ChannelForm extends React.Component{
                     <button onClick={()=>this.display()}>+</button>
                 </span>
 
-                <div className='channel-form'>
+                <div className='channel-form' style={{display: "none"}}>
                     <button className="close-button" onClick={this.display}>X</button>
                     <div className="channel-header">Create Text Channel</div>
                     <span className="channel-subtext">in Text Channels</span>

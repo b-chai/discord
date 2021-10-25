@@ -1,1 +1,1 @@
-json.extract! server, :id, :server_name, :server_icon, :owner_id
+json.extract! server, :id, :server_name, :server_icon, :owner_id, :channel_ids

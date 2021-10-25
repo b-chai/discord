@@ -18,7 +18,6 @@ const mSTP = (state,ownProps) => {
         for (let i = 0; i < allChannels.length; i++) {
             if (allChannels[i].serverId === serverId) selectedChannels.push(allChannels[i]);
         }
-    
         return selectedChannels;
     }
 
