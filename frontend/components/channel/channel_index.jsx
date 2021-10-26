@@ -36,6 +36,17 @@ class ChannelIndex extends React.Component {
         }
     }
 
+    removeChannel(ele){
+        if (this.listChannels().length < 2){
+            return null
+        }else{
+            return this.props.deleteChannel(ele.id)
+            .then(
+                this.props.history.replace(`/servers/${this.props.match.params.serverId}/${this.listChannels()[0].key}`)
+            )
+        }
+    }
+
     listChannels(){
 
         // serverId comes out as a string
@@ -53,7 +64,7 @@ class ChannelIndex extends React.Component {
                 <button className="channel-name" onClick={()=>this.selectChannel(ele)}>
                         # &nbsp; {ele.channelName}
                     </button>
-                    <button onClick={()=>this.props.deleteChannel(ele.id)}> X </button>
+                    <button onClick={()=>this.removeChannel(ele)}> X </button>
                 </div>
             )
         })
@@ -61,10 +72,18 @@ class ChannelIndex extends React.Component {
         return list
     }
 
+    display(){
+        const form = document.querySelector('.channel-form')
+        if (form.style.display === "none"){
+            form.style.display = "block"
+        }else{
+            form.style.display = "none"
+        }
+    }
+    
     render(){
         return(
             this.checkPath() ?
-
             // Private Chat
             <div>
                 <UserListContainer/>
@@ -75,8 +94,8 @@ class ChannelIndex extends React.Component {
             // Public Chat
             <div>
 
-                <ChannelForm createChannel={this.props.createChannel}/>
-                
+                <ChannelForm createChannel={this.props.createChannel} serverId={this.props.match.params.serverId}/>
+
                 <div className="channel-list">
                     
                     <div className='server-setting'>
@@ -93,7 +112,9 @@ class ChannelIndex extends React.Component {
                     </div>
 
                 <hr className="channel-hr"/>
-                    
+                    <span className='text-channel'>TEXT CHANNELS
+                        <button onClick={()=>this.display()}>+</button>
+                    </span>
                     {this.listChannels()}
                 </div>
             </div>

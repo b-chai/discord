@@ -7,7 +7,7 @@ class ChannelForm extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this)
         this.state = {
             channelName: '',
-            serverId: this.props.match.params.serverId,
+            serverId: this.props.serverId,
         }
     }
 
@@ -20,7 +20,7 @@ class ChannelForm extends React.Component{
     updateName(e){
         this.setState({
             channelName: e.target.value,
-            serverId: 7
+            serverId: this.props.serverId
         })
     }
 
@@ -36,10 +36,7 @@ class ChannelForm extends React.Component{
     render(){
         return(
             <div>
-                <span className='text-channel'>TEXT CHANNELS
-                    <button onClick={()=>this.display()}>+</button>
-                </span>
-
+                
                 <div className='channel-form' style={{display: "none"}}>
                     <button className="close-button" onClick={this.display}>X</button>
                     <div className="channel-header">Create Text Channel</div>

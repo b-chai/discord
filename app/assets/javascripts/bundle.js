@@ -574,7 +574,7 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
       channelName: '',
-      serverId: _this.props.match.params.serverId
+      serverId: _this.props.serverId
     };
     return _this;
   }
@@ -591,7 +591,7 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
     value: function updateName(e) {
       this.setState({
         channelName: e.target.value,
-        serverId: 7
+        serverId: this.props.serverId
       });
     }
   }, {
@@ -610,13 +610,7 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
-        className: "text-channel"
-      }, "TEXT CHANNELS", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        onClick: function onClick() {
-          return _this2.display();
-        }
-      }, "+")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-form",
         style: {
           display: "none"
@@ -736,6 +730,15 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
+    key: "removeChannel",
+    value: function removeChannel(ele) {
+      if (this.listChannels().length < 2) {
+        return null;
+      } else {
+        return this.props.deleteChannel(ele.id).then(this.props.history.replace("/servers/".concat(this.props.match.params.serverId, "/").concat(this.listChannels()[0].key)));
+      }
+    }
+  }, {
     key: "listChannels",
     value: function listChannels() {
       var _this = this;
@@ -760,11 +763,22 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
           }
         }, "# \xA0 ", ele.channelName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           onClick: function onClick() {
-            return _this.props.deleteChannel(ele.id);
+            return _this.removeChannel(ele);
           }
         }, " X "));
       });
       return list;
+    }
+  }, {
+    key: "display",
+    value: function display() {
+      var form = document.querySelector('.channel-form');
+
+      if (form.style.display === "none") {
+        form.style.display = "block";
+      } else {
+        form.style.display = "none";
+      }
     }
   }, {
     key: "render",
@@ -778,7 +792,8 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
       /*#__PURE__*/
       // Public Chat
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_form__WEBPACK_IMPORTED_MODULE_2__.default, {
-        createChannel: this.props.createChannel
+        createChannel: this.props.createChannel,
+        serverId: this.props.match.params.serverId
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-list"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -799,7 +814,13 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Edit Server"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Delete Server")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
         className: "channel-hr"
-      }), this.listChannels()));
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+        className: "text-channel"
+      }, "TEXT CHANNELS", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        onClick: function onClick() {
+          return _this2.display();
+        }
+      }, "+")), this.listChannels()));
     }
   }]);
 
