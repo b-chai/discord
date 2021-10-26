@@ -20,7 +20,7 @@ const Greeting = ({ currentUser, logout }) => {
       <hgroup>
         <h2 className="header-name">Welcome, {currentUser.username}!</h2>
         {/* todo - need to link to go to live channel */}
-        <Link to="/servers/dm"><button>  Open DiscordClone</button></Link>
+        <Link to="/servers/dm/1"><button>  Open DiscordClone</button></Link>
         <button className="logout-button" onClick={logout}>Log Out</button>
       </hgroup>
     </div>

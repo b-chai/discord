@@ -18,14 +18,28 @@ class UserList extends React.Component{
         }
     }
 
-    selectUser(){
-
+    selectUser(user){
+        console.log(user)
+        console.log(this.props.match)
+        if (user.rooms.includes(user.createdAt)){
+            // to do - load messages
+            this.props.history.replace(`/servers/dm/${user.createdAt}`)
+        }else{
+            // create channel & redirect
+            this.props.createChannel({
+                channelName: user.username,
+                serverId: this.props.match.params.serverId
+            })
+            .then(
+                this.props.history.replace(`/servers/dm/${user.createdAt}`)
+            )
+        }
     }
 
     render(){
         const listUsers = this.props.serverUsers.map(user => {
             return(
-                <button className="users" key={user.id}>
+                <button className="users" key={user.id} onClick={()=>this.selectUser(user)}>
                     <div className="user-avatar"/>
                     <div className="usernames">
                         {user.username}

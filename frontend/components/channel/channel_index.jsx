@@ -73,24 +73,29 @@ class ChannelIndex extends React.Component {
             :
 
             // Public Chat
-            <div className="channel-list">
+            <div>
+
+                <ChannelForm createChannel={this.props.createChannel}/>
                 
-                <div className='server-setting'>
-                    <div className="server-name">
-                        {this.props.currentServer.serverName}
-                    </div>
-                    <div className="dropdown">
-                        <button className="dropdown-button" onClick={()=> this.selectDropdown()}>Setting</button>
-                        <div className="dropdown-content" style={{display: "none"}}>
-                            <div>Edit Server</div>
-                            <div>Delete Server</div>
+                <div className="channel-list">
+                    
+                    <div className='server-setting'>
+                        <div className="server-name">
+                            {this.props.currentServer.serverName}
+                        </div>
+                        <div className="dropdown">
+                            <button className="dropdown-button" onClick={()=> this.selectDropdown()}>Setting</button>
+                            <div className="dropdown-content" style={{display: "none"}}>
+                                <div>Edit Server</div>
+                                <div>Delete Server</div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            <hr className="channel-hr"/>
-                <ChannelForm createChannel={this.props.createChannel}/>
-                {this.listChannels()}
+                <hr className="channel-hr"/>
+                    
+                    {this.listChannels()}
+                </div>
             </div>
         )
     }

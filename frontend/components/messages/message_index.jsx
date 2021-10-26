@@ -127,6 +127,9 @@ class MessageIndex extends React.Component{
             <div>
                 Temporary chat
                 <div className="empty-space" ref={this.bottom}/>
+                <div className="sticky-message">
+                    <MessageForm sendMessage={this.props.sendMessage}/>
+                </div>
             </div>
 
             :

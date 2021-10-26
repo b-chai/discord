@@ -591,7 +591,7 @@ var ChannelForm = /*#__PURE__*/function (_React$Component) {
     value: function updateName(e) {
       this.setState({
         channelName: e.target.value,
-        serverId: this.props.match.params.serverId
+        serverId: 7
       });
     }
   }, {
@@ -777,7 +777,9 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_user_list_user_list_container__WEBPACK_IMPORTED_MODULE_1__.default, null)) :
       /*#__PURE__*/
       // Public Chat
-      react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_form__WEBPACK_IMPORTED_MODULE_2__.default, {
+        createChannel: this.props.createChannel
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-list"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "server-setting"
@@ -797,9 +799,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
         }
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Edit Server"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Delete Server")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
         className: "channel-hr"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_channel_form__WEBPACK_IMPORTED_MODULE_2__.default, {
-        createChannel: this.props.createChannel
-      }), this.listChannels());
+      }), this.listChannels()));
     }
   }]);
 
@@ -906,7 +906,7 @@ var Greeting = function Greeting(_ref) {
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hgroup", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", {
       className: "header-name"
     }, "Welcome, ", currentUser.username, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
-      to: "/servers/dm"
+      to: "/servers/dm/1"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "  Open DiscordClone")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
       className: "logout-button",
       onClick: logout
@@ -1231,6 +1231,15 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "placeholderText",
+    value: function placeholderText() {
+      if (this.props.location.pathname.includes('dm')) {
+        return "message to #".concat(this.props.match.params.channelId);
+      } else {
+        return "message to #".concat(this.props.currentChannel.channelName);
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -1243,7 +1252,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
         className: "inner-message-box",
         type: "text",
-        placeholder: "message to #".concat(this.props.currentChannel.channelName),
+        placeholder: this.placeholderText(),
         onChange: function onChange(e) {
           return _this2.update(e);
         },
@@ -1448,7 +1457,11 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Temporary chat", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "empty-space",
         ref: this.bottom
-      })) :
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "sticky-message"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
+        sendMessage: this.props.sendMessage
+      }))) :
       /*#__PURE__*/
       // Public Chat
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -2559,14 +2572,33 @@ var UserList = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "selectUser",
-    value: function selectUser() {}
+    value: function selectUser(user) {
+      console.log(user);
+      console.log(this.props.match);
+
+      if (user.rooms.includes(user.createdAt)) {
+        // to do - load messages
+        this.props.history.replace("/servers/dm/".concat(user.createdAt));
+      } else {
+        // create channel & redirect
+        this.props.createChannel({
+          channelName: user.username,
+          serverId: this.props.match.params.serverId
+        }).then(this.props.history.replace("/servers/dm/".concat(user.createdAt)));
+      }
+    }
   }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       var listUsers = this.props.serverUsers.map(function (user) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "users",
-          key: user.id
+          key: user.id,
+          onClick: function onClick() {
+            return _this.selectUser(user);
+          }
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "user-avatar"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -2612,6 +2644,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _user_list__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user_list */ "./frontend/components/user_list/user_list.jsx");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+
 
 
 
@@ -2626,6 +2660,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchAllUsers: function fetchAllUsers() {
       return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.fetchAllUsers)());
+    },
+    createChannel: function createChannel(channel) {
+      return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__.createChannel)(channel));
     }
   };
 };
@@ -3168,7 +3205,7 @@ var Auth = function Auth(_ref) {
       /*#__PURE__*/
       // todo - update route
       react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Redirect, {
-        to: "/servers/dm"
+        to: "/servers/dm/1"
       });
     }
   });

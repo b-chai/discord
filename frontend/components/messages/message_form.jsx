@@ -25,14 +25,23 @@ class MessageForm extends React.Component {
         this.setState({body: ''})
     }
 
+    placeholderText(){
+        if (this.props.location.pathname.includes('dm')){
+            return `message to #${this.props.match.params.channelId}`
+        }else{
+            return `message to #${this.props.currentChannel.channelName}`
+        }
+    }
+
     render(){
+
         return(
             <div className='message-box-background'>
                 <form className ="message-box" onSubmit={this.handleSubmit}>
                         <input 
                         className="inner-message-box"
                         type="text" 
-                        placeholder={`message to #${this.props.currentChannel.channelName}`} 
+                        placeholder={this.placeholderText()} 
                         onChange={e=>this.update(e)} 
                         value={this.state.body}/>
 
