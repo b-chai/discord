@@ -51,6 +51,7 @@ class Api::UsersController < ApplicationController
     private
     def user_params
         # rooms = [], otherwise rooms will always be null after update
+        # need to save objects in room for better performance
         params.require(:user).permit(:id, :username, :email, :password, rooms:[])
     end
     

@@ -37,3 +37,5 @@ module.exports = {
     extensions: [".js", ".jsx", "*"]
   },
 };
+
+// './app/images/user_avatar.jpg'

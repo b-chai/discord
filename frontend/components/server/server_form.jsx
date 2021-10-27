@@ -19,7 +19,6 @@ class ServerForm extends React.Component{
     }
 
     updateName(e){
-        console.log(this.state)
         this.setState({
             serverName: e.target.value
         })

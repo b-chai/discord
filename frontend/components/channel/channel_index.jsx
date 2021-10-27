@@ -106,6 +106,7 @@ class ChannelIndex extends React.Component {
                             <button className="dropdown-button" onClick={()=> this.selectDropdown()}>Setting</button>
                             <div className="dropdown-content" style={{display: "none"}}>
                                 <div>Edit Server</div>
+                                <hr className="setting-divider"/>
                                 <div>Delete Server</div>
                             </div>
                         </div>

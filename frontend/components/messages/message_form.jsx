@@ -27,7 +27,7 @@ class MessageForm extends React.Component {
 
     placeholderText(){
         if (this.props.location.pathname.includes('dm')){
-            return `message to #${this.props.match.params.channelId}`
+            return `message to #${this.props.receiver.username}`
         }else{
             return `message to #${this.props.currentChannel.channelName}`
         }

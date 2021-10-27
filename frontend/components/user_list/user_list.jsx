@@ -4,7 +4,6 @@ import { withRouter } from 'react-router'
 class UserList extends React.Component{
     constructor(props){
         super(props)
-        console.log(this.props)
     }
 
     checkPath(){
@@ -16,74 +15,132 @@ class UserList extends React.Component{
     }
 
     selectUser(user){
-        if (user.rooms.includes(user.createdAt)){
-            // to do - load messages
-            this.props.history.replace(`/servers/dm/${user.createdAt}`)
-        }else{
-            // create channel & redirect
-            // to do - need to either remove server id verification or create dedicated dm server
-            this.props.createChannel({
-                channelName: user.username,
-                serverId: 21
-            })
-            .then(
-                this.props.history.replace(`/servers/dm/${user.createdAt}`)
-            )
+
+        if (user.rooms === null) user.rooms= Array()
+
+        // temporary solution until i figure out how to save objects in the backend
+        const roomCheck = () => {
+            console.log(user)
+            console.log(this.props.currentUser)
+
+            for (let i = 0 ; i < user.rooms.length ; i++){
+                let userRoom = user.rooms[i]
+                for(let j = 0 ; j < this.props.currentUser[0].rooms; j++){
+                    let currentRoom = this.props.currentUser[0].rooms[j]
+                    if(userRoom === currentRoom) return userRoom
+                }
+            }
+            return false
         }
-    }
 
-    temp(user){
-        console.log('--------------')
-        console.log(user)
-        console.log(this.props.currentUser[0])
-        console.log('--------------')
+        // memoization
+        let check = roomCheck()
 
-        if (user.rooms === null) user.rooms = [];
-
-        if (user.rooms.includes(user.createdAt) || user.rooms.includes(this.props.currentUser.createdAt)){
+        if (check){
             // redirect to channel
-            console.log(true,user)
+            const info = {type: 'index', id: check}
+            App.cable.subscriptions.subscriptions[0].load(info);
+            this.props.history.replace(`/servers/dm/${check}`)
         }else{
             
-            // add channel to both user's rooms
+            let roomId
 
-            console.log(false,user)
-
-            const pushed = user.rooms
-            pushed.push(user.createdAt)
-            const pushedSender = this.props.currentUser[0].rooms
-            pushedSender.push(user.createdAt)
-
-            let updatedReceiver = {
-                id: user.id,
-                username: user.username,
-                rooms: pushed,
-                createdAt: user.createdAt
-            }
-
-            let updatedSender = {
-                id: this.props.currentUser.id,
-                username: this.props.currentUser.username,
-                rooms: pushedSender,
-                createdAt: this.props.currentUser.createdAt
-            }
-            
             // create channel & update both users
             this.props.createChannel({
                 channelName: user.username,
                 serverId: 21
             })
             .then(
-                this.props.editUser(updatedReceiver)
+                newChannel=> {
+                    roomId = newChannel.channel.id
+
+                    const pushed = user.rooms
+                    pushed.push(roomId)
+                    
+                    // todo - temporary null check - these should not be null
+                    if(this.props.currentUser[0].rooms === null) this.props.currentUser[0].rooms = []
+
+                    const pushedSender = this.props.currentUser[0].rooms
+                    pushedSender.push(roomId)
+        
+                    let updatedReceiver = {
+                        id: user.id,
+                        username: user.username,
+                        rooms: pushed,
+                        // createdAt: user.createdAt
+                    }
+        
+                    let updatedSender = {
+                        id: this.props.currentUser[0].id,
+                        username: this.props.currentUser[0].username,
+                        rooms: pushedSender,
+                        // createdAt: this.props.currentUser[0].createdAt
+                    }
+
+                // add channel to both user's rooms
                 
-            )
-            .then(
+                this.props.editUser(updatedReceiver)
                 this.props.editUser(updatedSender)
-            )
-            .then(
-                this.props.history.replace(`/servers/dm/${user.createdAt}`)
+                this.props.history.replace(`/servers/dm/${roomId}`)
+                }
             )
         }
+
+        // Version using objects (incomplete)
+
+        // if ((user.createdAt in user.rooms) || (this.props.currentUser.createdAt in user.rooms)){
+        //     // redirect to channel
+        //     const info = {type: 'index', id: this.props.match.params.channelId}
+        //     App.cable.subscriptions.subscriptions[0].load(info);
+        //     this.props.history.replace(`/servers/dm/${user.createdAt}`)
+        // }else{
+            
+        //     let roomId = 0
+
+        //     // create channel & update both users
+        //     this.props.createChannel({
+        //         channelName: user.username,
+        //         serverId: 21
+        //     })
+        //     .then(
+        //         newChannel=> {
+        //             roomId = newChannel.channel.id
+        //             const roomObj = {
+        //                 [user.createdAt]: roomId
+        //             }
+        
+        //             const pushed = user.rooms
+        //             pushed.push(roomObj)
+        //             console.log(this.props.currentUser)
+                    
+        //             // todo - temporary null check - these should not be null
+        //             if(this.props.currentUser[0].rooms === null) this.props.currentUser[0].rooms = []
+
+        //             const pushedSender = this.props.currentUser[0].rooms
+        //             pushedSender.push(roomObj)
+        
+        //             let updatedReceiver = {
+        //                 id: user.id,
+        //                 username: user.username,
+        //                 rooms: pushed,
+        //                 // createdAt: user.createdAt
+        //             }
+        
+        //             let updatedSender = {
+        //                 id: this.props.currentUser[0].id,
+        //                 username: this.props.currentUser[0].username,
+        //                 rooms: pushedSender,
+        //                 // createdAt: this.props.currentUser[0].createdAt
+        //             }
+
+        //         // add channel to both user's rooms
+                
+        //         this.props.editUser(updatedReceiver)
+        //         this.props.editUser(updatedSender)
+        //         this.props.history.replace(`/servers/dm/${roomId}`)
+        //         }
+        //     )
+        // }
 
     }
 
@@ -91,7 +148,7 @@ class UserList extends React.Component{
         const listUsers = this.props.serverUsers.map(user => {
             return(
                 // <button className="users" key={user.id} onClick={()=>this.selectUser(user)}>
-                <button className="users" key={user.id} onClick={()=>this.temp(user)}>
+                <button className="users" key={user.id} onClick={()=>this.selectUser(user)}>
                     <div className="user-avatar"/>
                     <div className="usernames">
                         {user.username}

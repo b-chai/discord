@@ -8,7 +8,7 @@ class MessageIndex extends React.Component{
         super(props)
         this.bottom = React.createRef()
         this.unhide = this.unhide.bind(this)
-
+        console.log(this.props)
     }
 
     componentDidMount() {
@@ -136,7 +136,7 @@ class MessageIndex extends React.Component{
                     <div className="empty-space" ref={this.bottom}/>
                 </div>
                 <div className="sticky-message">
-                    {this.props.receiver ? <MessageForm sendMessage={this.props.sendMessage}/> : null}  
+                    {this.props.receiver ? <MessageForm currentUserId={this.props.currentUserId} currentChannel={this.props.currentChannel} sendMessage={this.props.sendMessage} receiver={this.props.receiver}/> : null}  
                 </div>
             </div>
 

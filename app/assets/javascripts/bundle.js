@@ -835,7 +835,9 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
         style: {
           display: "none"
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Edit Server"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Delete Server")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Edit Server"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
+        className: "setting-divider"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Delete Server")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
         className: "channel-hr"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
         className: "text-channel"
@@ -1278,7 +1280,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     key: "placeholderText",
     value: function placeholderText() {
       if (this.props.location.pathname.includes('dm')) {
-        return "message to #".concat(this.props.match.params.channelId);
+        return "message to #".concat(this.props.receiver.username);
       } else {
         return "message to #".concat(this.props.currentChannel.channelName);
       }
@@ -1371,6 +1373,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.bottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
     _this.unhide = _this.unhide.bind(_assertThisInitialized(_this));
+    console.log(_this.props);
     return _this;
   }
 
@@ -1512,7 +1515,10 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "sticky-message"
       }, this.props.receiver ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
-        sendMessage: this.props.sendMessage
+        currentUserId: this.props.currentUserId,
+        currentChannel: this.props.currentChannel,
+        sendMessage: this.props.sendMessage,
+        receiver: this.props.receiver
       }) : null)) :
       /*#__PURE__*/
       // Public Chat
@@ -1567,13 +1573,9 @@ var mSTP = function mSTP(state, ownProps) {
     return ele.id === Number(ownProps.serverId.channelId);
   });
   var receiver = Object.values(state.entities.serverUsers).find(function (ele) {
-    if (ele.createdAt === ownProps.serverId.channelId) return ele;
-  }); // console.log('------------------')
-  // console.log(state)
-  // console.log(receiver)
-  // console.log(ownProps)
-  // console.log('------------------')
-
+    console.log(ele.id);
+    if (ele.rooms.includes(ownProps.serverId.channelId) && ele.id !== Object.values(state.entities.users)[0].id) return ele;
+  });
   return {
     messages: Object.values(state.entities.messages),
     currentUserId: state.session.id,
@@ -1704,7 +1706,6 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "updateName",
     value: function updateName(e) {
-      console.log(this.state);
       this.setState({
         serverName: e.target.value
       });
@@ -2610,13 +2611,9 @@ var UserList = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(UserList);
 
   function UserList(props) {
-    var _this;
-
     _classCallCheck(this, UserList);
 
-    _this = _super.call(this, props);
-    console.log(_this.props);
-    return _this;
+    return _super.call(this, props);
   }
 
   _createClass(UserList, [{
@@ -2631,55 +2628,116 @@ var UserList = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "selectUser",
     value: function selectUser(user) {
-      if (user.rooms.includes(user.createdAt)) {
-        // to do - load messages
-        this.props.history.replace("/servers/dm/".concat(user.createdAt));
-      } else {
-        // create channel & redirect
-        // to do - need to either remove server id verification or create dedicated dm server
-        this.props.createChannel({
-          channelName: user.username,
-          serverId: 21
-        }).then(this.props.history.replace("/servers/dm/".concat(user.createdAt)));
-      }
-    }
-  }, {
-    key: "temp",
-    value: function temp(user) {
-      console.log('--------------');
-      console.log(user);
-      console.log(this.props.currentUser[0]);
-      console.log('--------------');
-      if (user.rooms === null) user.rooms = [];
+      var _this = this;
 
-      if (user.rooms.includes(user.createdAt) || user.rooms.includes(this.props.currentUser.createdAt)) {
+      if (user.rooms === null) user.rooms = Array(); // temporary solution until i figure out how to save objects in the backend
+
+      var roomCheck = function roomCheck() {
+        console.log(user);
+        console.log(_this.props.currentUser);
+
+        for (var i = 0; i < user.rooms.length; i++) {
+          var userRoom = user.rooms[i];
+
+          for (var j = 0; j < _this.props.currentUser[0].rooms; j++) {
+            var currentRoom = _this.props.currentUser[0].rooms[j];
+            if (userRoom === currentRoom) return userRoom;
+          }
+        }
+
+        return false;
+      }; // memoization
+
+
+      var check = roomCheck();
+
+      if (check) {
         // redirect to channel
-        console.log(true, user);
-      } else {
-        // add channel to both user's rooms
-        console.log(false, user);
-        var pushed = user.rooms;
-        pushed.push(user.createdAt);
-        var pushedSender = this.props.currentUser[0].rooms;
-        pushedSender.push(user.createdAt);
-        var updatedReceiver = {
-          id: user.id,
-          username: user.username,
-          rooms: pushed,
-          createdAt: user.createdAt
+        var info = {
+          type: 'index',
+          id: check
         };
-        var updatedSender = {
-          id: this.props.currentUser.id,
-          username: this.props.currentUser.username,
-          rooms: pushedSender,
-          createdAt: this.props.currentUser.createdAt
-        }; // create channel & update both users
+        App.cable.subscriptions.subscriptions[0].load(info);
+        this.props.history.replace("/servers/dm/".concat(check));
+      } else {
+        var roomId; // create channel & update both users
 
         this.props.createChannel({
           channelName: user.username,
           serverId: 21
-        }).then(this.props.editUser(updatedReceiver)).then(this.props.editUser(updatedSender)).then(this.props.history.replace("/servers/dm/".concat(user.createdAt)));
-      }
+        }).then(function (newChannel) {
+          roomId = newChannel.channel.id;
+          var pushed = user.rooms;
+          pushed.push(roomId); // todo - temporary null check - these should not be null
+
+          if (_this.props.currentUser[0].rooms === null) _this.props.currentUser[0].rooms = [];
+          var pushedSender = _this.props.currentUser[0].rooms;
+          pushedSender.push(roomId);
+          var updatedReceiver = {
+            id: user.id,
+            username: user.username,
+            rooms: pushed // createdAt: user.createdAt
+
+          };
+          var updatedSender = {
+            id: _this.props.currentUser[0].id,
+            username: _this.props.currentUser[0].username,
+            rooms: pushedSender // createdAt: this.props.currentUser[0].createdAt
+
+          }; // add channel to both user's rooms
+
+          _this.props.editUser(updatedReceiver);
+
+          _this.props.editUser(updatedSender);
+
+          _this.props.history.replace("/servers/dm/".concat(roomId));
+        });
+      } // Version using objects (incomplete)
+      // if ((user.createdAt in user.rooms) || (this.props.currentUser.createdAt in user.rooms)){
+      //     // redirect to channel
+      //     const info = {type: 'index', id: this.props.match.params.channelId}
+      //     App.cable.subscriptions.subscriptions[0].load(info);
+      //     this.props.history.replace(`/servers/dm/${user.createdAt}`)
+      // }else{
+      //     let roomId = 0
+      //     // create channel & update both users
+      //     this.props.createChannel({
+      //         channelName: user.username,
+      //         serverId: 21
+      //     })
+      //     .then(
+      //         newChannel=> {
+      //             roomId = newChannel.channel.id
+      //             const roomObj = {
+      //                 [user.createdAt]: roomId
+      //             }
+      //             const pushed = user.rooms
+      //             pushed.push(roomObj)
+      //             console.log(this.props.currentUser)
+      //             // todo - temporary null check - these should not be null
+      //             if(this.props.currentUser[0].rooms === null) this.props.currentUser[0].rooms = []
+      //             const pushedSender = this.props.currentUser[0].rooms
+      //             pushedSender.push(roomObj)
+      //             let updatedReceiver = {
+      //                 id: user.id,
+      //                 username: user.username,
+      //                 rooms: pushed,
+      //                 // createdAt: user.createdAt
+      //             }
+      //             let updatedSender = {
+      //                 id: this.props.currentUser[0].id,
+      //                 username: this.props.currentUser[0].username,
+      //                 rooms: pushedSender,
+      //                 // createdAt: this.props.currentUser[0].createdAt
+      //             }
+      //         // add channel to both user's rooms
+      //         this.props.editUser(updatedReceiver)
+      //         this.props.editUser(updatedSender)
+      //         this.props.history.replace(`/servers/dm/${roomId}`)
+      //         }
+      //     )
+      // }
+
     }
   }, {
     key: "render",
@@ -2694,7 +2752,7 @@ var UserList = /*#__PURE__*/function (_React$Component) {
             className: "users",
             key: user.id,
             onClick: function onClick() {
-              return _this2.temp(user);
+              return _this2.selectUser(user);
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             className: "user-avatar"
@@ -3166,8 +3224,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default, (redux_logger__WEBPACK_IMPORTED_MODULE_1___default()))) // createStore(rootReducer,preloadedState,applyMiddleware(thunk))
-  ;
+  return (// createStore(rootReducer,preloadedState,applyMiddleware(thunk, logger))
+    (0,redux__WEBPACK_IMPORTED_MODULE_3__.createStore)(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_2__.default, preloadedState, (0,redux__WEBPACK_IMPORTED_MODULE_3__.applyMiddleware)(redux_thunk__WEBPACK_IMPORTED_MODULE_0__.default))
+  );
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (configureStore);

@@ -9,14 +9,10 @@ const mSTP = (state,ownProps) => {
     })
 
     const receiver = Object.values(state.entities.serverUsers).find(ele=>{
-        if(ele.createdAt === ownProps.serverId.channelId) return ele
+        console.log(ele.id)
+        if(ele.rooms.includes(ownProps.serverId.channelId) && ele.id !== Object.values(state.entities.users)[0].id) return ele
     })
 
-    // console.log('------------------')
-    // console.log(state)
-    // console.log(receiver)
-    // console.log(ownProps)
-    // console.log('------------------')
     return({
     messages: Object.values(state.entities.messages),
     currentUserId: state.session.id,
