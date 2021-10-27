@@ -7,7 +7,7 @@ class ServerForm extends React.Component{
         this.state = {
             serverName: '',
             serverIcon: '',
-            ownerId: 1,
+            ownerId: this.props.currentUser,
         }
     }
 
@@ -19,6 +19,7 @@ class ServerForm extends React.Component{
     }
 
     updateName(e){
+        console.log(this.state)
         this.setState({
             serverName: e.target.value
         })

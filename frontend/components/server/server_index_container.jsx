@@ -4,11 +4,6 @@ import { createServer, editServer, fetchAllServers, deleteServer, showServer } f
 import ServerIndex from './server_index'
 
 const mSTP = (state,ownProps) => {
-    // console.log('-------------------')
-    // console.log(ownProps)
-    // console.log(state)
-    // console.log('-------------------')
-    
     const getChannels = () => {
         // serverId comes out as a string
         const serverId = Number(ownProps.match.params.serverId)
@@ -20,11 +15,10 @@ const mSTP = (state,ownProps) => {
         }
         return selectedChannels;
     }
-
-    // console.log(getChannels())
     return({
     server: Object.values(state.entities.servers),
-    channels: getChannels()
+    channels: getChannels(),
+    currentUser: state.session.id
 })}
 
 const mDTP = dispatch => ({

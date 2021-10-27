@@ -64,7 +64,7 @@ class ServerIndex extends React.Component{
                     <hr className="divider"/>
 
                     {allServers}
-                    <ServerForm createServer={this.props.createServer} createChannel={this.props.createChannel}/>
+                    <ServerForm createServer={this.props.createServer} createChannel={this.props.createChannel} currentUser={this.props.currentUser}/>
                 </div>
             </div>
         )

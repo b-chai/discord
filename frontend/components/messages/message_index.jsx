@@ -118,17 +118,25 @@ class MessageIndex extends React.Component{
     }
 
     render(){
-
         return (
 
             this.checkPath() ?
 
             // Private Chat
-            <div>
-                Temporary chat
-                <div className="empty-space" ref={this.bottom}/>
+
+            <div className='message-container'>
+                <div className='channel-background'>
+                    <div className="channel-intro">
+                        {this.props.receiver ? this.props.receiver.username : null}
+                    </div>
+                    <div className="channel-subtext">
+                        {this.props.receiver ? `This is the beginning of your direct message history with @${this.props.receiver.username}` : null}
+                    </div>
+                    {this.allMessages()}
+                    <div className="empty-space" ref={this.bottom}/>
+                </div>
                 <div className="sticky-message">
-                    <MessageForm sendMessage={this.props.sendMessage}/>
+                    {this.props.receiver ? <MessageForm sendMessage={this.props.sendMessage}/> : null}  
                 </div>
             </div>
 

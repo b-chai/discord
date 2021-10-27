@@ -8,10 +8,20 @@ const mSTP = (state,ownProps) => {
         return ele.id === Number(ownProps.serverId.channelId)
     })
 
+    const receiver = Object.values(state.entities.serverUsers).find(ele=>{
+        if(ele.createdAt === ownProps.serverId.channelId) return ele
+    })
+
+    // console.log('------------------')
+    // console.log(state)
+    // console.log(receiver)
+    // console.log(ownProps)
+    // console.log('------------------')
     return({
     messages: Object.values(state.entities.messages),
     currentUserId: state.session.id,
-    currentChannel: currentChannel
+    currentChannel,
+    receiver
 })}
 
 const mDTP = dispatch => ({

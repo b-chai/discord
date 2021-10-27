@@ -17,8 +17,20 @@ class Api::UsersController < ApplicationController
 
     end
 
-    def edit
-        # @user = User.find(params[:id])
+    def update
+        @user = User.find(params[:id])
+
+        updatedUser = {rooms: user_params['rooms']}
+
+        puts '-------------------------------'
+        puts params
+        puts user_params
+        puts '-------------------------------'
+        if @user.update(updatedUser)
+            render 'api/users/show'
+        else
+            render json: @user.errors.full_messages, status: 422
+        end
     end
 
     def show
@@ -32,12 +44,14 @@ class Api::UsersController < ApplicationController
     end
     
     def destroy
-        # @user = User.find(params[:id])
+        @user = User.find(params[:id])
+        @user.destroy
     end
 
     private
     def user_params
-        params.require(:user).permit(:username, :email, :password)
+        # rooms = [], otherwise rooms will always be null after update
+        params.require(:user).permit(:id, :username, :email, :password, rooms:[])
     end
     
 end

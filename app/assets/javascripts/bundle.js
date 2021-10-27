@@ -298,22 +298,39 @@ var logout = function logout() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "RECEIVE_USERS": () => (/* binding */ RECEIVE_USERS),
+/* harmony export */   "RECEIVE_USER": () => (/* binding */ RECEIVE_USER),
 /* harmony export */   "receiveAllUsers": () => (/* binding */ receiveAllUsers),
-/* harmony export */   "fetchAllUsers": () => (/* binding */ fetchAllUsers)
+/* harmony export */   "receiveUser": () => (/* binding */ receiveUser),
+/* harmony export */   "fetchAllUsers": () => (/* binding */ fetchAllUsers),
+/* harmony export */   "editUser": () => (/* binding */ editUser)
 /* harmony export */ });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
 var RECEIVE_USERS = "RECEIVE_USERS";
+var RECEIVE_USER = "RECEIVE_USER";
 var receiveAllUsers = function receiveAllUsers(users) {
   return {
     type: RECEIVE_USERS,
     serverUsers: users
   };
 };
+var receiveUser = function receiveUser(user) {
+  return {
+    type: RECEIVE_USER,
+    user: user
+  };
+};
 var fetchAllUsers = function fetchAllUsers() {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.fetchAllUsers().then(function (res) {
       return dispatch(receiveAllUsers(res));
+    });
+  };
+};
+var editUser = function editUser(user) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__.editUser(user).then(function (res) {
+      return dispatch(receiveUser(user));
     });
   };
 };
@@ -445,6 +462,7 @@ var Application = /*#__PURE__*/function (_React$Component) {
 
       this.props.fetchAllChannels();
       this.props.fetchAllServers();
+      this.props.fetchAllUsers();
       setTimeout(function () {
         return _this2.setState({
           loading: false
@@ -495,7 +513,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/server_actions */ "./frontend/actions/server_actions.js");
-/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./main */ "./frontend/components/application/main.jsx");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./main */ "./frontend/components/application/main.jsx");
+
 
 
 
@@ -514,11 +534,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchAllServers: function fetchAllServers() {
       return dispatch((0,_actions_server_actions__WEBPACK_IMPORTED_MODULE_2__.fetchAllServers)());
+    },
+    fetchAllUsers: function fetchAllUsers() {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__.fetchAllUsers)());
     }
   };
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_3__.default));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_0__.connect)(mapStateToProps, mapDispatchToProps)(_main__WEBPACK_IMPORTED_MODULE_4__.default));
 
 /***/ }),
 
@@ -1475,14 +1498,22 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       return this.checkPath() ?
       /*#__PURE__*/
       // Private Chat
-      react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Temporary chat", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "message-container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-background"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-intro"
+      }, this.props.receiver ? this.props.receiver.username : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        className: "channel-subtext"
+      }, this.props.receiver ? "This is the beginning of your direct message history with @".concat(this.props.receiver.username) : null), this.allMessages(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "empty-space",
         ref: this.bottom
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "sticky-message"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
+      }, this.props.receiver ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
         sendMessage: this.props.sendMessage
-      }))) :
+      }) : null)) :
       /*#__PURE__*/
       // Public Chat
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1535,10 +1566,19 @@ var mSTP = function mSTP(state, ownProps) {
   var currentChannel = Object.values(state.entities.channels).find(function (ele) {
     return ele.id === Number(ownProps.serverId.channelId);
   });
+  var receiver = Object.values(state.entities.serverUsers).find(function (ele) {
+    if (ele.createdAt === ownProps.serverId.channelId) return ele;
+  }); // console.log('------------------')
+  // console.log(state)
+  // console.log(receiver)
+  // console.log(ownProps)
+  // console.log('------------------')
+
   return {
     messages: Object.values(state.entities.messages),
     currentUserId: state.session.id,
-    currentChannel: currentChannel
+    currentChannel: currentChannel,
+    receiver: receiver
   };
 };
 
@@ -1642,7 +1682,7 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       serverName: '',
       serverIcon: '',
-      ownerId: 1
+      ownerId: _this.props.currentUser
     };
     return _this;
   }
@@ -1664,6 +1704,7 @@ var ServerForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "updateName",
     value: function updateName(e) {
+      console.log(this.state);
       this.setState({
         serverName: e.target.value
       });
@@ -1840,7 +1881,8 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
         className: "divider"
       }), allServers, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_server_form__WEBPACK_IMPORTED_MODULE_1__.default, {
         createServer: this.props.createServer,
-        createChannel: this.props.createChannel
+        createChannel: this.props.createChannel,
+        currentUser: this.props.currentUser
       })));
     }
   }]);
@@ -1873,10 +1915,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mSTP = function mSTP(state, ownProps) {
-  // console.log('-------------------')
-  // console.log(ownProps)
-  // console.log(state)
-  // console.log('-------------------')
   var getChannels = function getChannels() {
     // serverId comes out as a string
     var serverId = Number(ownProps.match.params.serverId);
@@ -1888,12 +1926,12 @@ var mSTP = function mSTP(state, ownProps) {
     }
 
     return selectedChannels;
-  }; // console.log(getChannels())
-
+  };
 
   return {
     server: Object.values(state.entities.servers),
-    channels: getChannels()
+    channels: getChannels(),
+    currentUser: state.session.id
   };
 };
 
@@ -2572,17 +2610,16 @@ var UserList = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(UserList);
 
   function UserList(props) {
+    var _this;
+
     _classCallCheck(this, UserList);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    console.log(_this.props);
+    return _this;
   }
 
   _createClass(UserList, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.fetchAllUsers();
-    }
-  }, {
     key: "checkPath",
     value: function checkPath() {
       if (this.props.location.pathname.includes('dm')) {
@@ -2594,37 +2631,77 @@ var UserList = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "selectUser",
     value: function selectUser(user) {
-      console.log(user);
-      console.log(this.props.match);
-
       if (user.rooms.includes(user.createdAt)) {
         // to do - load messages
         this.props.history.replace("/servers/dm/".concat(user.createdAt));
       } else {
         // create channel & redirect
+        // to do - need to either remove server id verification or create dedicated dm server
         this.props.createChannel({
           channelName: user.username,
-          serverId: this.props.match.params.serverId
+          serverId: 21
         }).then(this.props.history.replace("/servers/dm/".concat(user.createdAt)));
+      }
+    }
+  }, {
+    key: "temp",
+    value: function temp(user) {
+      console.log('--------------');
+      console.log(user);
+      console.log(this.props.currentUser[0]);
+      console.log('--------------');
+      if (user.rooms === null) user.rooms = [];
+
+      if (user.rooms.includes(user.createdAt) || user.rooms.includes(this.props.currentUser.createdAt)) {
+        // redirect to channel
+        console.log(true, user);
+      } else {
+        // add channel to both user's rooms
+        console.log(false, user);
+        var pushed = user.rooms;
+        pushed.push(user.createdAt);
+        var pushedSender = this.props.currentUser[0].rooms;
+        pushedSender.push(user.createdAt);
+        var updatedReceiver = {
+          id: user.id,
+          username: user.username,
+          rooms: pushed,
+          createdAt: user.createdAt
+        };
+        var updatedSender = {
+          id: this.props.currentUser.id,
+          username: this.props.currentUser.username,
+          rooms: pushedSender,
+          createdAt: this.props.currentUser.createdAt
+        }; // create channel & update both users
+
+        this.props.createChannel({
+          channelName: user.username,
+          serverId: 21
+        }).then(this.props.editUser(updatedReceiver)).then(this.props.editUser(updatedSender)).then(this.props.history.replace("/servers/dm/".concat(user.createdAt)));
       }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
       var listUsers = this.props.serverUsers.map(function (user) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-          className: "users",
-          key: user.id,
-          onClick: function onClick() {
-            return _this.selectUser(user);
-          }
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "user-avatar"
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-          className: "usernames"
-        }, user.username));
+        return (
+          /*#__PURE__*/
+          // <button className="users" key={user.id} onClick={()=>this.selectUser(user)}>
+          react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+            className: "users",
+            key: user.id,
+            onClick: function onClick() {
+              return _this2.temp(user);
+            }
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "user-avatar"
+          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+            className: "usernames"
+          }, user.username))
+        );
       });
       return this.checkPath() ?
       /*#__PURE__*/
@@ -2673,7 +2750,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    serverUsers: Object.values(state.entities.serverUsers)
+    serverUsers: Object.values(state.entities.serverUsers),
+    currentUser: Object.values(state.entities.users)
   };
 };
 
@@ -2684,6 +2762,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     createChannel: function createChannel(channel) {
       return dispatch((0,_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__.createChannel)(channel));
+    },
+    editUser: function editUser(user) {
+      return dispatch((0,_actions_user_actions__WEBPACK_IMPORTED_MODULE_2__.editUser)(user));
     }
   };
 };
@@ -3014,6 +3095,10 @@ var userListReducer = function userListReducer() {
   switch (action.type) {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_USERS:
       return Object.assign({}, state, action.serverUsers);
+
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_0__.RECEIVE_USER:
+      nextState[action.user.id] = action.user;
+      return nextState;
 
     default:
       return state;
@@ -3362,12 +3447,22 @@ var signup = function signup(user) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchAllUsers": () => (/* binding */ fetchAllUsers)
+/* harmony export */   "fetchAllUsers": () => (/* binding */ fetchAllUsers),
+/* harmony export */   "editUser": () => (/* binding */ editUser)
 /* harmony export */ });
 var fetchAllUsers = function fetchAllUsers() {
   return $.ajax({
     method: "GET",
     url: "/api/users"
+  });
+};
+var editUser = function editUser(user) {
+  return $.ajax({
+    method: "PATCH",
+    url: "api/users/".concat(user.id),
+    data: {
+      user: user
+    }
   });
 };
 

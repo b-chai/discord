@@ -25,6 +25,7 @@ class Application extends React.Component {
     componentDidMount(){
         this.props.fetchAllChannels()
         this.props.fetchAllServers()
+        this.props.fetchAllUsers()
         setTimeout(()=> this.setState({ loading: false}), 500)
     }
 
