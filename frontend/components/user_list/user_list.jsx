@@ -7,6 +7,7 @@ class UserList extends React.Component{
     }
 
     checkPath(){
+        console.log(this.props.location.pathname.includes('dm'))
         if (this.props.location.pathname.includes('dm')){
             return true
         }else{
@@ -160,7 +161,7 @@ class UserList extends React.Component{
             this.checkPath() ?
 
             // Private Chat
-            <div className="user-list">
+            <div className="dm-user-list">
                 <div className="user-list-header">
                     Direct Messages
                 </div>

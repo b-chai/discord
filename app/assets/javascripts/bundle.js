@@ -1414,7 +1414,6 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.bottom = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
     _this.unhide = _this.unhide.bind(_assertThisInitialized(_this));
-    console.log(_this.props);
     return _this;
   }
 
@@ -2673,6 +2672,8 @@ var UserList = /*#__PURE__*/function (_React$Component) {
   _createClass(UserList, [{
     key: "checkPath",
     value: function checkPath() {
+      console.log(this.props.location.pathname.includes('dm'));
+
       if (this.props.location.pathname.includes('dm')) {
         return true;
       } else {
@@ -2687,9 +2688,6 @@ var UserList = /*#__PURE__*/function (_React$Component) {
       if (user.rooms === null) user.rooms = Array(); // temporary solution until i figure out how to save objects in the backend
 
       var roomCheck = function roomCheck() {
-        console.log(user);
-        console.log(_this.props.currentUser);
-
         for (var i = 0; i < user.rooms.length; i++) {
           var userRoom = user.rooms[i];
 
@@ -2819,7 +2817,7 @@ var UserList = /*#__PURE__*/function (_React$Component) {
       /*#__PURE__*/
       // Private Chat
       react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "user-list"
+        className: "dm-user-list"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "user-list-header"
       }, "Direct Messages"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), listUsers) :
