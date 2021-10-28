@@ -1,12 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import GreetingContainer from "../greeting/greeting_container"
-import splashImage from "../../images/discord_splash1.png"
-import splashImage2 from "../../images/discord_splash2.png"
-import splashImage3 from "../../images/discord_splash3.png"
-import splashImage4 from "../../images/discord_splash4.png"
-import splashImage5 from "../../images/discord_splash5.png"
-import discordLogo from "../../images/discord_logo.png"
 
 const Homepage = (props) =>{
 
@@ -14,11 +8,11 @@ const Homepage = (props) =>{
         <div className="homepage">
                     <div className='header-links'>
                         
-                        <a href='https://github.com/b-chai' className='personal-link'>
+                        <a href='https://github.com/b-chai' className='personal-link' target="_blank">
                             <img className="github" src="https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo.png" alt="github logo"  />
                         </a>
 
-                        <a href='https://www.linkedin.com/in/ben-chai/' className='personal-link'>
+                        <a href='https://www.linkedin.com/in/ben-chai/' className='personal-link' target="_blank">
                             <img className="linkedin" src="https://www.logolynx.com/images/logolynx/a1/a1a79ac6433198c0bfb70a444a755017.png" alt="linkedin logo" />
                         </a>
                     </div>
@@ -73,11 +67,11 @@ const Homepage = (props) =>{
                 <img className="splash-image" src={window.splash5} alt="fifth splash image" />
 
             <div className='footer-links'>
-                <a href='https://github.com/b-chai' className='personal-link'>
+                <a href='https://github.com/b-chai' className='personal-link' target="_blank">
                     <img className="github" src="https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo.png" alt="github logo"  />
                 </a>
                 
-                <a href='https://www.linkedin.com/in/ben-chai/' className='personal-link'>
+                <a href='https://www.linkedin.com/in/ben-chai/' className='personal-link' target="_blank">
                     <img className="linkedin" src="https://www.logolynx.com/images/logolynx/a1/a1a79ac6433198c0bfb70a444a755017.png" alt="linkedin logo" />
                 </a>
             </div>

@@ -160,6 +160,20 @@ class UserList extends React.Component{
             )
         })
 
+        const dmList = this.props.serverUsers.map(user => {
+            if (this.props.currentUser[0].id === user.id){
+                return null
+            }else{
+            return(
+                <button className="users" key={user.id} onClick={()=>this.selectUser(user)}>
+                    <div className="user-avatar"/>
+                    <div className="usernames">
+                        {user.username}
+                    </div>
+                </button>
+            )}
+        })
+        
         return(
 
             this.checkPath() ?
@@ -170,7 +184,7 @@ class UserList extends React.Component{
                     Direct Messages
                 </div>
                 <br />
-                {listUsers}
+                {dmList}
             </div>
 
             :
