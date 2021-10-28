@@ -47,7 +47,7 @@ class UserList extends React.Component{
             // create channel & update both users
             this.props.createChannel({
                 channelName: user.username,
-                serverId: 21
+                serverId: 1
             })
             .then(
                 newChannel=> {
@@ -99,7 +99,7 @@ class UserList extends React.Component{
         //     // create channel & update both users
         //     this.props.createChannel({
         //         channelName: user.username,
-        //         serverId: 21
+        //         serverId: 1
         //     })
         //     .then(
         //         newChannel=> {
