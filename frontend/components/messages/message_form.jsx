@@ -7,6 +7,7 @@ class MessageForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.update = this.update.bind(this)
         this.state = {
+            authorName: this.props.currentUser.username,
             body: '',
             authorId: this.props.currentUserId,
             channelId: this.props.match.params.channelId

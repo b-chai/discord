@@ -12,6 +12,16 @@ const Homepage = (props) =>{
 
     return(
         <div className="homepage">
+                    <div className='header-links'>
+                        
+                        <a href='https://github.com/b-chai' className='personal-link'>
+                            <img className="github" src="https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo.png" alt="github logo"  />
+                        </a>
+
+                        <a href='https://www.linkedin.com/in/ben-chai/' className='personal-link'>
+                            <img className="linkedin" src="https://www.logolynx.com/images/logolynx/a1/a1a79ac6433198c0bfb70a444a755017.png" alt="linkedin logo" />
+                        </a>
+                    </div>
             <div>
                 <div className="navbar">
                     <Link to="/">
@@ -57,12 +67,24 @@ const Homepage = (props) =>{
 
             <div>
                 <div className="splash5-text">
-                    <div className="bottom-title">Reliable Tech For Staying Close</div>
-                    <div className= "subtext">Low-latency voice and video feels like you're in the same room. Wave hello over video, watch friends stream their games, or gather up and have a drawing session with screen share.</div>
+                    {/* <div className="bottom-title">Reliable Tech For Staying Close</div>
+                    <div className= "subtext">Low-latency voice and video feels like you're in the same room. Wave hello over video, watch friends stream their games, or gather up and have a drawing session with screen share.</div> */}
 
                 </div>
                 <img className="splash-image" src={splashImage5} alt="fifth splash image" />
+
+            <div className='footer-links'>
+                <a href='https://github.com/b-chai' className='personal-link'>
+                    <img className="github" src="https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo.png" alt="github logo"  />
+                </a>
+                
+                <a href='https://www.linkedin.com/in/ben-chai/' className='personal-link'>
+                    <img className="linkedin" src="https://www.logolynx.com/images/logolynx/a1/a1a79ac6433198c0bfb70a444a755017.png" alt="linkedin logo" />
+                </a>
             </div>
+
+            </div>
+
 
             {/* <footer>Imagine a place</footer> */}
         </div>

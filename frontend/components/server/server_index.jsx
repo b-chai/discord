@@ -35,6 +35,10 @@ class ServerIndex extends React.Component{
     }
 
     render(){
+
+        // first server is for private DMs
+        this.props.server.shift()
+        
         const allServers = this.props.server.map(ele => {
             return (
                 <div key={ele.id}>

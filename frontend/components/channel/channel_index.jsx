@@ -80,6 +80,10 @@ class ChannelIndex extends React.Component {
             form.style.display = "none"
         }
     }
+
+    removeServer(server){
+        this.props.deleteServer(server.id)
+    }
     
     render(){
         return(
@@ -105,9 +109,9 @@ class ChannelIndex extends React.Component {
                         <div className="dropdown">
                             <button className="dropdown-button" onClick={()=> this.selectDropdown()}>Setting</button>
                             <div className="dropdown-content" style={{display: "none"}}>
-                                <div>Edit Server</div>
+                                <button className='server-settings'>Edit Server</button>
                                 <hr className="setting-divider"/>
-                                <div>Delete Server</div>
+                                <button className='server-settings' onClick={()=> this.removeServer(this.props.currentServer)}>Delete Server</button>
                             </div>
                         </div>
                     </div>

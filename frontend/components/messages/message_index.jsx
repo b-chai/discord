@@ -117,6 +117,14 @@ class MessageIndex extends React.Component{
         return list
     }
 
+    emptyPage(){
+        if(this.props.match.params.channelId === 1){
+            return true
+        }else{
+            return false
+        }
+    }
+
     render(){
         return (
 
@@ -132,11 +140,11 @@ class MessageIndex extends React.Component{
                     <div className="channel-subtext">
                         {this.props.receiver ? `This is the beginning of your direct message history with @${this.props.receiver.username}` : null}
                     </div>
-                    {this.allMessages()}
+                    {this.emptyPage() ? this.allMessages() : null}
                     <div className="empty-space" ref={this.bottom}/>
                 </div>
                 <div className="sticky-message">
-                    {this.props.receiver ? <MessageForm currentUserId={this.props.currentUserId} currentChannel={this.props.currentChannel} sendMessage={this.props.sendMessage} receiver={this.props.receiver}/> : null}  
+                    {this.props.receiver ? <MessageForm currentUserId={this.props.currentUserId} currentChannel={this.props.currentChannel} sendMessage={this.props.sendMessage} receiver={this.props.receiver} currentUser={this.props.currentUser}/> : null}  
                 </div>
             </div>
 
@@ -156,7 +164,8 @@ class MessageIndex extends React.Component{
                 </div>
                 <div className="sticky-message">
                     <MessageForm sendMessage={this.props.sendMessage} currentUserId={this.props.currentUserId}
-                    currentChannel={this.props.currentChannel}/>
+                    currentChannel={this.props.currentChannel}
+                    currentUser={this.props.currentUser}/>
                 </div>
             </div>
         )

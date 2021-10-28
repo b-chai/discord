@@ -804,6 +804,11 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
       }
     }
   }, {
+    key: "removeServer",
+    value: function removeServer(server) {
+      this.props.deleteServer(server.id);
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -835,9 +840,16 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
         style: {
           display: "none"
         }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Edit Server"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "server-settings"
+      }, "Edit Server"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
         className: "setting-divider"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Delete Server")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+        className: "server-settings",
+        onClick: function onClick() {
+          return _this2.removeServer(_this2.props.currentServer);
+        }
+      }, "Delete Server")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
         className: "channel-hr"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
         className: "text-channel"
@@ -1037,7 +1049,23 @@ __webpack_require__.r(__webpack_exports__);
 var Homepage = function Homepage(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "homepage"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "header-links"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://github.com/b-chai",
+    className: "personal-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "github",
+    src: "https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo.png",
+    alt: "github logo"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://www.linkedin.com/in/ben-chai/",
+    className: "personal-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "linkedin",
+    src: "https://www.logolynx.com/images/logolynx/a1/a1a79ac6433198c0bfb70a444a755017.png",
+    alt: "linkedin logo"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "navbar"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
     to: "/"
@@ -1089,15 +1117,27 @@ var Homepage = function Homepage(props) {
     alt: "fourth splash image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash5-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "bottom-title"
-  }, "Reliable Tech For Staying Close"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-    className: "subtext"
-  }, "Low-latency voice and video feels like you're in the same room. Wave hello over video, watch friends stream their games, or gather up and have a drawing session with screen share.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "splash-image",
     src: _images_discord_splash5_png__WEBPACK_IMPORTED_MODULE_6__.default,
     alt: "fifth splash image"
-  })));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "footer-links"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://github.com/b-chai",
+    className: "personal-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "github",
+    src: "https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo.png",
+    alt: "github logo"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a", {
+    href: "https://www.linkedin.com/in/ben-chai/",
+    className: "personal-link"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "linkedin",
+    src: "https://www.logolynx.com/images/logolynx/a1/a1a79ac6433198c0bfb70a444a755017.png",
+    alt: "linkedin logo"
+  })))));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Homepage);
@@ -1251,6 +1291,7 @@ var MessageForm = /*#__PURE__*/function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.update = _this.update.bind(_assertThisInitialized(_this));
     _this.state = {
+      authorName: _this.props.currentUser.username,
       body: '',
       authorId: _this.props.currentUserId,
       channelId: _this.props.match.params.channelId
@@ -1496,6 +1537,15 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       return list;
     }
   }, {
+    key: "emptyPage",
+    value: function emptyPage() {
+      if (this.props.match.params.channelId === 1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return this.checkPath() ?
@@ -1509,7 +1559,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         className: "channel-intro"
       }, this.props.receiver ? this.props.receiver.username : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-subtext"
-      }, this.props.receiver ? "This is the beginning of your direct message history with @".concat(this.props.receiver.username) : null), this.allMessages(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, this.props.receiver ? "This is the beginning of your direct message history with @".concat(this.props.receiver.username) : null), this.emptyPage() ? this.allMessages() : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "empty-space",
         ref: this.bottom
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1518,7 +1568,8 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         currentUserId: this.props.currentUserId,
         currentChannel: this.props.currentChannel,
         sendMessage: this.props.sendMessage,
-        receiver: this.props.receiver
+        receiver: this.props.receiver,
+        currentUser: this.props.currentUser
       }) : null)) :
       /*#__PURE__*/
       // Public Chat
@@ -1538,7 +1589,8 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_message_form__WEBPACK_IMPORTED_MODULE_2__.default, {
         sendMessage: this.props.sendMessage,
         currentUserId: this.props.currentUserId,
-        currentChannel: this.props.currentChannel
+        currentChannel: this.props.currentChannel,
+        currentUser: this.props.currentUser
       })));
     }
   }]);
@@ -1573,12 +1625,12 @@ var mSTP = function mSTP(state, ownProps) {
     return ele.id === Number(ownProps.serverId.channelId);
   });
   var receiver = Object.values(state.entities.serverUsers).find(function (ele) {
-    console.log(ele.id);
     if (ele.rooms.includes(ownProps.serverId.channelId) && ele.id !== Object.values(state.entities.users)[0].id) return ele;
   });
   return {
     messages: Object.values(state.entities.messages),
     currentUserId: state.session.id,
+    currentUser: Object.values(state.entities.users)[0],
     currentChannel: currentChannel,
     receiver: receiver
   };
@@ -1853,6 +1905,8 @@ var ServerIndex = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this = this;
 
+      // first server is for private DMs
+      this.props.server.shift();
       var allServers = this.props.server.map(function (ele) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           key: ele.id
@@ -2450,8 +2504,8 @@ var SessionForm = /*#__PURE__*/function (_React$Component) {
     value: function demoLogin(e) {
       e.preventDefault();
       var demo = {
-        username: "test",
-        password: "testpassword"
+        username: "Demo",
+        password: "test123"
       };
       this.props.processForm(demo);
     }

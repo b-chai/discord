@@ -28,16 +28,16 @@ class ChatChannel < ApplicationCable::Channel
     )
 
     if message.save
-      # adds timestamps and author's name
-      # message = {
-      #   id: message['id'],
-      #   body: message['body'], 
-      #   authorId: message['author_id'],
-      #   created_at: message['created_at'],
-      #   updatedAt: message['updated_at'],
-      #   authorName: message.author.username,
-      #   channelId: message['channelId']
-      # }
+      # shows username when message is sent
+      message = {
+        id: message['id'],
+        body: message['body'], 
+        authorId: message['author_id'],
+        created_at: message['created_at'],
+        updatedAt: message['updated_at'],
+        authorName: message.author.username,
+        channelId: message['channelId']
+      }
       socket = { message: message, type: 'message' }
       ChatChannel.broadcast_to(`chat_channel_#{params['channelId']}`, socket)
     end
