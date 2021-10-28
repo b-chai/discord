@@ -1070,14 +1070,15 @@ var Homepage = function Homepage(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
     to: "/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
+    className: "logo",
     src: window.logo,
     alt: "logo"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "intro"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "splash-image",
-    src: _images_discord_splash1_png__WEBPACK_IMPORTED_MODULE_2__.default,
-    alt: "splash image"
+    src: window.splash1,
+    alt: "first splash image"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash1-text"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
@@ -1092,7 +1093,7 @@ var Homepage = function Homepage(props) {
     className: "subtext"
   }, "Discord servers are organized into topic-based channels where you can collaborate,share, and just talk about your day without clogging up a group chat.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "splash-image",
-    src: _images_discord_splash2_png__WEBPACK_IMPORTED_MODULE_3__.default,
+    src: window.splash2,
     alt: "second splash image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash3-text"
@@ -1102,7 +1103,7 @@ var Homepage = function Homepage(props) {
     className: "subtext"
   }, "Grab a seat in a voice channel when you're free. Friends in your server can see you're around and instantly pop in to talk without having to call.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "splash-image",
-    src: _images_discord_splash3_png__WEBPACK_IMPORTED_MODULE_4__.default,
+    src: window.splash3,
     alt: "third splash image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash4-text"
@@ -1112,13 +1113,13 @@ var Homepage = function Homepage(props) {
     className: "subtext"
   }, "Get any community running with moderation tools and custom member access. Give members special powers, set up private channels, and more.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "splash-image",
-    src: _images_discord_splash4_png__WEBPACK_IMPORTED_MODULE_5__.default,
+    src: window.splash4,
     alt: "fourth splash image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash5-text"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
     className: "splash-image",
-    src: _images_discord_splash5_png__WEBPACK_IMPORTED_MODULE_6__.default,
+    src: window.splash5,
     alt: "fifth splash image"
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "footer-links"
@@ -2684,24 +2685,30 @@ var UserList = /*#__PURE__*/function (_React$Component) {
 
       if (user.rooms === null) user.rooms = Array(); // temporary solution until i figure out how to save objects in the backend
 
-      var roomCheck = function roomCheck() {
-        for (var i = 0; i < user.rooms.length; i++) {
-          var userRoom = user.rooms[i];
+      var result = false;
 
-          for (var j = 0; j < _this.props.currentUser[0].rooms; j++) {
-            console.log(userRoom);
-            console.log(currentRoom);
-            var currentRoom = _this.props.currentUser[0].rooms[j];
-            if (userRoom === currentRoom) return userRoom;
-          }
+      var roomCheck = function roomCheck() {
+        var _loop = function _loop(i) {
+          var userRoom = user.rooms[i]; // for (let j = 0 ; j < this.props.currentUser[0].rooms; j++){
+          //     console.log('helloooooooooooooooooooooo')
+          //     let currentRoom = this.props.currentUser[0].rooms[j]
+          //     if(userRoom === currentRoom) return userRoom
+          // }
+
+          _this.props.currentUser[0].rooms.forEach(function (room) {
+            if (userRoom === room) return result = room;
+          });
+        };
+
+        for (var i = 0; i < user.rooms.length; i++) {
+          _loop(i);
         }
 
-        return false;
+        return result;
       }; // memoization
 
 
       var check = roomCheck();
-      console.log(check);
 
       if (check) {
         // redirect to channel
@@ -2796,21 +2803,17 @@ var UserList = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var listUsers = this.props.serverUsers.map(function (user) {
-        return (
-          /*#__PURE__*/
-          // <button className="users" key={user.id} onClick={()=>this.selectUser(user)}>
-          react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-            className: "users",
-            key: user.id,
-            onClick: function onClick() {
-              return _this2.selectUser(user);
-            }
-          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "user-avatar"
-          }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-            className: "usernames"
-          }, user.username))
-        );
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          className: "users",
+          key: user.id,
+          onClick: function onClick() {
+            return _this2.selectUser(user);
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "user-avatar"
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+          className: "usernames"
+        }, user.username));
       });
       return this.checkPath() ?
       /*#__PURE__*/
