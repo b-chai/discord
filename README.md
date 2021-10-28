@@ -2,7 +2,7 @@
 
 ### DiscordClone is a one-to-one clone of the current [Discord app](https://discord.com).
 
-[DiscordClone](https://discord-2.herokuapp.com/#/)
+[DiscordClone](http://the-discord.herokuapp.com/#/)
 
 ### DiscordClone is a voice, video and text communication service that is used by over a hundred million people and communities
 

@@ -20,8 +20,6 @@ class UserList extends React.Component{
 
         // temporary solution until i figure out how to save objects in the backend
         const roomCheck = () => {
-            console.log(user)
-            console.log(this.props.currentUser)
 
             for (let i = 0 ; i < user.rooms.length ; i++){
                 let userRoom = user.rooms[i]

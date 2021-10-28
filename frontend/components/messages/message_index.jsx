@@ -8,7 +8,6 @@ class MessageIndex extends React.Component{
         super(props)
         this.bottom = React.createRef()
         this.unhide = this.unhide.bind(this)
-        console.log(this.props)
     }
 
     componentDidMount() {
