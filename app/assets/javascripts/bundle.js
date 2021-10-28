@@ -1070,8 +1070,7 @@ var Homepage = function Homepage(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
     to: "/"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("img", {
-    className: "logo",
-    src: _images_discord_logo_png__WEBPACK_IMPORTED_MODULE_7__.default,
+    src: window.logo,
     alt: "logo"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_greeting_greeting_container__WEBPACK_IMPORTED_MODULE_1__.default, null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "intro"
@@ -2672,8 +2671,6 @@ var UserList = /*#__PURE__*/function (_React$Component) {
   _createClass(UserList, [{
     key: "checkPath",
     value: function checkPath() {
-      console.log(this.props.location.pathname.includes('dm'));
-
       if (this.props.location.pathname.includes('dm')) {
         return true;
       } else {
@@ -2692,6 +2689,8 @@ var UserList = /*#__PURE__*/function (_React$Component) {
           var userRoom = user.rooms[i];
 
           for (var j = 0; j < _this.props.currentUser[0].rooms; j++) {
+            console.log(userRoom);
+            console.log(currentRoom);
             var currentRoom = _this.props.currentUser[0].rooms[j];
             if (userRoom === currentRoom) return userRoom;
           }
@@ -2702,6 +2701,7 @@ var UserList = /*#__PURE__*/function (_React$Component) {
 
 
       var check = roomCheck();
+      console.log(check);
 
       if (check) {
         // redirect to channel
@@ -2716,7 +2716,7 @@ var UserList = /*#__PURE__*/function (_React$Component) {
 
         this.props.createChannel({
           channelName: user.username,
-          serverId: 21
+          serverId: 1
         }).then(function (newChannel) {
           roomId = newChannel.channel.id;
           var pushed = user.rooms;
@@ -2755,7 +2755,7 @@ var UserList = /*#__PURE__*/function (_React$Component) {
       //     // create channel & update both users
       //     this.props.createChannel({
       //         channelName: user.username,
-      //         serverId: 21
+      //         serverId: 1
       //     })
       //     .then(
       //         newChannel=> {
@@ -2765,7 +2765,6 @@ var UserList = /*#__PURE__*/function (_React$Component) {
       //             }
       //             const pushed = user.rooms
       //             pushed.push(roomObj)
-      //             console.log(this.props.currentUser)
       //             // todo - temporary null check - these should not be null
       //             if(this.props.currentUser[0].rooms === null) this.props.currentUser[0].rooms = []
       //             const pushedSender = this.props.currentUser[0].rooms

@@ -25,8 +25,8 @@ const Homepage = (props) =>{
             <div>
                 <div className="navbar">
                     <Link to="/">
-                        {/* <h1>Discord Clone</h1> */}
-                        <img className="logo" src={discordLogo} alt="logo" />
+                        {/* <img className="logo" src={discordLogo} alt="logo" /> */}
+                        <img src={window.logo} alt="logo" />
                     </Link>
                     <GreetingContainer/>
                 </div>

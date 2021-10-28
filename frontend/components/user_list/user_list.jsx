@@ -7,7 +7,6 @@ class UserList extends React.Component{
     }
 
     checkPath(){
-        console.log(this.props.location.pathname.includes('dm'))
         if (this.props.location.pathname.includes('dm')){
             return true
         }else{
@@ -21,22 +20,27 @@ class UserList extends React.Component{
 
         // temporary solution until i figure out how to save objects in the backend
         const roomCheck = () => {
-
             for (let i = 0 ; i < user.rooms.length ; i++){
                 let userRoom = user.rooms[i]
-                for(let j = 0 ; j < this.props.currentUser[0].rooms; j++){
+                
+                for (let j = 0 ; j < this.props.currentUser[0].rooms; j++){
+                    console.log(userRoom)
+                    console.log(currentRoom)
                     let currentRoom = this.props.currentUser[0].rooms[j]
                     if(userRoom === currentRoom) return userRoom
                 }
             }
+
             return false
         }
 
         // memoization
         let check = roomCheck()
-
+        console.log(check)
+        
         if (check){
             // redirect to channel
+
             const info = {type: 'index', id: check}
             App.cable.subscriptions.subscriptions[0].load(info);
             this.props.history.replace(`/servers/dm/${check}`)
@@ -110,7 +114,6 @@ class UserList extends React.Component{
         
         //             const pushed = user.rooms
         //             pushed.push(roomObj)
-        //             console.log(this.props.currentUser)
                     
         //             // todo - temporary null check - these should not be null
         //             if(this.props.currentUser[0].rooms === null) this.props.currentUser[0].rooms = []
