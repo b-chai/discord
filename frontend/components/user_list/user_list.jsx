@@ -24,11 +24,6 @@ class UserList extends React.Component{
             for (let i = 0 ; i < user.rooms.length ; i++){
                 let userRoom = user.rooms[i]
 
-                // for (let j = 0 ; j < this.props.currentUser[0].rooms; j++){
-                //     console.log('helloooooooooooooooooooooo')
-                //     let currentRoom = this.props.currentUser[0].rooms[j]
-                //     if(userRoom === currentRoom) return userRoom
-                // }
                 this.props.currentUser[0].rooms.forEach(room=>{
                     if(userRoom === room) return result = room
                 })
@@ -148,6 +143,16 @@ class UserList extends React.Component{
 
     }
 
+    hover(id){
+        const user = document.querySelector(`.user-id-${id}`)
+        user.style.background = "#393C43"
+    }
+
+    leave(id){
+        const user = document.querySelector(`.user-id-${id}`)
+        user.style.background = "transparent"
+    }
+
     render(){
         const listUsers = this.props.serverUsers.map(user => {
             return(
@@ -165,7 +170,7 @@ class UserList extends React.Component{
                 return null
             }else{
             return(
-                <button className="users" key={user.id} onClick={()=>this.selectUser(user)}>
+                <button className={`users user-id-${user.id}`} key={user.id} onClick={()=>this.selectUser(user)} onMouseOver={()=>this.hover(user.id)} onMouseLeave={()=>this.leave(user.id)}>
                     <div className="user-avatar"/>
                     <div className="usernames">
                         {user.username}
@@ -173,7 +178,7 @@ class UserList extends React.Component{
                 </button>
             )}
         })
-        
+
         return(
 
             this.checkPath() ?

@@ -1075,7 +1075,9 @@ var Homepage = function Homepage(props) {
     className: "top-text1"
   }, "IMAGINE A PLACE..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "top-text2"
-  }, "...where you can belong to a school club, a gaming group, or a worldwide art community. Where just you and a handful of friends can spend time together. A place that makes it easy to talk every day and hang out more often."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Get Started")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, "...where you can belong to a school club, a gaming group, or a worldwide art community. Where just you and a handful of friends can spend time together. A place that makes it easy to talk every day and hang out more often."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    to: "/login"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Get Started"))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "splash2-text"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "title"
@@ -2681,11 +2683,7 @@ var UserList = /*#__PURE__*/function (_React$Component) {
 
       var roomCheck = function roomCheck() {
         var _loop = function _loop(i) {
-          var userRoom = user.rooms[i]; // for (let j = 0 ; j < this.props.currentUser[0].rooms; j++){
-          //     console.log('helloooooooooooooooooooooo')
-          //     let currentRoom = this.props.currentUser[0].rooms[j]
-          //     if(userRoom === currentRoom) return userRoom
-          // }
+          var userRoom = user.rooms[i];
 
           _this.props.currentUser[0].rooms.forEach(function (room) {
             if (userRoom === room) return result = room;
@@ -2790,6 +2788,18 @@ var UserList = /*#__PURE__*/function (_React$Component) {
 
     }
   }, {
+    key: "hover",
+    value: function hover(id) {
+      var user = document.querySelector(".user-id-".concat(id));
+      user.style.background = "#393C43";
+    }
+  }, {
+    key: "leave",
+    value: function leave(id) {
+      var user = document.querySelector(".user-id-".concat(id));
+      user.style.background = "transparent";
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -2812,10 +2822,16 @@ var UserList = /*#__PURE__*/function (_React$Component) {
           return null;
         } else {
           return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-            className: "users",
+            className: "users user-id-".concat(user.id),
             key: user.id,
             onClick: function onClick() {
               return _this2.selectUser(user);
+            },
+            onMouseOver: function onMouseOver() {
+              return _this2.hover(user.id);
+            },
+            onMouseLeave: function onMouseLeave() {
+              return _this2.leave(user.id);
             }
           }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
             className: "user-avatar"
