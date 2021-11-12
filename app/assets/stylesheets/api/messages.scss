@@ -77,6 +77,7 @@
     color: teal;
     margin-left: 50px;
     margin-bottom: 10px;
+    // display: flex;
 }
 
 .message {
@@ -130,4 +131,13 @@
 
 .hide{
     display: none;
+}
+
+.side{
+    display:flex
+}
+
+.edit-button{
+    position: absolute;
+    margin-left: 55vw;
 }

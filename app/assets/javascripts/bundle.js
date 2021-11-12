@@ -1430,13 +1430,13 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       }, {
         received: function received(data) {
           switch (data.type) {
-            case 'index':
+            case "index":
               return _this2.props.fetchAllMessages(data);
 
-            case 'message':
+            case "message":
               return _this2.props.receiveMessage(data.message);
 
-            case 'remove':
+            case "remove":
               return _this2.props.removeMessage(data.id);
           }
         },
@@ -1447,13 +1447,13 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
           return this.perform("load", data);
         },
         remove: function remove(data) {
-          return this.perform('remove', data);
+          return this.perform("remove", data);
         },
         update: function update(data) {
-          return this.perform('update', data);
+          return this.perform("update", data);
         },
         dm: function dm(data) {
-          return this.perform('dm', data);
+          return this.perform("dm", data);
         }
       }); // App.cable.subscriptions.subscriptions[0].load(info);
       // this.props.fetchAllMessages(8)
@@ -1470,14 +1470,14 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
       if (data.createdAt) {
         var date = data.createdAt.slice(0, 10);
         var time = data.createdAt.slice(11, 19);
-        var newTime = date + ' ' + time;
+        var newTime = date + " " + time;
         return newTime;
       } else if (data.created_at) {
         var _date = data.created_at.slice(0, 10);
 
         var _time = data.created_at.slice(11, 19);
 
-        var _newTime = _date + ' ' + _time;
+        var _newTime = _date + " " + _time;
 
         return _newTime;
       }
@@ -1489,8 +1489,8 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
     value: function unhide(id) {
       var bar = document.querySelector(".id-".concat(id)); // bar.style.display starts as empty, makes element show in one click instead of two
 
-      if (bar.style.display !== 'block') {
-        bar.style.display = "block";
+      if (bar.style.display !== "flex") {
+        bar.style.display = "flex";
       } else {
         bar.style.display = "none";
       }
@@ -1498,7 +1498,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "checkPath",
     value: function checkPath() {
-      if (this.props.location.pathname.includes('dm')) {
+      if (this.props.location.pathname.includes("dm")) {
         return true;
       } else {
         return false;
@@ -1513,17 +1513,18 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "message-credentials",
           key: message.id
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
+          onClick: function onClick() {
+            return _this3.unhide(message.id);
+          },
+          className: "edit-button"
+        }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
           className: "author-message"
         }, message.authorName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
           className: "time-message"
         }, _this3.formattedTime(message)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "message"
-        }, message.body), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-          onClick: function onClick() {
-            return _this3.unhide(message.id);
-          }
-        }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+        }, message.body), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
           className: "hide id-".concat(message.id)
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
           className: "delete-button",
@@ -1573,7 +1574,7 @@ var MessageIndex = /*#__PURE__*/function (_React$Component) {
         className: "channel-intro"
       }, "Welcome to #", this.props.currentChannel.channelName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "channel-subtext"
-      }, "This is the start of the #", this.props.currentChannel.channelName, " channel"), this.allMessages(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+      }, "This is the start of the #", this.props.currentChannel.channelName, " ", "channel"), this.allMessages(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "empty-space",
         ref: this.bottom
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
