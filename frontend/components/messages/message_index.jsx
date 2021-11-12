@@ -116,14 +116,6 @@ class MessageIndex extends React.Component{
         return list
     }
 
-    emptyPage(){
-        if(this.props.match.params.channelId === 1){
-            return true
-        }else{
-            return false
-        }
-    }
-
     render(){
         return (
 
@@ -139,7 +131,7 @@ class MessageIndex extends React.Component{
                     <div className="channel-subtext">
                         {this.props.receiver ? `This is the beginning of your direct message history with @${this.props.receiver.username}` : null}
                     </div>
-                    {this.emptyPage() ? this.allMessages() : null}
+                    {this.allMessages()}
                     <div className="empty-space" ref={this.bottom}/>
                 </div>
                 <div className="sticky-message">

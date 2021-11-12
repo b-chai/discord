@@ -9,7 +9,7 @@ class ServerIndex extends React.Component{
         // this.state={
         //     currentServer = this.props.server[0]
         // }
-    }
+        }
 
     // display(){
     //     const form = document.querySelector(`.server-id-${server.id}`)
