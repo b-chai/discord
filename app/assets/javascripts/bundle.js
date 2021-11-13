@@ -733,7 +733,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
     value: function selectChannel(channel) {
       // populates message index
       var info = {
-        type: 'index',
+        type: "index",
         id: channel.id
       };
       App.cable.subscriptions.subscriptions[0].load(info);
@@ -743,7 +743,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "selectDropdown",
     value: function selectDropdown() {
-      var content = document.querySelector('.dropdown-content');
+      var content = document.querySelector(".dropdown-content");
 
       if (content.style.display === "none") {
         content.style.display = "block";
@@ -754,7 +754,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "checkPath",
     value: function checkPath() {
-      if (this.props.location.pathname.includes('dm')) {
+      if (this.props.location.pathname.includes("dm")) {
         return true;
       } else {
         return false;
@@ -803,7 +803,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "display",
     value: function display() {
-      var form = document.querySelector('.channel-form');
+      var form = document.querySelector(".channel-form");
 
       if (form.style.display === "none") {
         form.style.display = "block";
@@ -836,28 +836,7 @@ var ChannelIndex = /*#__PURE__*/function (_React$Component) {
         className: "server-setting"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
         className: "server-name"
-      }, this.props.currentServer.serverName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "dropdown"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        className: "dropdown-button",
-        onClick: function onClick() {
-          return _this2.selectDropdown();
-        }
-      }, "Setting"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
-        className: "dropdown-content",
-        style: {
-          display: "none"
-        }
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        className: "server-settings"
-      }, "Edit Server"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
-        className: "setting-divider"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", {
-        className: "server-settings",
-        onClick: function onClick() {
-          return _this2.removeServer(_this2.props.currentServer);
-        }
-      }, "Delete Server")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
+      }, this.props.currentServer.serverName)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("hr", {
         className: "channel-hr"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
         className: "text-channel"
